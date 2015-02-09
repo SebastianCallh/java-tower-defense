@@ -1,7 +1,11 @@
+package objects;
+
+import abstracts.Paintable;
+
 /**
  * Created by Seba on 2015-01-24.
  */
-public class Monster {
+public class Monster extends Paintable {
     private Point position;
     private int hp;
     private int size;
@@ -10,7 +14,6 @@ public class Monster {
     public enum Type {
         SMALL, BIG
     }
-
     public Type getType() {
         return this.type;
     }
@@ -25,6 +28,14 @@ public class Monster {
 
     public int getSize() {
         return size;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public Monster(int hp, int size, Type type) {

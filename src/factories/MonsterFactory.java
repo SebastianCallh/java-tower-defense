@@ -1,3 +1,7 @@
+package factories;
+
+import objects.Monster;
+
 import java.util.HashMap;
 import java.util.Map;
 

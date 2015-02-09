@@ -1,4 +1,5 @@
-import javax.swing.*;
+package objects;
+
 import java.awt.*;
 
 /**
@@ -66,12 +67,4 @@ public class Theme {
                 throw new IllegalArgumentException("Not yet implemented monster type");
         }
     }
-
-    /*private class _Theme {
-        private Map tileTypes; // = new EnumMap<TileType, Color>(TileType.class) {{}};
-
-        public _Theme(Map tileTypes) {
-            this.tileTypes = tileTypes;
-        }
-    }*/
 }

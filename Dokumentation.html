@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Dokumentation</title>
+    <style>
+        #implementation-content {
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        }
+        #implementation-list {
+        list-style-type:none;
+        }
+    </style>
+
+</head>
+<body>
+<div id="implementation-content">
+    JANI, OM DU SKRIVER DOKUMENTATION FORTSÄTT SOM JAG GJORT NEDAN, MED TAGGAR SÅ SOM JAG (KOPIERA BARA BIOLERPLATE-KODEN).
+    KAN VARA SNYGGT ATT HA DOKUMENTATIONEN FÄRDIG FÖR HTML NU NÄR VI KÖR DEN PÅ GITHUB.
+    <h1>Implementationer</h1>
+    <ul id="implementation-list">
+        <li>
+            <h2>Theme</h2>
+            En specifik klass för utseende valdes att använda för att andra objekt ej
+            skulle behöva lusas ned med massa färger/sprites. Det leder också till stor
+            modularitet och gör det lätt att byta utseende ifall man skulle vilja.
+        </li>
+        <li>
+            <h2>MonsterFactory</h2>
+            En fabrik valdes för att frikoppla skapandet av monster ifrån annan kod.
+            Ifall vi i framtiden vill skapa monster på flera olika ställen är detta väldigt
+            användbart.
+        </li>
+    </ul>
+    <!--BOILERPLATE
+        <li>
+            <h2>IMPLEMENTATION</h2>
+            MOTIVATION
+        </li>
+    -->
+</div>
+</body>
+</html>
