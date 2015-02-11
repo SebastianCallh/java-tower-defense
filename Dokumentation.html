@@ -28,6 +28,21 @@
             modularitet och gör det lätt att byta utseende ifall man skulle vilja.
         </li>
         <li>
+            <h2>Layout</h2>
+            Layouten på nivåer skapades som en egen klass med privat konstruktor som endast skapas utifrån färdiga
+            layout-filer i klartext som parsas till ett rutnät av faktiskta Tile-objekt. Detta för att se till att inget
+            kan ändra i layouten medan spelet är igång och för att göra hanteringen av olika layouter lätta och modulär.
+        </li>
+        <li>
+            <h2>Board</h2>
+            Boardklassen agerar som spelplan där spelet faktiskt utspelar sig. Den är i grund och botten en
+            samansättning av ett Theme-objekt som bestämmer hur saker ser ut, och ett Layout-objekt som bestämmer
+            var saker och ting ligger, tämligen inspirerat av HTML/CSS-relationen. Utöver det kommer Board också
+            hålla reda på alla monster på banan och alla försvar man konstruerat.
+
+        </li>
+
+        <li>
             <h2>MonsterFactory</h2>
             En fabrik valdes för att frikoppla skapandet av monster ifrån annan kod.
             Ifall vi i framtiden vill skapa monster på flera olika ställen är detta väldigt

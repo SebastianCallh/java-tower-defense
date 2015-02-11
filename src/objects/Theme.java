@@ -44,7 +44,7 @@ public class Theme {
 
     public Color getTileStyle(Tile.Type type) {
         switch(type) {
-            case CLEAR:
+            case PATH:
                 return this.clearStyle;
             case BLOCKED:
                 return this.blockedStyle;

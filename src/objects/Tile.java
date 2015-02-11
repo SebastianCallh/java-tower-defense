@@ -1,27 +1,35 @@
 package objects;
 
-import abstracts.Paintable;
+import abstracts.Positionable;
 
 /**
  * Created by Seba on 2015-01-23.
  */
-public class Tile extends Paintable {
+public class Tile {
     private Type type;
-    private Point center;
+    private Point position;
+
+    public final static int TILE_SIZE = 40;
 
     public enum Type {
-        CLEAR, BLOCKED, GOAL, SPAWN
+        PATH, BLOCKED, GOAL, SPAWN
+    }
+
+    public Point getPosition() {
+        return position;
     }
 
     public Point getCenter() {
-        return center;
+        return new Point(this.getPosition().x + TILE_SIZE / 2,
+                this.getPosition().y + TILE_SIZE / 2);
     }
 
     public Type getType() {
         return type;
     }
 
-    public Tile(Type type) {
+    public Tile(Type type, Point position) {
+        this.position = position;
         this.type = type;
     }
 }

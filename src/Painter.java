@@ -1,4 +1,5 @@
 import objects.Monster;
+import objects.Tile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,8 +33,8 @@ public class Painter extends JComponent {
     private void paintTiles(Graphics2D g2d) {
         for (int x = 0; x < this.board.getWidth(); x++) {
             for (int y = 0; y < this.board.getHeight(); y++) {
-                int width = (int)board.TILE_SIZE;
-                int height = (int)board.TILE_SIZE;
+                int width = (int) Tile.TILE_SIZE;
+                int height = (int)Tile.TILE_SIZE;
                 g2d.setColor(board.getTheme().getTileStyle(this.board.getTile(x, y).getType()));
                 g2d.fillRect(x * width, y * height, width, height);
             }
@@ -42,6 +43,6 @@ public class Painter extends JComponent {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(board.GRID_SIZE, board.GRID_SIZE);
+        return new Dimension(board.BOARD_SIZE, board.BOARD_SIZE);
     }
 }

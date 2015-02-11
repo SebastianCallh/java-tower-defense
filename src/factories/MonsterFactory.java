@@ -9,8 +9,7 @@ import java.util.Map;
  * Created by Seba on 2015-01-26.
  */
 public class MonsterFactory {
-
-    private static Map<Monster.Type, Monster> MonsterTypeMap = new HashMap<Monster.Type, Monster>() {{
+    private static Map<Monster.Type, Monster> monsterTypeMap = new HashMap<Monster.Type, Monster>() {{
         put(Monster.Type.SMALL, makeSmall());
         put(Monster.Type.BIG, makeBig());
     }};
@@ -20,7 +19,7 @@ public class MonsterFactory {
     }
 
     public Monster makeMonster(Monster.Type type) {
-        return MonsterTypeMap.get(type);
+        return monsterTypeMap.get(type);
     }
 
     private static Monster makeSmall() {
