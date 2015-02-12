@@ -12,19 +12,19 @@ import java.util.Map;
  */
 public class Layout {
     private Grid<Tile> grid;
-    private Tile spawnTile;
-    private Tile goalTile;
+    private Tile spawn;
+    private Tile goal;
 
     public enum Type {
         STANDARD
     }
 
-    public Tile getSpawnTile() {
-        return spawnTile;
+    public Tile getSpawn() {
+        return spawn;
     }
 
-    public Tile getGoalTile() {
-        return goalTile;
+    public Tile getGoal() {
+        return goal;
     }
 
     public int getWidth() {
@@ -38,11 +38,14 @@ public class Layout {
     public Tile getTile(int x, int y) {
         return this.grid.get(x, y);
     }
+    public List<Tile> getNeighbors(int x, int y) {
+        return this.grid.getNeighbors(x, y);
+    }
 
     private Layout(Grid<Tile> grid, Tile spawnTile, Tile goalTile) {
         this.grid = grid;
-        this.spawnTile = spawnTile;
-        this.goalTile = goalTile;
+        this.spawn = spawnTile;
+        this.goal = goalTile;
     }
 
     private static Map<Type, Layout> layoutTypeMap = new HashMap<Type, Layout>() {{

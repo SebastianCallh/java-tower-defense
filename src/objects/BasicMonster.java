@@ -5,7 +5,7 @@ import abstracts.Positionable;
 /**
  * Created by Seba on 2015-01-24.
  */
-public class Monster extends Positionable {
+public class BasicMonster extends Positionable implements interfaces.Monster {
     private int hp;
     private int size;
     private Type type;
@@ -30,7 +30,7 @@ public class Monster extends Positionable {
         this.hp = hp;
     }
 
-    public Monster(int hp, int size, Type type) {
+    public BasicMonster(int hp, int size, Type type) {
         super(new Point(0,0));
         this.hp = hp;
         this.size = size;

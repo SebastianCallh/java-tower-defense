@@ -1,4 +1,5 @@
-import objects.Monster;
+import interfaces.Observer;
+import objects.BasicMonster;
 import objects.Tile;
 
 import javax.swing.*;
@@ -7,7 +8,7 @@ import java.awt.*;
 /**
  * Created by Seba on 2015-01-23.
  */
-public class Painter extends JComponent {
+public class Painter extends JComponent implements Observer {
     private Board board;
 
     public Painter(Board board) {
@@ -24,7 +25,7 @@ public class Painter extends JComponent {
     
     private void paintMonsters(Graphics2D g2d) {
         for (int i = 0; i < this.board.getMonsterCount(); i++) {
-            Monster monster = this.board.getMonster(i);
+            BasicMonster monster = this.board.getMonster(i);
             g2d.setColor(this.board.getTheme().getMonsterStyle(monster.getType()));
             g2d.fillOval(150, 150, monster.getSize(), monster.getSize());
         }
@@ -44,5 +45,10 @@ public class Painter extends JComponent {
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(board.BOARD_SIZE, board.BOARD_SIZE);
+    }
+
+    @Override
+    public void onNotify() {
+        this.repaint();
     }
 }

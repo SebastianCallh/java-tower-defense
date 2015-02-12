@@ -57,7 +57,7 @@ public class Theme {
         }
     }
 
-    public Color getMonsterStyle(Monster.Type type) {
+    public Color getMonsterStyle(BasicMonster.Type type) {
         switch(type) {
             case BIG:
                 return this.bigMonsterStyle;

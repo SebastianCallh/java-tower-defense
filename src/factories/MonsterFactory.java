@@ -1,6 +1,6 @@
 package factories;
 
-import objects.Monster;
+import objects.BasicMonster;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,24 +9,24 @@ import java.util.Map;
  * Created by Seba on 2015-01-26.
  */
 public class MonsterFactory {
-    private static Map<Monster.Type, Monster> monsterTypeMap = new HashMap<Monster.Type, Monster>() {{
-        put(Monster.Type.SMALL, makeSmall());
-        put(Monster.Type.BIG, makeBig());
+    private static Map<BasicMonster.Type, BasicMonster> monsterTypeMap = new HashMap<BasicMonster.Type, BasicMonster>() {{
+        put(BasicMonster.Type.SMALL, makeSmall());
+        put(BasicMonster.Type.BIG, makeBig());
     }};
 
-    public Monster.Type[] getTypes() {
-        return Monster.Type.values();
+    public static BasicMonster.Type[] getTypes() {
+        return BasicMonster.Type.values();
     }
 
-    public Monster makeMonster(Monster.Type type) {
+    public static BasicMonster makeMonster(BasicMonster.Type type) {
         return monsterTypeMap.get(type);
     }
 
-    private static Monster makeSmall() {
-        return new Monster(5, 5, Monster.Type.SMALL);
+    private static BasicMonster makeSmall() {
+        return new BasicMonster(5, 5, BasicMonster.Type.SMALL);
     }
 
-    private static Monster makeBig() {
-        return new Monster(10, 10, Monster.Type.BIG);
+    private static BasicMonster makeBig() {
+        return new BasicMonster(10, 10, BasicMonster.Type.BIG);
     }
 }

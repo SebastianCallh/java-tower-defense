@@ -1,9 +1,9 @@
 import factories.MonsterFactory;
+import interfaces.Observer;
 import objects.*;
+import util.Pathfinder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Seba on 2015-01-23.
@@ -11,9 +11,10 @@ import java.util.Map;
 public class Board {
     private Layout layout;
     private Theme theme;
-    private List<Monster> monsters = new ArrayList<Monster>();
-    private MonsterFactory monsterFactory;
+    private Map<Tile, Tile> path;
+    private List<BasicMonster> monsters = new ArrayList<BasicMonster>();
     private int tileSize;
+    private List<Observer> observers;
 
     //TODO:Make size of window/board/tiles work solely out of the layout files size
     public final static int BOARD_SIZE = 400;
@@ -38,7 +39,7 @@ public class Board {
         return this.monsters.size();
     }
 
-    public Monster getMonster(int i) {
+    public BasicMonster getMonster(int i) {
         return this.monsters.get(i);
     }
 
@@ -46,34 +47,27 @@ public class Board {
         return this.theme;
     }
 
-    public Board(int width, int height, Theme theme, Layout layout) {
+    public Board(Layout layout, Theme theme) {
         this.layout = layout;
         this.theme = theme;
         this.tileSize = BOARD_SIZE / this.layout.getWidth();
-
-        //Temporary
-        this.monsterFactory= new MonsterFactory();
-        Monster monster = this.monsterFactory.makeMonster(this.monsterFactory.getTypes()[0]);
-        monster.setPosition(this.layout.getSpawnTile().getCenter());
-        this.monsters.add(monster);
+        this.observers = new ArrayList<Observer>();
+        Tile goal = layout.getGoal();
+        this.path = Pathfinder.floodFill(layout,
+                goal.getPosition().x,
+                goal.getPosition().y);
     }
 
-    /*
-    public class Graph<E> {
-        Map<String, Node<E>> nodes;
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
+    }
 
-        public void addNode(String edge, Node<E> node) {
-            this.nodes.put(edge, node);
-        }
+    public void removeObserver(Observer observer) {
+        this.observers.remove(observer);
+    }
 
-        public class Node<E> {
-            private E value;
-            private List<String> edges;
+    //*The method that runs every game-loop-update*//
+    public void update() {
 
-            public Node(E value, List<String> edges) {
-                this.value = value;
-                this.edges = edges;
-            }
-        }
-    }*/
+    }
 }
