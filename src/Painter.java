@@ -1,6 +1,6 @@
-import interfaces.Observer;
-import objects.BasicMonster;
-import objects.Tile;
+import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
+import se.liu.ida.tddd78.towerdefense.objects.GameObject;
+import se.liu.ida.tddd78.towerdefense.objects.Tile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,14 +20,16 @@ public class Painter extends JComponent implements Observer {
         super.paintComponent(g);
         final Graphics2D g2d = (Graphics2D) g;
         paintTiles(g2d);
-        paintMonsters(g2d);
+        paintGameObjects(g2d);
     }
-    
-    private void paintMonsters(Graphics2D g2d) {
-        for (int i = 0; i < this.board.getMonsterCount(); i++) {
-            BasicMonster monster = this.board.getMonster(i);
-            g2d.setColor(this.board.getTheme().getMonsterStyle(monster.getType()));
-            g2d.fillOval(150, 150, monster.getSize(), monster.getSize());
+
+    private void paintGameObjects(Graphics2D g2d) {
+        for (GameObject gameObject : this.board.getGameObjects()) {
+            g2d.setColor(this.board.getTheme().getGameObjectStyle(gameObject.getObjectType()));
+            g2d.fillOval(gameObject.getPosition().x,
+                    gameObject.getPosition().y,
+                    gameObject.getSize().height,
+                    gameObject.getSize().height);
         }
     }
 

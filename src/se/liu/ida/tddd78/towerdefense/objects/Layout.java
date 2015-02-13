@@ -1,4 +1,7 @@
-package objects;
+package se.liu.ida.tddd78.towerdefense.objects;
+
+import se.liu.ida.tddd78.towerdefense.objects.basic.Grid;
+import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -38,6 +41,7 @@ public class Layout {
     public Tile getTile(int x, int y) {
         return this.grid.get(x, y);
     }
+
     public List<Tile> getNeighbors(int x, int y) {
         return this.grid.getNeighbors(x, y);
     }
@@ -71,9 +75,9 @@ public class Layout {
             for (String line : fileContent.subList(1, fileContent.size())) {
                 for (char c: line.toCharArray()) {
                     Tile tile = new Tile(charToTileType(c), new Point(x, y));
-                    if (tile.getType() == Tile.Type.SPAWN) {
+                    if (tile.getType() == TileType.SPAWN) {
                         spawnTile = tile;
-                    } else if (tile.getType() == Tile.Type.GOAL) {
+                    } else if (tile.getType() == TileType.GOAL) {
                         goalTile = tile;
                     }
                     grid.set(x, y, tile);
@@ -92,16 +96,16 @@ public class Layout {
         }
     }
 
-    private static Tile.Type charToTileType(char c) {
+    private static TileType charToTileType(char c) {
         switch (c) {
             case 'S':
-                return Tile.Type.SPAWN;
+                return TileType.SPAWN;
             case 'G':
-                return Tile.Type.GOAL;
+                return TileType.GOAL;
             case 'P':
-                return Tile.Type.PATH;
+                return TileType.PATH;
             default:
-                return Tile.Type.BLOCKED;
+                return TileType.BLOCKED;
         }
     }
 }

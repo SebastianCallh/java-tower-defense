@@ -1,4 +1,4 @@
-package objects;
+package se.liu.ida.tddd78.towerdefense.objects.basic;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -36,7 +36,6 @@ public class Grid<E> {
         return neighbors;
     }
 
-    //TODO: Check if this can't be solved without passing class
     public Grid(Class<E> c, int width, int height) {
         this.grid = (E[][]) Array.newInstance(c, width, height);
     }

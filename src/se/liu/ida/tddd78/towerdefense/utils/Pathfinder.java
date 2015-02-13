@@ -1,8 +1,8 @@
-package util;
+package se.liu.ida.tddd78.towerdefense.utils;
 
-import objects.Grid;
-import objects.Layout;
-import objects.Tile;
+import se.liu.ida.tddd78.towerdefense.objects.Layout;
+import se.liu.ida.tddd78.towerdefense.objects.Tile;
+import se.liu.ida.tddd78.towerdefense.objects.TileType;
 
 import java.util.*;
 
@@ -11,14 +11,14 @@ import java.util.*;
  */
 public class Pathfinder {
     public static Map<Tile, Tile> floodFill(Layout layout, int x, int y) {
-        Map<Tile, Tile> path = new HashMap<objects.Tile, objects.Tile>();
-        Queue<Tile> queue = new LinkedList<objects.Tile>();
+        Map<Tile, Tile> path = new HashMap<Tile, Tile>();
+        Queue<Tile> queue = new LinkedList<Tile>();
         queue.add(layout.getTile(x, y));
 
         while (!queue.isEmpty()) {
             Tile current = queue.remove();
             for (Tile tile : layout.getNeighbors(current.getPosition().x, current.getPosition().y)) {
-                if (tile.getType() == Tile.Type.PATH &&
+                if (tile.getType() == TileType.PATH &&
                         !path.containsKey(tile)) {
                     queue.add(tile);
                     path.put(tile, current);

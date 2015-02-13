@@ -1,7 +1,11 @@
-import factories.MonsterFactory;
-import interfaces.Observer;
-import objects.*;
-import util.Pathfinder;
+import com.sun.javafx.UnmodifiableArrayList;
+import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
+import se.liu.ida.tddd78.towerdefense.objects.*;
+import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
+import se.liu.ida.tddd78.towerdefense.objects.monsters.BasicMonster;
+import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
+import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterFactory;
+import se.liu.ida.tddd78.towerdefense.utils.Pathfinder;
 
 import java.util.*;
 
@@ -12,7 +16,7 @@ public class Board {
     private Layout layout;
     private Theme theme;
     private Map<Tile, Tile> path;
-    private List<BasicMonster> monsters = new ArrayList<BasicMonster>();
+    private List<GameObject> gameObjects = new ArrayList<GameObject>();
     private int tileSize;
     private List<Observer> observers;
 
@@ -36,11 +40,11 @@ public class Board {
     }
 
     public int getMonsterCount() {
-        return this.monsters.size();
+        return this.gameObjects.size();
     }
 
-    public BasicMonster getMonster(int i) {
-        return this.monsters.get(i);
+    public List<GameObject> getGameObjects() {
+        return Collections.unmodifiableList(this.gameObjects);
     }
 
     public Theme getTheme() {
@@ -56,6 +60,11 @@ public class Board {
         this.path = Pathfinder.floodFill(layout,
                 goal.getPosition().x,
                 goal.getPosition().y);
+
+        GameObject monster = MonsterFactory.makeMonster(GameObjectType.MONSTER_SMALL);
+        Point spawnPoint = this.layout.getSpawn().getPosition();
+        monster.setPosition(spawnPoint.x * this.tileSize, spawnPoint.y * this.tileSize);
+        this.gameObjects.add(monster);
     }
 
     public void addObserver(Observer observer) {

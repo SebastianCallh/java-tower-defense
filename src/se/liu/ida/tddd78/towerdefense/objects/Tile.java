@@ -1,19 +1,15 @@
-package objects;
+package se.liu.ida.tddd78.towerdefense.objects;
 
-import abstracts.Positionable;
+import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**
  * Created by Seba on 2015-01-23.
  */
 public class Tile {
-    private Type type;
+    private TileType type;
     private Point position;
 
     public final static int TILE_SIZE = 40;
-
-    public enum Type {
-        PATH, BLOCKED, GOAL, SPAWN
-    }
 
     public Point getPosition() {
         return position;
@@ -24,11 +20,11 @@ public class Tile {
                 this.getPosition().y + TILE_SIZE / 2);
     }
 
-    public Type getType() {
+    public TileType getType() {
         return type;
     }
 
-    public Tile(Type type, Point position) {
+    public Tile(TileType type, Point position) {
         this.position = position;
         this.type = type;
     }

@@ -1,5 +1,6 @@
-import objects.Layout;
-import objects.Theme;
+import se.liu.ida.tddd78.towerdefense.objects.Layout;
+import se.liu.ida.tddd78.towerdefense.objects.Theme;
+import se.liu.ida.tddd78.towerdefense.objects.ThemeType;
 
 import java.util.Calendar;
 
@@ -8,11 +9,11 @@ import java.util.Calendar;
  */
 
 public class Main {
-    private final static int MS_PER_UPDATE = 60;
+    private final static int MS_PER_UPDATE = 120;
     private static Board board = null;
     public static void main(String[] args) {
         board = new Board(Layout.get(Layout.Type.STANDARD),
-                new Theme(Theme.Type.GREEN_IS_GOOD));
+                new Theme(ThemeType.GREEN_IS_GOOD));
 
         new Frame("Java tower defense", board);
 
