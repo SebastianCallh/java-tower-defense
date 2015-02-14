@@ -39,12 +39,20 @@
             hålla reda på alla monster på banan och alla försvar man konstruerat.
 
         </li>
-
         <li>
             <h2>MonsterFactory</h2>
             En fabrik valdes för att frikoppla skapandet av monster ifrån annan kod.
             Ifall vi i framtiden vill skapa monster på flera olika ställen är detta väldigt
             användbart.
+        </li>
+        <li>
+            <h2>Painter pattern 2015-02-14</h2>
+            Vi slutar använda oss av GameObjectType för att bestämma hur ett GameObject ska målas och använder oss istället
+            av olika singleton painters för varje typ av GameObject (Monster, Tower, etc) för att kunna separera kopplingen
+            mellan hur ett GameObject är och hur det ritas ut (state hanteras av GameObject-implementationen och
+            utseende hanteras av Theme). Genom att göra detta slipper GameObjectType användas för identifikation av
+            typen i en sorts jättepainter som skulle hantera alla fall och specifika painters används istället, vilket
+            bland annat underlättar när utritningen behöver göras mer avancerad.
         </li>
     </ul>
     <!--BOILERPLATE

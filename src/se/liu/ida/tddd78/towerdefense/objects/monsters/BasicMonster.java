@@ -1,19 +1,18 @@
 package se.liu.ida.tddd78.towerdefense.objects.monsters;
 
-import com.sun.org.apache.bcel.internal.generic.ObjectType;
-import se.liu.ida.tddd78.towerdefense.objects.GameObject;
+import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
+import se.liu.ida.tddd78.towerdefense.objects.AbstractGameObject;
 import se.liu.ida.tddd78.towerdefense.objects.GameObjectType;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Seba on 2015-01-24.
  */
-public class BasicMonster extends GameObject implements Monster {
+public class BasicMonster extends AbstractGameObject implements Monster {
     private int hp;
+    private MonsterType type;
 
     public int getHp() {
         return hp;
@@ -23,13 +22,19 @@ public class BasicMonster extends GameObject implements Monster {
         this.hp = hp;
     }
 
-    public BasicMonster(int hp, int size, GameObjectType type) {
-        super(new Point(0,0), new Dimension(size, size), type);
+    @Override
+    public MonsterType getType() {
+        return type;
+    }
+
+    public BasicMonster(int hp, int size, MonsterType type) {
+        super(new Point(0,0), new Dimension(size, size));
         this.hp = hp;
+        this.type = type;
     }
 
     @Override
-    public void paint(Graphics2D g2d) {
-
+    public Painter getPainter() {
+        return MonsterPainter.instanceFor(this);
     }
 }

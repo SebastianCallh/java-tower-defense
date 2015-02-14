@@ -1,9 +1,6 @@
-import com.sun.javafx.UnmodifiableArrayList;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
 import se.liu.ida.tddd78.towerdefense.objects.*;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
-import se.liu.ida.tddd78.towerdefense.objects.monsters.BasicMonster;
-import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
 import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterFactory;
 import se.liu.ida.tddd78.towerdefense.utils.Pathfinder;
 
@@ -16,7 +13,7 @@ public class Board {
     private Layout layout;
     private Theme theme;
     private Map<Tile, Tile> path;
-    private List<GameObject> gameObjects = new ArrayList<GameObject>();
+    private List<AbstractGameObject> gameObjects = new ArrayList<AbstractGameObject>();
     private int tileSize;
     private List<Observer> observers;
 
@@ -43,7 +40,7 @@ public class Board {
         return this.gameObjects.size();
     }
 
-    public List<GameObject> getGameObjects() {
+    public List<AbstractGameObject> getGameObjects() {
         return Collections.unmodifiableList(this.gameObjects);
     }
 
@@ -61,7 +58,7 @@ public class Board {
                 goal.getPosition().x,
                 goal.getPosition().y);
 
-        GameObject monster = MonsterFactory.makeMonster(GameObjectType.MONSTER_SMALL);
+        AbstractGameObject monster = MonsterFactory.makeMonster(GameObjectType.MONSTER_SMALL);
         Point spawnPoint = this.layout.getSpawn().getPosition();
         monster.setPosition(spawnPoint.x * this.tileSize, spawnPoint.y * this.tileSize);
         this.gameObjects.add(monster);

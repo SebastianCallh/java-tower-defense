@@ -18,10 +18,10 @@ public class MonsterFactory {
     }
 
     private static BasicMonster makeSmall() {
-        return new BasicMonster(10, 10, GameObjectType.MONSTER_SMALL);
+        return new BasicMonster(10, 10, MonsterType.SMALL);
     }
 
     private static BasicMonster makeBig() {
-        return new BasicMonster(20, 20, GameObjectType.MONSTER_BIG);
+        return new BasicMonster(20, 20, MonsterType.BIG);
     }
 }

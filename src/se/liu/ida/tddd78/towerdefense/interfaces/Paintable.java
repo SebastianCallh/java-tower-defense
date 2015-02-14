@@ -8,6 +8,5 @@ import java.awt.*;
  * Created by Seba on 2015-02-12.
  */
 public interface Paintable {
-    public GameObjectType getObjectType();
-    public void paint(Graphics2D g2d);
+    public Painter getPainter();
 }
