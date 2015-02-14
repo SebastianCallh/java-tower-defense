@@ -2,6 +2,8 @@ package se.liu.ida.tddd78.towerdefense.objects;
 
 import se.liu.ida.tddd78.towerdefense.objects.basic.Grid;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
+import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
+import se.liu.ida.tddd78.towerdefense.objects.tiles.TileType;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -104,8 +106,10 @@ public class Layout {
                 return TileType.GOAL;
             case 'P':
                 return TileType.PATH;
-            default:
+            case 'B':
                 return TileType.BLOCKED;
+            default:
+                throw new IllegalArgumentException("File contains unrecognized tiles");
         }
     }
 }

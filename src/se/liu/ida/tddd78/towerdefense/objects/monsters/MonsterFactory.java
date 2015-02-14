@@ -1,16 +1,14 @@
 package se.liu.ida.tddd78.towerdefense.objects.monsters;
 
-import se.liu.ida.tddd78.towerdefense.objects.GameObjectType;
-
 /**
  * Created by Seba on 2015-01-26.
  */
 public class MonsterFactory {
-    public static BasicMonster makeMonster(GameObjectType type) {
+    public static BasicMonster makeMonster(MonsterType type) {
         switch (type) {
-            case MONSTER_SMALL:
+            case SMALL:
                 return makeSmall();
-            case MONSTER_BIG:
+            case BIG:
                 return makeBig();
             default:
                 throw new IllegalArgumentException("Monster type not supported");

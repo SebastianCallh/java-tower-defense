@@ -2,6 +2,7 @@ import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
 import se.liu.ida.tddd78.towerdefense.objects.*;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterFactory;
+import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
 import se.liu.ida.tddd78.towerdefense.utils.Pathfinder;
 
 import java.util.*;
@@ -57,11 +58,6 @@ public class Board {
         this.path = Pathfinder.floodFill(layout,
                 goal.getPosition().x,
                 goal.getPosition().y);
-
-        AbstractGameObject monster = MonsterFactory.makeMonster(GameObjectType.MONSTER_SMALL);
-        Point spawnPoint = this.layout.getSpawn().getPosition();
-        monster.setPosition(spawnPoint.x * this.tileSize, spawnPoint.y * this.tileSize);
-        this.gameObjects.add(monster);
     }
 
     public void addObserver(Observer observer) {

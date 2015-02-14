@@ -2,7 +2,6 @@ package se.liu.ida.tddd78.towerdefense.objects.defenses;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
 import se.liu.ida.tddd78.towerdefense.objects.AbstractGameObject;
-import se.liu.ida.tddd78.towerdefense.objects.GameObjectType;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 import java.awt.*;

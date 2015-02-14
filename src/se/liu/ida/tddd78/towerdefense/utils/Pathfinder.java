@@ -1,10 +1,13 @@
 package se.liu.ida.tddd78.towerdefense.utils;
 
 import se.liu.ida.tddd78.towerdefense.objects.Layout;
-import se.liu.ida.tddd78.towerdefense.objects.Tile;
-import se.liu.ida.tddd78.towerdefense.objects.TileType;
+import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
+import se.liu.ida.tddd78.towerdefense.objects.tiles.TileType;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 
 /**
  * Created by Seba on 2015-02-06.

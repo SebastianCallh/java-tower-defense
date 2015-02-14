@@ -1,6 +1,5 @@
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
 import se.liu.ida.tddd78.towerdefense.objects.AbstractGameObject;
-import se.liu.ida.tddd78.towerdefense.objects.Tile;
 
 import javax.swing.*;
 import java.awt.*;

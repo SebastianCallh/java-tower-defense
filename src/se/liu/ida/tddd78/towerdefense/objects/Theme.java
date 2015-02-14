@@ -9,8 +9,6 @@ import java.util.Map;
  */
 
 public class Theme {
-    private Map<GameObjectType, Color> gameObjectStyleMap = new HashMap<GameObjectType, Color>();
-    private Map<TileType, Color> tileStyleMap = new HashMap<TileType, Color>();
     private Map<Element, Color> elementStyleMap = new HashMap<Element, Color>();
 
     public Theme(ThemeType type) {

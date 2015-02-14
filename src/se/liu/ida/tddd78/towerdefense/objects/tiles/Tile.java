@@ -1,9 +1,8 @@
-package se.liu.ida.tddd78.towerdefense.objects;
+package se.liu.ida.tddd78.towerdefense.objects.tiles;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Paintable;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
-import se.liu.ida.tddd78.towerdefense.objects.tiles.TilePainter;
 
 /**
  * Created by Seba on 2015-01-23.
