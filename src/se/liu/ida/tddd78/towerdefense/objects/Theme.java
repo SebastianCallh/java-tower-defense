@@ -22,7 +22,6 @@ public class Theme {
                 this.elementStyleMap.put(Element.MONSTER_SMALL, new Color(110, 10, 10));
                 this.elementStyleMap.put(Element.DEFENSE_SMALL, new Color(60, 50, 50));
                 this.elementStyleMap.put(Element.DEFENSE_BIG, new Color(60, 10, 10));
-                this.elementStyleMap.put(Element.DEFENSE_NORMAL, new Color(60, 10, 10));
                 this.elementStyleMap.put(Element.PROJECTILE_NORMAL, new Color(255, 0, 255));
                 break;
             case BLACK_AND_WHITE:
@@ -34,7 +33,6 @@ public class Theme {
                 this.elementStyleMap.put(Element.MONSTER_SMALL, new Color(50, 110, 110));
                 this.elementStyleMap.put(Element.DEFENSE_SMALL, new Color(100, 100, 100));
                 this.elementStyleMap.put(Element.DEFENSE_BIG, new Color(0, 10, 10));
-                this.elementStyleMap.put(Element.DEFENSE_NORMAL, new Color(0, 10, 10));
                 this.elementStyleMap.put(Element.PROJECTILE_NORMAL, new Color(120, 120, 120));
                 break;
             default:
@@ -53,8 +51,7 @@ public class Theme {
         TILE_GOAL,
         MONSTER_BIG,
         MONSTER_SMALL,
-        DEFENSE_NORMAL,
-        PROJECTILE_NORMAL
+        PROJECTILE_NORMAL,
         DEFENSE_BIG,
         DEFENSE_SMALL
     }

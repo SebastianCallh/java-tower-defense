@@ -36,4 +36,7 @@ public class BasicProjectile extends AbstractGameObject implements Projectile {
         return ProjectilePainter.instanceFor(this);
     }
 
+    @Override public void update() {
+
+    }
 }
