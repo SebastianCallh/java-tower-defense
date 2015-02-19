@@ -36,4 +36,8 @@ public class BasicMonster extends AbstractGameObject implements Monster {
     public Painter getPainter() {
         return MonsterPainter.instanceFor(this);
     }
+
+    @Override public void update() {
+
+    }
 }

@@ -7,8 +7,6 @@ import java.awt.*;
 /**
  * Created by Seba on 2015-02-09.
  */
-
-//TODO: Figure the inheritance hierarchy out.
 public interface Positionable {
 
     public Point getPosition();

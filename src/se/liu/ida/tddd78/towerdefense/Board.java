@@ -3,7 +3,8 @@ package se.liu.ida.tddd78.towerdefense;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
 import se.liu.ida.tddd78.towerdefense.objects.*;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
-import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterFactory;
+import se.liu.ida.tddd78.towerdefense.objects.defenses.DefenseFactory;
+import se.liu.ida.tddd78.towerdefense.objects.defenses.DefenseType;
 import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
 import se.liu.ida.tddd78.towerdefense.utils.Pathfinder;
 
@@ -16,7 +17,7 @@ public class Board {
     private Layout layout;
     private Theme theme;
     private Map<Tile, Tile> path;
-    private List<AbstractGameObject> gameObjects = new ArrayList<AbstractGameObject>();
+    private List<GameObject> gameObjects = new ArrayList<GameObject>();
     private int tileSize;
     private List<Observer> observers;
 
@@ -43,7 +44,7 @@ public class Board {
         return this.gameObjects.size();
     }
 
-    public List<AbstractGameObject> getGameObjects() {
+    public List<GameObject> getGameObjects() {
         return Collections.unmodifiableList(this.gameObjects);
     }
 
@@ -60,6 +61,10 @@ public class Board {
         this.path = Pathfinder.floodFill(layout,
                 goal.getPosition().x,
                 goal.getPosition().y);
+
+        GameObject defense = DefenseFactory.makeDefense(DefenseType.SMALL);
+        defense.setPosition(60, 60);
+        this.gameObjects.add(defense);
     }
 
     public void addObserver(Observer observer) {

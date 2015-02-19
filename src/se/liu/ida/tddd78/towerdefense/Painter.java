@@ -1,8 +1,7 @@
 package se.liu.ida.tddd78.towerdefense;
 
-import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
-import se.liu.ida.tddd78.towerdefense.objects.AbstractGameObject;
+import se.liu.ida.tddd78.towerdefense.objects.GameObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +25,7 @@ public class Painter extends JComponent implements Observer {
     }
 
     private void paintGameObjects(Graphics2D g2d) {
-        for (AbstractGameObject gameObject : this.board.getGameObjects()) {
+        for (GameObject gameObject : this.board.getGameObjects()) {
             gameObject.getPainter().paint(g2d, this.board.getTheme());
         }
     }

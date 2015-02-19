@@ -35,15 +35,15 @@
             <h2>Board</h2>
             Boardklassen agerar som spelplan där spelet faktiskt utspelar sig. Den är i grund och botten en
             samansättning av ett Theme-objekt som bestämmer hur saker ser ut, och ett Layout-objekt som bestämmer
-            var saker och ting ligger, tämligen inspirerat av HTML/CSS-relationen. Utöver det kommer Board också
+            var saker och ting ligger, tämligen inspirerat av HTML/CSS-relationen. Utöver det kommer se.liu.ida.tddd78.towerdefense.Board också
             hålla reda på alla monster på banan och alla försvar man konstruerat.
 
         </li>
         <li>
-            <h2>MonsterFactory</h2>
-            En fabrik valdes för att frikoppla skapandet av monster ifrån annan kod.
-            Ifall vi i framtiden vill skapa monster på flera olika ställen är detta väldigt
-            användbart.
+            <h2>Factory</h2>
+            En fabrik valdes för att frikoppla skapandet av modeller ifrån annan kod.
+            Bidrar till modularisering och ifall vi i framtiden vill skapa modeller
+            på flera olika ställen är detta väldigt användbart.
         </li>
         <li>
             <h2>Painter pattern 2015-02-14</h2>
@@ -53,6 +53,10 @@
             utseende hanteras av Theme). Genom att göra detta slipper GameObjectType användas för identifikation av
             typen i en sorts jättepainter som skulle hantera alla fall och specifika painters används istället, vilket
             bland annat underlättar när utritningen behöver göras mer avancerad.
+        </li>
+        <li>
+            <h2>IMPLEMENTATION</h2>
+            MOTIVATION
         </li>
     </ul>
     <!--BOILERPLATE
