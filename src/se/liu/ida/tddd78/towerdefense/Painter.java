@@ -1,3 +1,6 @@
+package se.liu.ida.tddd78.towerdefense;
+
+import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
 import se.liu.ida.tddd78.towerdefense.objects.AbstractGameObject;
 

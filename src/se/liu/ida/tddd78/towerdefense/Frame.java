@@ -1,3 +1,5 @@
+package se.liu.ida.tddd78.towerdefense;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
