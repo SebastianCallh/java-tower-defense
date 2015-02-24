@@ -2,9 +2,13 @@ package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
 import se.liu.ida.tddd78.towerdefense.objects.*;
-import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
+import se.liu.ida.tddd78.towerdefense.objects.basic.GameObjects;
+import se.liu.ida.tddd78.towerdefense.objects.defenses.Defense;
 import se.liu.ida.tddd78.towerdefense.objects.defenses.DefenseFactory;
 import se.liu.ida.tddd78.towerdefense.objects.defenses.DefenseType;
+import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
+import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterFactory;
+import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterType;
 import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
 import se.liu.ida.tddd78.towerdefense.utils.Pathfinder;
 
@@ -16,9 +20,7 @@ import java.util.*;
 public class Board {
     private Layout layout;
     private Theme theme;
-    private Map<Tile, Tile> path;
-    private List<GameObject> gameObjects = new ArrayList<GameObject>();
-    private int tileSize;
+    private GameObjects gameObjects = new GameObjects();
     private List<Observer> observers;
 
     //TODO:Make size of window/board/tiles work solely out of the layout files size
@@ -36,35 +38,31 @@ public class Board {
         return this.layout.getTile(x, y);
     }
 
-    public int getTileSize() {
-        return this.tileSize;
-    }
-
-    public int getMonsterCount() {
-        return this.gameObjects.size();
-    }
-
-    public List<GameObject> getGameObjects() {
-        return Collections.unmodifiableList(this.gameObjects);
+    public GameObjects getGameObjects() {
+        return this.gameObjects;
     }
 
     public Theme getTheme() {
         return this.theme;
     }
 
+    public Map<Tile, Tile> getPath() {
+        return this.layout.getPath();
+    }
+
     public Board(Layout layout, Theme theme) {
         this.layout = layout;
         this.theme = theme;
-        this.tileSize = BOARD_SIZE / this.layout.getWidth();
         this.observers = new ArrayList<Observer>();
-        Tile goal = layout.getGoal();
-        this.path = Pathfinder.floodFill(layout,
-                goal.getPosition().x,
-                goal.getPosition().y);
 
-        GameObject defense = DefenseFactory.makeDefense(DefenseType.SMALL);
+        //TEST STUFF
+        Defense defense = DefenseFactory.makeDefense(DefenseType.SMALL);
         defense.setPosition(60, 60);
+        Monster monster = MonsterFactory.makeMonster(MonsterType.SMALL);
+        Tile spawn = this.layout.getSpawn();
+        monster.setPosition(spawn.getPosition().x, spawn.getPosition().y);
         this.gameObjects.add(defense);
+        this.gameObjects.add(monster);
     }
 
     public void addObserver(Observer observer) {
@@ -77,6 +75,8 @@ public class Board {
 
     //*The method that runs every game-loop-update*//
     public void update() {
-
+        for (GameObject object : this.getGameObjects().getAll()) {
+            object.update();
+        }
     }
 }

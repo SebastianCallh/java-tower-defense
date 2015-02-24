@@ -46,10 +46,9 @@ public final class TilePainter implements Painter{
                 throw new RuntimeException("Unrecognized tile type");
         }
 
-        int width = (int) Tile.TILE_SIZE;
-        int height = (int)Tile.TILE_SIZE;
         g2d.setColor(theme.getStyle(element));
-        g2d.fillRect(tile.getPosition().x * width, tile.getPosition().y * height, width, height);
+        g2d.fillRect(tile.getPosition().x, tile.getPosition().y ,
+                     Tile.TILE_SIZE, Tile.TILE_SIZE);
     }
 
     public Tile getTile() {

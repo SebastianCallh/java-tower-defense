@@ -25,7 +25,7 @@ public class Painter extends JComponent implements Observer {
     }
 
     private void paintGameObjects(Graphics2D g2d) {
-        for (GameObject gameObject : this.board.getGameObjects()) {
+        for (GameObject gameObject : this.board.getGameObjects().getAll()) {
             gameObject.getPainter().paint(g2d, this.board.getTheme());
         }
     }

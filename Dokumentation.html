@@ -55,6 +55,17 @@
             bland annat underlättar när utritningen behöver göras mer avancerad.
         </li>
         <li>
+            <h2>GameObjects</h2>
+            Vi använder en egen klass för att hålla koll på alla gameobjects i board. Den håller koll på vilken typ
+            av objekt allt är men tillåter oss också att iterera över alla objekt på brädan. Unmodifiablelist används
+            för att försäkra oss om att ingen annan klass ändrar i listorna.
+        </li>
+        <li>
+            <h2>Pathfinder</h2>
+            En statis pathfinderklass används för att en gång vid start breath-first-söka igenom den navigerbara biten
+            av kartan och spara närmsta väg tillbaka. Senare används den för att bestämma var monstren skall röra sig.
+        </li>
+        <li>
             <h2>IMPLEMENTATION</h2>
             MOTIVATION
         </li>

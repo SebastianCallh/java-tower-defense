@@ -4,6 +4,7 @@ import se.liu.ida.tddd78.towerdefense.objects.basic.Grid;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
 import se.liu.ida.tddd78.towerdefense.objects.tiles.TileType;
+import se.liu.ida.tddd78.towerdefense.utils.Pathfinder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,17 +20,18 @@ public class Layout {
     private Grid<Tile> grid;
     private Tile spawn;
     private Tile goal;
+    private Map<Tile, Tile> path;
 
     public enum Type {
         STANDARD
     }
 
     public Tile getSpawn() {
-        return spawn;
+        return this.spawn;
     }
 
     public Tile getGoal() {
-        return goal;
+        return this.goal;
     }
 
     public int getWidth() {
@@ -48,10 +50,15 @@ public class Layout {
         return this.grid.getNeighbors(x, y);
     }
 
-    private Layout(Grid<Tile> grid, Tile spawnTile, Tile goalTile) {
+    public Map<Tile, Tile> getPath() {
+        return this.path;
+    }
+
+    private Layout(Grid<Tile> grid, Tile spawn, Tile goal) {
         this.grid = grid;
-        this.spawn = spawnTile;
-        this.goal = goalTile;
+        this.spawn = spawn;
+        this.goal = goal;
+        this.path = Pathfinder.floodFill(this, goal.getTilePosition().x, goal.getTilePosition().y);
     }
 
     private static Map<Type, Layout> layoutTypeMap = new HashMap<Type, Layout>() {{

@@ -20,8 +20,10 @@ public class Pathfinder {
 
         while (!queue.isEmpty()) {
             Tile current = queue.remove();
-            for (Tile tile : layout.getNeighbors(current.getPosition().x, current.getPosition().y)) {
-                if (tile.getType() == TileType.PATH &&
+            for (Tile tile : layout.getNeighbors(current.getTilePosition().x, current.getTilePosition().y)) {
+                if ((tile.getType() == TileType.PATH ||
+                     tile.getType() == TileType.SPAWN ||
+                     tile.getType() == TileType.GOAL) &&
                         !path.containsKey(tile)) {
                     queue.add(tile);
                     path.put(tile, current);
