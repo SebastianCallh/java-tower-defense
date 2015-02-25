@@ -10,6 +10,8 @@ import java.awt.*;
 public abstract class AbstractGameObject implements GameObject {
     private Point position;
     private Dimension size;
+    private double direction;
+    private int speed;
 
     public Point getPosition() {
         return position;
@@ -18,6 +20,14 @@ public abstract class AbstractGameObject implements GameObject {
     public void setPosition(int x, int y) {
         this.position.x = x;
         this.position.y = y;
+    }
+
+    public double getDirection() {
+        return this.direction;
+    }
+
+    public int getSpeed() {
+        return this.speed;
     }
 
     public Dimension getSize() {

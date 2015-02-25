@@ -4,6 +4,7 @@ import se.liu.ida.tddd78.towerdefense.objects.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.Layout.Type;
 import se.liu.ida.tddd78.towerdefense.objects.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.ThemeType;
+import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterMover;
 
 import javax.swing.*;
 import java.util.Calendar;
@@ -13,10 +14,10 @@ import java.util.Calendar;
  */
 
 public final class Main {
-    private final static int MS_PER_UPDATE = 120;
+    private final static int MS_PER_UPDATE = 30;
     private static Board board = null;
     private static JFrame frame;
-    private static Mover mover;
+    private static MonsterMover monsterMover;
 
     private Main() {}
 
@@ -24,7 +25,7 @@ public final class Main {
         board = new Board(Layout.get(Type.STANDARD),
                 new Theme(ThemeType.GREEN_IS_GOOD));
 
-        mover = new Mover(board);
+        monsterMover = new MonsterMover(board);
         frame = new Frame("Java tower defense", board);
 
         double previous = Calendar.getInstance().getTimeInMillis();
@@ -52,7 +53,7 @@ public final class Main {
 
     private static void update() {
         board.update();
-        mover.move();
+        monsterMover.move();
     }
 
     private static void render(double ex) {

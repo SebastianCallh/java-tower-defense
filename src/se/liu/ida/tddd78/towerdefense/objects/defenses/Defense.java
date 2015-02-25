@@ -12,5 +12,7 @@ public interface Defense extends GameObject {
     public Monster getTarget();
 
     public void setTarget(Monster monster);
+
+    public boolean isCoolingDown();
 }
 

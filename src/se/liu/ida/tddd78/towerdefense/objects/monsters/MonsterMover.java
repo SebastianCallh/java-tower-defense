@@ -1,13 +1,14 @@
-package se.liu.ida.tddd78.towerdefense;
+package se.liu.ida.tddd78.towerdefense.objects.monsters;
 
+import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
 import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
 
-public class Mover {
+public class MonsterMover {
     private Board board;
 
-    public Mover(final Board board) {
+    public MonsterMover(final Board board) {
 	this.board = board;
     }
 
@@ -20,6 +21,7 @@ public class Mover {
             Tile next = this.board.getPath().get(current);
             double angle = Math.atan2(next.getPosition().y - monster.getPosition().y,
                                       next.getPosition().x - monster.getPosition().x);
+
             int x = (int)(monster.getPosition().x + Math.cos(angle) * monster.getSpeed());
             int y = (int)(monster.getPosition().y + Math.sin(angle) * monster.getSpeed());
             monster.setPosition(x, y);

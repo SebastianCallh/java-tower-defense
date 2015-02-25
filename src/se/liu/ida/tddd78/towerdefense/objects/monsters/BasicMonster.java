@@ -27,14 +27,6 @@ public class BasicMonster extends AbstractGameObject implements Monster {
         return this.direction;
     }
 
-    @Override public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    @Override public void setDirectino(double direction) {
-        this.direction = direction;
-    }
-
     public void setHp(int hp) {
         this.hp = hp;
     }
@@ -57,6 +49,5 @@ public class BasicMonster extends AbstractGameObject implements Monster {
     }
 
     @Override public void update() {
-        /*this.setPosition(this.getPosition().x + this.speed, this.getPosition().y);*/
     }
 }

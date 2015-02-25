@@ -1,11 +1,5 @@
 package se.liu.ida.tddd78.towerdefense.interfaces;
 
-public interface Moveable {
+public interface Moveable extends Positionable{
     public int getSpeed();
-
-    public double getDirection();
-
-    public void setSpeed(int speed);
-
-    public void setDirectino(double direction);
 }

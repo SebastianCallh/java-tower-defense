@@ -22,6 +22,7 @@ public class Painter extends JComponent implements Observer {
         final Graphics2D g2d = (Graphics2D) g;
         paintTiles(g2d);
         paintGameObjects(g2d);
+        this.setDoubleBuffered(true);
     }
 
     private void paintGameObjects(Graphics2D g2d) {
