@@ -37,7 +37,7 @@ public class BasicMonster extends AbstractGameObject implements Monster {
     }
 
     public BasicMonster(int hp, int size, int speed, MonsterType type) {
-        super(new Point(0,0), new Dimension(size, size));
+        super(new Point(0,0), size);
         this.hp = hp;
         this.speed = speed;
         this.type = type;

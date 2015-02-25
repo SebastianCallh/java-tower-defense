@@ -9,7 +9,7 @@ import java.awt.*;
  * Created by Seba on 2015-02-14.
  */
 public interface GameObject extends Positionable, Paintable {
-    public Dimension getSize();
+    public int getSize();
 
     public void update();
 }

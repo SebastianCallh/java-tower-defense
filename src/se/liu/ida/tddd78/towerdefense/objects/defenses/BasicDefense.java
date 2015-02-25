@@ -39,7 +39,7 @@ public class BasicDefense extends AbstractGameObject implements Defense {
         return this.cooldown > 0;
     }
 
-    public BasicDefense(Dimension size, DefenseType type, int range, int damage, double attackSpeed) {
+    public BasicDefense(int size, DefenseType type, int range, int damage, double attackSpeed) {
         super(new Point(0,0), size);
         this.type = type;
         this.range = range;

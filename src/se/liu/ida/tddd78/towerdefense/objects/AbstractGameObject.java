@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public abstract class AbstractGameObject implements GameObject {
     private Point position;
-    private Dimension size;
+    private int size;
     private double direction;
     private int speed;
 
@@ -30,12 +30,12 @@ public abstract class AbstractGameObject implements GameObject {
         return this.speed;
     }
 
-    public Dimension getSize() {
+    public int getSize() {
         return this.size;
     }
 
-    public AbstractGameObject(Point position, Dimension size) {
-        if (size.getWidth() < 0 || size.getHeight() < 0) {
+    public AbstractGameObject(Point position, int size) {
+        if (size < 0) {
             throw new IllegalArgumentException("Negative size not supported");
         }
         this.position = position;

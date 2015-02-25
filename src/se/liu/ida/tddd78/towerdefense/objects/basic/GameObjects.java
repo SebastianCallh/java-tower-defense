@@ -16,9 +16,9 @@ public class GameObjects
     private List<Projectile> projectiles;
 
     public GameObjects() {
-	this.monsters = new ArrayList();
-	this.defenses = new ArrayList();
-        this.projectiles = new ArrayList();
+        this.monsters = new ArrayList<Monster>();
+        this.defenses = new ArrayList<Defense>();
+        this.projectiles = new ArrayList<Projectile>();
     }
 
     public List<Monster> getMonsters() {

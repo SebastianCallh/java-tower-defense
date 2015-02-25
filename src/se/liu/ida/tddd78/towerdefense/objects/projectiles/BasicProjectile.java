@@ -15,7 +15,7 @@ public class BasicProjectile extends AbstractGameObject implements Projectile {
     private double direction;
 
     public BasicProjectile(int damage, int size, ProjectileType type) {
-        super(new Point(0, 0), new Dimension(size, size));
+        super(new Point(0, 0), 0);
         this.damage = damage;
         this.type = type;
     }

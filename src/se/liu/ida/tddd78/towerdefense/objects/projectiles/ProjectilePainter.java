@@ -33,7 +33,7 @@ public final class ProjectilePainter implements Painter {
 
         g2d.setColor(theme.getStyle(element));
         g2d.fillOval(projectile.getPosition().x, projectile.getPosition().y,
-                projectile.getSize().width, projectile.getSize().height);
+                projectile.getSize(), projectile.getSize());
     }
 
 }
