@@ -7,6 +7,7 @@ import se.liu.ida.tddd78.towerdefense.objects.projectiles.Projectile;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class GameObjects
@@ -56,4 +57,20 @@ public class GameObjects
     public int size() {
         return this.getAll().size();
     }
+
+	public void removeObsoleteObjects() {
+		removeObsoleteObjects(this.monsters);
+		removeObsoleteObjects(this.defenses);
+		removeObsoleteObjects(this.projectiles);
+	}
+
+	private void removeObsoleteObjects(List<? extends GameObject> list) {
+		Iterator<? extends GameObject> iterator = list.iterator();
+		while (iterator.hasNext()) {
+			GameObject gameObject = iterator.next();
+			if (gameObject.isRemoved()) {
+				iterator.remove();
+			}
+		}
+	}
 }

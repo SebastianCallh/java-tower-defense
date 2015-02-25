@@ -9,4 +9,6 @@ public interface Positionable {
     public Point getPosition();
 
     public void setPosition(int x, int y);
+
+	public void setPosition(Point position);
 }

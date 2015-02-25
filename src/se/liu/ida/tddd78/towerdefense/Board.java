@@ -76,7 +76,7 @@ public class Board {
         defense.setPosition(60, 60);
         Monster monster = MonsterFactory.makeMonster(MonsterType.SMALL);
         Tile spawn = this.layout.getSpawn();
-        monster.setPosition(spawn.getPosition().x, spawn.getPosition().y);
+        monster.setPosition(spawn.getCenter().x, spawn.getCenter().y);
         this.gameObjects.add(defense);
         this.gameObjects.add(monster);
         Collision col = new Collision(this);
