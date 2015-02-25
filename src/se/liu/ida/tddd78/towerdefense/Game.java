@@ -3,10 +3,12 @@ package se.liu.ida.tddd78.towerdefense;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
 import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
 import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterFactory;
+import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterMover;
 import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterType;
+import se.liu.ida.tddd78.towerdefense.objects.projectiles.ProjectileMover;
 import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
 
-public class GameLogic {
+public class Game {
 	private Board board;
 	private Collision collisionHandler;
     private Input inputHandler;
@@ -14,18 +16,24 @@ public class GameLogic {
 	private int lives;
 	private int monstersRemaining;
 
+    private MonsterMover monsterMover;
+    private ProjectileMover projectileMover;
+
     private Timer roundTimer;
     private Timer spawnTimer;
 
     private State state;
 
-	public GameLogic(Board board, Collision collisionDetector, Input inputHandler) {
+	public Game(Board board, Collision collisionHandler, Input inputHandler) {
 		this.board = board;
-		this.collisionHandler = collisionDetector;
+		this.collisionHandler = collisionHandler;
         this.inputHandler = inputHandler;
 		this.round = 1;
 		this.lives = 30;
 		this.monstersRemaining = 10;
+
+        this.projectileMover = new ProjectileMover(board);
+        this.monsterMover = new MonsterMover(board);
 
         this.roundTimer = new Timer(2000);
         this.spawnTimer = new Timer(500);
@@ -33,7 +41,15 @@ public class GameLogic {
         this.state = State.PRE_ROUND;
     }
 
-    public void tick() {
+    public void update() {
+        this.board.update();
+        this.monsterMover.move();
+        this.projectileMover.move();
+        this.checkState();
+        this.board.getGameObjects().removeObsoleteObjects();
+    }
+
+    private void checkState() {
         switch (state) {
             case PRE_ROUND:
                 if (this.roundTimer.hasCompleted()) {
@@ -59,7 +75,11 @@ public class GameLogic {
                 break;
         }
 
-        this.board.getGameObjects().removeObsoleteObjects();
+    }
+    public void processInput() {
+        while (inputHandler.actionsPerformed()) {
+            System.out.println(inputHandler.getAction());
+        }
     }
 
     private void nextRound() {
@@ -109,5 +129,4 @@ public class GameLogic {
         ROUND,
         GAME_OVER
     }
-
 }

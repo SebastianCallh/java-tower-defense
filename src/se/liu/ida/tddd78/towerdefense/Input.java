@@ -28,29 +28,28 @@ public class Input {
         this.component.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), Action.LEFT);
         this.component.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), Action.RIGHT);
 
-        final Input that = this;
         this.component.getActionMap().put(Action.UP, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                that.addAction(Action.UP);
+                Input.this.addAction(Action.UP);
             }
         });
         this.component.getActionMap().put(Action.DOWN, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                that.addAction(Action.DOWN);
+                Input.this.addAction(Action.DOWN);
             }
         });
         this.component.getActionMap().put(Action.LEFT, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                that.addAction(Action.LEFT);
+                Input.this.addAction(Action.LEFT);
             }
         });
         this.component.getActionMap().put(Action.RIGHT, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                that.addAction(Action.RIGHT);
+                Input.this.addAction(Action.RIGHT);
             }
         });
     }
