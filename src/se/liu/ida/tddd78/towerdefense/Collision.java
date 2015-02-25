@@ -15,10 +15,10 @@ public class Collision {
 
     public boolean isAtCenter(GameObject object, Tile tile) {
         if (tile == this.board.getTileUnderObject(object)) {
-            double relativeX = Tile.TILE_SIZE / Math.max(object.getPosition().x % Tile.TILE_SIZE, 1);
-            double relativeY = Tile.TILE_SIZE / Math.max(object.getPosition().y % Tile.TILE_SIZE, 1);
-            return (relativeX > 1 / 3 && relativeX < 2 / 3 &&
-                    relativeY > 1 / 3 && relativeY < 2 / 3);
+            double relativeX = (double)(object.getPosition().x % Tile.TILE_SIZE) / Tile.TILE_SIZE;
+            double relativeY = (double)(object.getPosition().y % Tile.TILE_SIZE) / Tile.TILE_SIZE;
+            return (relativeX > 1.0 / 3 && relativeX < 2.0 / 3 &&
+                    relativeY > 1.0 / 3 && relativeY < 2.0 / 3);
         }
         return false;
     }
