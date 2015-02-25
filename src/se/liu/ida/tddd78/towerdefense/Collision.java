@@ -17,8 +17,8 @@ public class Collision {
         if (tile == this.board.getTileUnderObject(object)) {
             double relativeX = object.getPosition().x % Tile.TILE_SIZE / Tile.TILE_SIZE;
             double relativeY = object.getPosition().y % Tile.TILE_SIZE/ Tile.TILE_SIZE;
-            return (relativeX > 1 / 3 && relativeX < 2 / 3 &&
-                    relativeY > 1 / 3 && relativeY < 2 / 3);
+            return (relativeX > 1.0 / 3.0 && relativeX < 2.0 / 3.0 &&
+                    relativeY > 1.0 / 3.0 && relativeY < 2.0 / 3.0);
         }
         return false;
     }
