@@ -24,8 +24,8 @@ public class GameLogic {
 		this.lives = 30;
 		this.monstersRemaining = 10;
 
-		this.roundTimer = new Timer(67); // 67 ticks = 2 seconds
-		this.spawnTimer = new Timer(15); // 33 ticks = 1 second
+		this.roundTimer = new Timer(2000);
+		this.spawnTimer = new Timer(500);
 
 		this.state = State.PRE_ROUND;
 	}
@@ -33,7 +33,6 @@ public class GameLogic {
 	public void tick() {
 		switch (state) {
 			case PRE_ROUND:
-				this.roundTimer.tick();
 				if (this.roundTimer.hasCompleted()) {
 					startRound();
 				}
@@ -41,18 +40,14 @@ public class GameLogic {
 				break;
 			case ROUND:
 				if (this.monstersRemaining > 0) {
-					this.spawnTimer.tick();
 					if (this.spawnTimer.hasCompleted()) {
 						spawnNewMonster();
 					}
+				} else if (board.getGameObjects().getMonsters().size() == 0) {
+					nextRound();
 				}
 
 				checkForFinishedMonsters();
-				this.board.getGameObjects().removeObsoleteObjects();
-
-				if (this.monstersRemaining == 0 && board.getGameObjects().getMonsters().size() == 0) {
-					nextRound();
-				}
 
 				break;
 			case GAME_OVER:
@@ -60,19 +55,22 @@ public class GameLogic {
 
 				break;
 		}
+
+		this.board.getGameObjects().removeObsoleteObjects();
 	}
 
 	private void nextRound() {
 		if (this.state == State.GAME_OVER) return;
 
 		this.state = State.PRE_ROUND;
+		this.roundTimer.reset();
 	}
 
 	private void startRound() {
 		if (this.state == State.GAME_OVER) return;
 
-		this.roundTimer.reset();
 		this.state = State.ROUND;
+		this.spawnTimer.reset();
 		this.monstersRemaining = 10;
 		this.round++;
 	}

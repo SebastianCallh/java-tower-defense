@@ -1,31 +1,25 @@
 package se.liu.ida.tddd78.towerdefense;
 
 public class Timer {
-	private int startTime;
-	private int timeRemaining;
+	private long timerDurationMillis;
+	private long startTimeMillis;
 
-	public Timer(int startTime) {
-		this.startTime = startTime;
-		this.timeRemaining = startTime;
+	public Timer(long timerDurationMillis) {
+		this.timerDurationMillis = timerDurationMillis;
+		this.startTimeMillis = System.currentTimeMillis();
 	}
 
 	public void reset() {
-		this.timeRemaining = startTime;
+		this.startTimeMillis = System.currentTimeMillis();
 	}
 
-	public void reset(int startTime) {
-		this.startTime = startTime;
+	public void reset(long timerDuration) {
+		this.timerDurationMillis = timerDuration;
 		reset();
 	}
 
-	public void tick() {
-		if (this.timeRemaining > 0) {
-			this.timeRemaining--;
-		}
-	}
-
 	public boolean hasCompleted() {
-		return (this.timeRemaining == 0);
+		return (System.currentTimeMillis() - timerDurationMillis > startTimeMillis);
 	}
 
 }
