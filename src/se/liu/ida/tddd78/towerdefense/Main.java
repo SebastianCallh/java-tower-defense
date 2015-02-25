@@ -12,12 +12,12 @@ import java.util.Calendar;
 /**
  * Created by Seba on 2015-01-23.
  */
-
 public final class Main {
     private final static int MS_PER_UPDATE = 30;
     private static Board board = null;
     private static JFrame frame;
     private static MonsterMover monsterMover;
+    private static Collision collisionDetector;
 
     private Main() {}
 
@@ -27,6 +27,7 @@ public final class Main {
 
         monsterMover = new MonsterMover(board);
         frame = new Frame("Java tower defense", board);
+        collisionDetector = new Collision(board);
 
         double previous = Calendar.getInstance().getTimeInMillis();
         double delay = 0.0;

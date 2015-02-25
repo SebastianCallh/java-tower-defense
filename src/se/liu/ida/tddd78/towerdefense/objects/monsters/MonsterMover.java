@@ -15,12 +15,10 @@ public class MonsterMover {
     public void move() {
         for (Monster monster : this.board.getGameObjects().getMonsters()) {
             Point position = monster.getPosition();
-            Tile current = this.board.getTile(Math.floorDiv(position.x, Tile.TILE_SIZE),
-                                           Math.floorDiv(position.y, Tile.TILE_SIZE));
-
+            Tile current = board.getTileUnderObject(monster);
             Tile next = this.board.getPath().get(current);
-            double angle = Math.atan2(next.getPosition().y - monster.getPosition().y,
-                                      next.getPosition().x - monster.getPosition().x);
+            double angle = Math.atan2(next.getCenter().y - monster.getPosition().y,
+                                      next.getCenter().x - monster.getPosition().x);
 
             int x = (int)(monster.getPosition().x + Math.cos(angle) * monster.getSpeed());
             int y = (int)(monster.getPosition().y + Math.sin(angle) * monster.getSpeed());
