@@ -10,10 +10,10 @@ import java.awt.event.WindowEvent;
  */
 public class Frame extends JFrame {
 
-    public Frame(String title, Board board) throws HeadlessException {
+    public Frame(String title, Board board, Painter painter) throws HeadlessException {
         super(title);
         this.setLayout(new BorderLayout());
-        this.add(new Painter(board), BorderLayout.CENTER);
+        this.add(painter, BorderLayout.CENTER);
 
         this.addWindowListener(new WindowAdapter() {
             @Override

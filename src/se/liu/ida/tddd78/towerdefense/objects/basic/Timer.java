@@ -1,4 +1,4 @@
-package se.liu.ida.tddd78.towerdefense;
+package se.liu.ida.tddd78.towerdefense.objects.basic;
 
 public class Timer {
     private long timerDurationMillis;

@@ -1,28 +1,31 @@
 package se.liu.ida.tddd78.towerdefense;
 
+import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
 import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
 import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterFactory;
 import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterType;
 import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
 
 public class GameLogic {
-    private Board board;
-    private Collision collisionDetector;
-    private int round;
-    private int lives;
-    private int monstersRemaining;
+	private Board board;
+	private Collision collisionHandler;
+    private Input inputHandler;
+	private int round;
+	private int lives;
+	private int monstersRemaining;
 
     private Timer roundTimer;
     private Timer spawnTimer;
 
     private State state;
 
-    public GameLogic(Board board, Collision collisionDetector) {
-        this.board = board;
-        this.collisionDetector = collisionDetector;
-        this.round = 1;
-        this.lives = 30;
-        this.monstersRemaining = 10;
+	public GameLogic(Board board, Collision collisionDetector, Input inputHandler) {
+		this.board = board;
+		this.collisionHandler = collisionDetector;
+        this.inputHandler = inputHandler;
+		this.round = 1;
+		this.lives = 30;
+		this.monstersRemaining = 10;
 
         this.roundTimer = new Timer(2000);
         this.spawnTimer = new Timer(500);
@@ -84,15 +87,15 @@ public class GameLogic {
         this.monstersRemaining--;
     }
 
-    private void checkForFinishedMonsters() {
-        Tile goalTile = this.board.getGoal();
-        for (Monster monster : this.board.getGameObjects().getMonsters()) {
-            if (collisionDetector.isAtCenter(monster, goalTile)) {
-                monster.setRemoved(true);
-                removeLife();
-            }
-        }
-    }
+	private void checkForFinishedMonsters() {
+		Tile goalTile = this.board.getGoal();
+		for (Monster monster : this.board.getGameObjects().getMonsters()) {
+			if (collisionHandler.isAtCenter(monster, goalTile)) {
+				monster.setRemoved(true);
+				removeLife();
+			}
+		}
+	}
 
     private void removeLife() {
         this.lives--;
