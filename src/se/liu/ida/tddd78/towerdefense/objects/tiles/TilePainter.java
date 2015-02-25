@@ -47,8 +47,8 @@ public final class TilePainter implements Painter{
         }
 
         g2d.setColor(theme.getStyle(element));
-        g2d.fillRect(tile.getPosition().x, tile.getPosition().y ,
-                     Tile.TILE_SIZE, Tile.TILE_SIZE);
+        g2d.fillRect((int)tile.getPosition().x, (int)tile.getPosition().y ,
+                (int)Tile.TILE_SIZE, (int)Tile.TILE_SIZE);
     }
 
     public Tile getTile() {

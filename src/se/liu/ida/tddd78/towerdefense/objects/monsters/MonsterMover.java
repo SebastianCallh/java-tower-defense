@@ -17,12 +17,12 @@ public class MonsterMover {
             Point position = monster.getPosition();
             Tile current = board.getTileUnderObject(monster);
             Tile next = this.board.getPath().get(current);
-            double angle = Math.atan2(next.getCenter().y - monster.getPosition().y,
-                                      next.getCenter().x - monster.getPosition().x);
 
-            int x = (int)(monster.getPosition().x + Math.cos(angle) * monster.getSpeed());
-            int y = (int)(monster.getPosition().y + Math.sin(angle) * monster.getSpeed());
-            monster.setPosition(x, y);
+            double angle = Math.atan2(next.getCenter().y - position.y,
+                                      next.getCenter().x - position.x);
+
+            monster.setPosition(position.x + Math.cos(angle) * monster.getSpeed(),
+                                position.y + Math.sin(angle) * monster.getSpeed());
         }
     }
 }

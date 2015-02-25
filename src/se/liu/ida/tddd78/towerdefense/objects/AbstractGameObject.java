@@ -16,7 +16,7 @@ public abstract class AbstractGameObject implements GameObject {
         return position;
     }
 
-    public void setPosition(int x, int y) {
+    public void setPosition(double x, double y) {
         this.position.x = x;
         this.position.y = y;
     }

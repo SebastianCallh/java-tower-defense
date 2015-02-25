@@ -37,8 +37,8 @@ public final class DefensePainter implements Painter {
         }
 
         g2d.setColor(theme.getStyle(element));
-        g2d.fillOval(defense.getPosition().x,
-                defense.getPosition().y,
+        g2d.fillOval((int)defense.getPosition().x,
+                (int)defense.getPosition().y,
                 defense.getSize(),
                 defense.getSize());
     }

@@ -42,8 +42,8 @@ public class Board {
     }
 
     public Tile getTileUnderObject(GameObject object) {
-        return this.getTile(Math.floorDiv(object.getPosition().x,Tile.TILE_SIZE),
-                Math.floorDiv(object.getPosition().y,Tile.TILE_SIZE));
+        return this.getTile(Math.floorDiv((int)object.getPosition().x, (int)Tile.TILE_SIZE),
+                Math.floorDiv((int)object.getPosition().y, (int)Tile.TILE_SIZE));
     }
 
     public GameObjects getGameObjects() {
@@ -80,10 +80,6 @@ public class Board {
         this.gameObjects.add(defense);
         this.gameObjects.add(monster);
         Collision col = new Collision(this);
-        System.out.println("monster defense " + col.isColliding(monster, defense));
-        System.out.println("monster start " + col.isColliding(monster, this.layout.getSpawn()));
-        System.out.println("monster at center " + col.isAtCenter(monster, this.layout.getSpawn()));
-
     }
 
     public void addObserver(Observer observer) {

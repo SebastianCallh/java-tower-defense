@@ -58,7 +58,7 @@ public class Layout {
         this.grid = grid;
         this.spawn = spawn;
         this.goal = goal;
-        this.path = Pathfinder.floodFill(this, goal.getTilePosition().x, goal.getTilePosition().y);
+        this.path = Pathfinder.floodFill(this, goal.getTilePosition());
     }
 
     private static Map<Type, Layout> layoutTypeMap = new HashMap<Type, Layout>() {{

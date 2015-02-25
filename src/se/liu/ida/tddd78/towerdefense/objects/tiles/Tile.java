@@ -11,7 +11,7 @@ public class Tile implements Paintable {
     private TileType type;
     private Point position;
 
-    public final static int TILE_SIZE = 40;
+    public final static double TILE_SIZE = 40.0;
 
     public Point getTilePosition() {
         return position;
