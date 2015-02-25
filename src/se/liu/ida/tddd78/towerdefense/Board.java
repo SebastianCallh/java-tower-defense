@@ -70,16 +70,6 @@ public class Board {
         this.layout = layout;
         this.theme = theme;
         this.observers = new ArrayList<Observer>();
-
-        //TEST STUFF
-        Defense defense = DefenseFactory.makeDefense(DefenseType.SMALL);
-        defense.setPosition(60, 60);
-        Monster monster = MonsterFactory.makeMonster(MonsterType.SMALL);
-        Tile spawn = this.layout.getSpawn();
-        monster.setPosition(spawn.getCenter().x, spawn.getCenter().y);
-        this.gameObjects.add(defense);
-        this.gameObjects.add(monster);
-        Collision col = new Collision(this);
     }
 
     public void addObserver(Observer observer) {
