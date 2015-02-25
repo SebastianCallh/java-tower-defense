@@ -2,14 +2,12 @@ package se.liu.ida.tddd78.towerdefense.objects.projectiles;
 
 import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
-import se.liu.ida.tddd78.towerdefense.objects.projectiles.Projectile;
-import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
 
 public class ProjectileMover {
     private Board board;
 
     public ProjectileMover(final Board board) {
-	this.board = board;
+        this.board = board;
     }
 
     public void move() {

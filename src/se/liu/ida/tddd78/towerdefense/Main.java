@@ -18,7 +18,7 @@ public final class Main {
     private static JFrame frame;
     private static MonsterMover monsterMover;
     private static Collision collisionDetector;
-	private static GameLogic gameLogic;
+    private static GameLogic gameLogic;
 
     private Main() {}
 
@@ -29,7 +29,7 @@ public final class Main {
         monsterMover = new MonsterMover(board);
         frame = new Frame("Java tower defense", board);
         collisionDetector = new Collision(board);
-	    gameLogic = new GameLogic(board, collisionDetector);
+        gameLogic = new GameLogic(board, collisionDetector);
 
         double previous = Calendar.getInstance().getTimeInMillis();
         double delay = 0.0;
@@ -57,7 +57,7 @@ public final class Main {
     private static void update() {
         board.update();
         monsterMover.move();
-	    gameLogic.tick();
+        gameLogic.tick();
     }
 
     private static void render(double ex) {

@@ -2,14 +2,13 @@ package se.liu.ida.tddd78.towerdefense.objects.monsters;
 
 import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
-import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
 import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
 
 public class MonsterMover {
     private Board board;
 
     public MonsterMover(final Board board) {
-	this.board = board;
+        this.board = board;
     }
 
     public void move() {
