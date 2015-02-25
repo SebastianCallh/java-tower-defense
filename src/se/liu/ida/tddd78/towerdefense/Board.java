@@ -1,7 +1,9 @@
 package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
-import se.liu.ida.tddd78.towerdefense.objects.*;
+import se.liu.ida.tddd78.towerdefense.objects.GameObject;
+import se.liu.ida.tddd78.towerdefense.objects.Layout;
+import se.liu.ida.tddd78.towerdefense.objects.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.basic.GameObjects;
 import se.liu.ida.tddd78.towerdefense.objects.defenses.Defense;
 import se.liu.ida.tddd78.towerdefense.objects.defenses.DefenseFactory;
@@ -10,9 +12,10 @@ import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
 import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterFactory;
 import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterType;
 import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
-import se.liu.ida.tddd78.towerdefense.utils.Pathfinder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Seba on 2015-01-23.
@@ -49,6 +52,14 @@ public class Board {
     public Map<Tile, Tile> getPath() {
         return this.layout.getPath();
     }
+
+	public Tile getSpawn() {
+		return this.layout.getSpawn();
+	}
+
+	public Tile getGoal() {
+		return this.layout.getGoal();
+	}
 
     public Board(Layout layout, Theme theme) {
         this.layout = layout;
