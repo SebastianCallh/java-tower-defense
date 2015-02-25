@@ -40,7 +40,7 @@ public final class MonsterPainter implements Painter{
         g2d.setColor(theme.getStyle(element));
         g2d.fillOval((int)monster.getPosition().x - monster.getSize(),
                 (int)monster.getPosition().y - monster.getSize(),
-                monster.getSize(),
-                monster.getSize());
+                monster.getSize() * 2,
+                monster.getSize() * 2);
     }
 }
