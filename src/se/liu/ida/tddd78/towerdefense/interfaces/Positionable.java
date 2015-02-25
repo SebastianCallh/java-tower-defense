@@ -10,5 +10,5 @@ public interface Positionable {
 
     public void setPosition(double x, double y);
 
-	public void setPosition(Point position);
+    public void setPosition(Point position);
 }

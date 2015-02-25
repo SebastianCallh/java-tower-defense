@@ -11,7 +11,7 @@ public interface GameObject extends Positionable, Paintable {
 
     public void update();
 
-	public boolean isRemoved();
+    public boolean isRemoved();
 
-	public void setRemoved(boolean removed);
+    public void setRemoved(boolean removed);
 }

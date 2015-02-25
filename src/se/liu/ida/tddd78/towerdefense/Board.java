@@ -58,13 +58,13 @@ public class Board {
         return this.layout.getPath();
     }
 
-	public Tile getSpawn() {
-		return this.layout.getSpawn();
-	}
+    public Tile getSpawn() {
+        return this.layout.getSpawn();
+    }
 
-	public Tile getGoal() {
-		return this.layout.getGoal();
-	}
+    public Tile getGoal() {
+        return this.layout.getGoal();
+    }
 
     public Board(Layout layout, Theme theme) {
         this.layout = layout;

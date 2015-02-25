@@ -23,23 +23,23 @@ public class GameObjects
     }
 
     public List<Monster> getMonsters() {
-	return Collections.unmodifiableList(this.monsters);
+        return Collections.unmodifiableList(this.monsters);
     }
 
     public List<Defense> getDefenses() {
-	return Collections.unmodifiableList(this.defenses);
+        return Collections.unmodifiableList(this.defenses);
     }
 
     public List<Projectile> getProjectiles() {
-	return Collections.unmodifiableList(this.projectiles);
+        return Collections.unmodifiableList(this.projectiles);
     }
 
     public List<GameObject> getAll() {
-	List<GameObject> gameObjects = new ArrayList<GameObject>();
-	gameObjects.addAll(this.monsters);
-	gameObjects.addAll(this.defenses);
-        gameObjects.addAll(this.projectiles);
-	return Collections.unmodifiableList(gameObjects);
+        List<GameObject> gameObjects = new ArrayList<GameObject>();
+        gameObjects.addAll(this.monsters);
+        gameObjects.addAll(this.defenses);
+            gameObjects.addAll(this.projectiles);
+        return Collections.unmodifiableList(gameObjects);
     }
 
     public void add(Monster monster) {
@@ -58,19 +58,19 @@ public class GameObjects
         return this.getAll().size();
     }
 
-	public void removeObsoleteObjects() {
-		removeObsoleteObjects(this.monsters);
-		removeObsoleteObjects(this.defenses);
-		removeObsoleteObjects(this.projectiles);
-	}
+    public void removeObsoleteObjects() {
+        removeObsoleteObjects(this.monsters);
+        removeObsoleteObjects(this.defenses);
+        removeObsoleteObjects(this.projectiles);
+    }
 
-	private void removeObsoleteObjects(List<? extends GameObject> list) {
-		Iterator<? extends GameObject> iterator = list.iterator();
-		while (iterator.hasNext()) {
-			GameObject gameObject = iterator.next();
-			if (gameObject.isRemoved()) {
-				iterator.remove();
-			}
-		}
-	}
+    private void removeObsoleteObjects(List<? extends GameObject> list) {
+        Iterator<? extends GameObject> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            GameObject gameObject = iterator.next();
+            if (gameObject.isRemoved()) {
+                iterator.remove();
+            }
+        }
+    }
 }
