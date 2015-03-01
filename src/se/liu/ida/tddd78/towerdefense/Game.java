@@ -77,8 +77,11 @@ public class Game {
 
     }
     public void processInput() {
-        while (inputHandler.actionsPerformed()) {
-            System.out.println(inputHandler.getAction());
+        // Testing purposes, not actual usage pattern
+        for (Input.Action action : Input.Action.values()) {
+            if (inputHandler.isKeyPressed(action)) {
+                System.out.println(action);
+            }
         }
     }
 

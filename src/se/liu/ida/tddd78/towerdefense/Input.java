@@ -3,17 +3,17 @@ package se.liu.ida.tddd78.towerdefense;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Seba on 2015-02-25.
  */
 public class Input {
     private JComponent component;
-    private Queue<Action> actions;
+    private Map<Action, Boolean> keysPressedMap;
 
-    private enum Action {
+    public enum Action {
         UP,
         DOWN,
         LEFT,
@@ -22,47 +22,49 @@ public class Input {
 
     public Input(JComponent frame) {
         this.component = frame;
-        this.actions = new PriorityQueue<Action>();
-        this.component.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), Action.UP);
-        this.component.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), Action.DOWN);
-        this.component.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), Action.LEFT);
-        this.component.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), Action.RIGHT);
+        this.keysPressedMap = new HashMap<Action, Boolean>();
 
-        this.component.getActionMap().put(Action.UP, new AbstractAction() {
+        mapKey(KeyEvent.VK_UP, Action.UP);
+        mapKey(KeyEvent.VK_DOWN, Action.DOWN);
+        mapKey(KeyEvent.VK_LEFT, Action.LEFT);
+        mapKey(KeyEvent.VK_RIGHT, Action.RIGHT);
+    }
+
+    private void mapKey(int key, final Action action) {
+        String pressKey = String.format("PRESSED%d", key);
+        String releaseKey = String.format("RELEASED%d", key);
+
+        // Keep a mapping of the key even before the key is pressed so an exception can be thrown on an unmapped action,
+        // instead of silently returning false.
+        this.keysPressedMap.put(action, false);
+
+        this.component.getInputMap().put(KeyStroke.getKeyStroke(key, 0, false), pressKey);
+        this.component.getInputMap().put(KeyStroke.getKeyStroke(key, 0, true), releaseKey);
+
+        this.component.getActionMap().put(pressKey, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Input.this.addAction(Action.UP);
+                setKeyPressed(action, true);
             }
         });
-        this.component.getActionMap().put(Action.DOWN, new AbstractAction() {
+        this.component.getActionMap().put(releaseKey, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Input.this.addAction(Action.DOWN);
-            }
-        });
-        this.component.getActionMap().put(Action.LEFT, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Input.this.addAction(Action.LEFT);
-            }
-        });
-        this.component.getActionMap().put(Action.RIGHT, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Input.this.addAction(Action.RIGHT);
+                setKeyPressed(action, false);
             }
         });
     }
 
-    public boolean actionsPerformed() {
-        return !this.actions.isEmpty();
+    private void setKeyPressed(Action action, boolean pressed) {
+        this.keysPressedMap.put(action, pressed);
     }
 
-    public void addAction(Action action) {
-        this.actions.add(action);
+    public boolean isKeyPressed(Action action) {
+        if (!this.keysPressedMap.containsKey(action)) {
+            throw new RuntimeException(String.format("Action %s has not been mapped", action));
+        }
+
+        return this.keysPressedMap.get(action);
     }
 
-    public Action getAction() {
-        return this.actions.remove();
-    }
 }
