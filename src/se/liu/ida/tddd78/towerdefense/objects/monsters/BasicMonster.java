@@ -10,25 +10,31 @@ import java.awt.*;
  * Created by Seba on 2015-01-24.
  */
 public class BasicMonster extends AbstractGameObject implements Monster {
-    private int hp;
+    private int health;
     private int speed;
     private double direction;
     private MonsterType type;
 
-    public int getHp() {
-        return hp;
+    public int getHealth() {
+        return this.health;
     }
 
     @Override public int getSpeed() {
         return this.speed;
     }
 
-    @Override public double getDirection() {
-        return this.direction;
+    @Override public void setHealth(int health) {
+        this.health = health;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    @Override
+    public void removeHealth(int health) {
+        this.setHealth(this.getHealth() - health);
+    }
+
+    @Override
+    public boolean isAlive() {
+        return this.getHealth() > 0;
     }
 
     @Override
@@ -36,9 +42,9 @@ public class BasicMonster extends AbstractGameObject implements Monster {
         return type;
     }
 
-    public BasicMonster(int hp, int size, int speed, MonsterType type) {
+    public BasicMonster(int health, int size, int speed, MonsterType type) {
         super(new Point(0,0), size);
-        this.hp = hp;
+        this.health = health;
         this.speed = speed;
         this.type = type;
     }

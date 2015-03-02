@@ -10,23 +10,28 @@ import java.awt.*;
 public class BasicProjectile extends AbstractGameObject implements Projectile {
     private int damage;
     private ProjectileType type;
-    private Point target;
+    private Monster target;
     private int speed;
-    private double direction;
 
-    public BasicProjectile(int damage, int size, ProjectileType type) {
-        super(new Point(0, 0), 0);
+    public BasicProjectile(int damage, int size, int speed, ProjectileType type) {
+        super(new Point(0, 0), size);
         this.damage = damage;
+        this.speed = speed;
         this.type = type;
     }
 
-    public void setTarget(Point target) {
+    public void setTarget(Monster target) {
         this.target = target;
     }
 
     @Override
-    public Point getTarget() {
+    public Monster getTarget() {
         return this.target;
+    }
+
+    @Override
+    public int getSpeed() {
+        return this.speed;
     }
 
     @Override
@@ -50,6 +55,5 @@ public class BasicProjectile extends AbstractGameObject implements Projectile {
     }
 
     @Override public void update() {
-
     }
 }

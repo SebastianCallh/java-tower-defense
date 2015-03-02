@@ -70,6 +70,10 @@ public class Board {
         this.layout = layout;
         this.theme = theme;
         this.observers = new ArrayList<Observer>();
+
+        Defense defense = DefenseFactory.makeDefense(DefenseType.BIG);
+        defense.setPosition(60, 160);
+        this.getGameObjects().add(defense);
     }
 
     public void addObserver(Observer observer) {

@@ -1,6 +1,7 @@
 package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.objects.GameObject;
+import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
 
 /**
@@ -28,8 +29,14 @@ public class Collision {
     }
 
     public boolean isColliding(GameObject object1, GameObject object2) {
-        return Math.sqrt(Math.pow(object1.getPosition().y - object2.getPosition().y, 2)
-                + Math.pow(object1.getPosition().x - object2.getPosition().x, 2))
-                <= object1.getSize() + object2.getSize();
+        return distanceBetween(object1, object2) <= object1.getSize() + object2.getSize();
+    }
+
+    public static double distanceBetween(GameObject object1, GameObject object2) {
+        return distanceBetween(object1.getPosition(), object2.getPosition());
+    }
+
+    public static double distanceBetween(Point point1, Point point2) {
+        return Math.sqrt(Math.pow(point1.y - point2.y, 2) + Math.pow(point1.x - point2.x, 2));
     }
 }

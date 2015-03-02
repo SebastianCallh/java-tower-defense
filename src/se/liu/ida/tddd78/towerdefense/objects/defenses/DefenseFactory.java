@@ -17,10 +17,10 @@ public class DefenseFactory {
     }
 
     private static BasicDefense makeSmall() {
-        return new BasicDefense(25, DefenseType.SMALL, 50, 5, 0.5);
+        return new BasicDefense(10, DefenseType.SMALL, 50, 5, 500);
     }
 
     private static BasicDefense makeBig() {
-        return new BasicDefense(25, DefenseType.BIG, 50, 10, 0.5);
+        return new BasicDefense(15, DefenseType.BIG, 500, 10, 500);
     }
 }

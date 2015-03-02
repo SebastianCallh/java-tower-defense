@@ -8,8 +8,6 @@ import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 public abstract class AbstractGameObject implements GameObject {
     private Point position;
     private int size;
-    private double direction;
-    private int speed;
     private boolean removed;
 
     public Point getPosition() {
@@ -25,14 +23,6 @@ public abstract class AbstractGameObject implements GameObject {
     public void setPosition(Point position) {
         this.position.x = position.x;
         this.position.y = position.y;
-    }
-
-    public double getDirection() {
-        return this.direction;
-    }
-
-    public int getSpeed() {
-        return this.speed;
     }
 
     public int getSize() {

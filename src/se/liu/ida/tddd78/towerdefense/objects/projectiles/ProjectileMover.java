@@ -12,13 +12,11 @@ public class ProjectileMover {
 
     public void move() {
         for (Projectile projectile : this.board.getGameObjects().getProjectiles()) {
-            Point position = projectile.getPosition();
+            double angle = Math.atan2(projectile.getTarget().getPosition().y - projectile.getPosition().y,
+                    projectile.getTarget().getPosition().x - projectile.getPosition().x);
 
-            double angle = Math.atan2(projectile.getTarget().y - projectile.getPosition().y,
-                    projectile.getTarget().x - projectile.getPosition().x);
-
-            int x = (int)(projectile.getPosition().x + Math.cos(angle) * projectile.getSpeed());
-            int y = (int)(projectile.getPosition().y + Math.sin(angle) * projectile.getSpeed());
+            double x = projectile.getPosition().x + Math.cos(angle) * projectile.getSpeed();
+            double y = projectile.getPosition().y + Math.sin(angle) * projectile.getSpeed();
             projectile.setPosition(x, y);
         }
     }
