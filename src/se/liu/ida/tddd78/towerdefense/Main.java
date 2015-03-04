@@ -31,7 +31,6 @@ public final class Main {
 
             game.processInput();
 
-
             while (delay >= MS_PER_UPDATE) {
                 game.update();
                 delay -= MS_PER_UPDATE;

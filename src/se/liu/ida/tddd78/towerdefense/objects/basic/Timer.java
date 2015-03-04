@@ -21,5 +21,4 @@ public class Timer {
     public boolean hasCompleted() {
         return (System.currentTimeMillis() - timerDurationMillis > startTimeMillis);
     }
-
 }

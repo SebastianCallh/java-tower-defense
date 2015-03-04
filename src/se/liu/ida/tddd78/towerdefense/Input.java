@@ -66,5 +66,4 @@ public class Input {
 
         return this.keysPressedMap.get(action);
     }
-
 }

@@ -1,5 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.objects.projectiles;
 
+import se.liu.ida.tddd78.towerdefense.Board;
+import se.liu.ida.tddd78.towerdefense.Collision;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
 import se.liu.ida.tddd78.towerdefense.objects.AbstractGameObject;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
@@ -54,6 +56,19 @@ public class BasicProjectile extends AbstractGameObject implements Projectile {
         return ProjectilePainter.instanceFor(this);
     }
 
-    @Override public void update() {
+    @Override
+    public void update(Board board) {
+        if (this.getTarget() != null &&
+                Collision.distanceBetween(this, this.getTarget()) < this.getSize()) {
+            this.getTarget().removeHealth(this.getDamage());
+            this.setRemoved(true);
+        }
+
+        double angle = Math.atan2(this.getTarget().getPosition().y - this.getPosition().y,
+                this.getTarget().getPosition().x - this.getPosition().x);
+
+        double x = this.getPosition().x + Math.cos(angle) * this.getSpeed();
+        double y = this.getPosition().y + Math.sin(angle) * this.getSpeed();
+        this.setPosition(x, y);
     }
 }

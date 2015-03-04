@@ -1,5 +1,6 @@
 package se.liu.ida.tddd78.towerdefense.objects;
 
+import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.interfaces.Paintable;
 import se.liu.ida.tddd78.towerdefense.interfaces.Positionable;
 
@@ -9,7 +10,7 @@ import se.liu.ida.tddd78.towerdefense.interfaces.Positionable;
 public interface GameObject extends Positionable, Paintable {
     public int getSize();
 
-    public void update();
+    public void update(Board board);
 
     public boolean isRemoved();
 

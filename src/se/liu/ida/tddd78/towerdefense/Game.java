@@ -1,10 +1,7 @@
 package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
-import se.liu.ida.tddd78.towerdefense.objects.defenses.DefenseBehavior;
 import se.liu.ida.tddd78.towerdefense.objects.monsters.*;
-import se.liu.ida.tddd78.towerdefense.objects.projectiles.ProjectileBehavior;
-import se.liu.ida.tddd78.towerdefense.objects.projectiles.ProjectileMover;
 import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
 
 public class Game {
@@ -14,13 +11,6 @@ public class Game {
 	private int round;
 	private int lives;
 	private int monstersRemaining;
-
-    private MonsterMover monsterMover;
-    private ProjectileMover projectileMover;
-
-    private MonsterBehavior monsterBehavior;
-    private DefenseBehavior defenseBehavior;
-    private ProjectileBehavior projectileBehavior;
 
     private Timer roundTimer;
     private Timer spawnTimer;
@@ -35,13 +25,6 @@ public class Game {
 		this.lives = 30;
 		this.monstersRemaining = 10;
 
-        this.monsterBehavior = new MonsterBehavior(board);
-        this.projectileMover = new ProjectileMover(board);
-        this.monsterMover = new MonsterMover(board);
-
-        this.defenseBehavior = new DefenseBehavior(board);
-        this.projectileBehavior = new ProjectileBehavior(board);
-
         this.roundTimer = new Timer(2000);
         this.spawnTimer = new Timer(500);
 
@@ -50,12 +33,7 @@ public class Game {
 
     public void update() {
         this.board.update();
-        this.monsterMover.move();
-        this.projectileMover.move();
         this.checkState();
-        this.monsterBehavior.behave();
-        this.defenseBehavior.behave();
-        this.projectileBehavior.behave();
         this.board.getGameObjects().removeObsoleteObjects();
     }
 

@@ -1,5 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.objects.defenses;
 
+import se.liu.ida.tddd78.towerdefense.Board;
+import se.liu.ida.tddd78.towerdefense.Collision;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
 import se.liu.ida.tddd78.towerdefense.objects.AbstractGameObject;
 import se.liu.ida.tddd78.towerdefense.objects.GameObject;
@@ -68,11 +70,27 @@ public class BasicDefense extends AbstractGameObject implements Defense {
         this.cooldownTimer = new Timer(this.attackSpeed);
     }
 
-    @Override public void update() {
-    }
-
     @Override
     public Painter getPainter() {
         return DefensePainter.instanceFor(this);
+    }
+
+    @Override
+    public void update(Board board) {
+        if (this.getTarget() != null && !this.getTarget().isRemoved()) {
+            if (Collision.distanceBetween(this, this.getTarget()) > this.getRange()) {
+                this.setTarget(null);
+            }
+            if (!this.isCoolingDown()) {
+                board.getGameObjects().add(this.getProjectile());
+                this.coolDown();
+            }
+        } else {
+            for (Monster monster : board.getGameObjects().getMonsters()) {
+                if (Collision.distanceBetween(this, monster) < this.getRange()) {
+                    this.setTarget(monster);
+                }
+            }
+        }
     }
 }

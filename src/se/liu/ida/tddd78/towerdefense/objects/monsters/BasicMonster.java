@@ -1,8 +1,10 @@
 package se.liu.ida.tddd78.towerdefense.objects.monsters;
 
+import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
 import se.liu.ida.tddd78.towerdefense.objects.AbstractGameObject;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
+import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
 
 import java.awt.*;
 
@@ -54,6 +56,20 @@ public class BasicMonster extends AbstractGameObject implements Monster {
         return MonsterPainter.instanceFor(this);
     }
 
-    @Override public void update() {
+    @Override
+    public void update(Board board) {
+        if (this.isAlive()) {
+            Point position = this.getPosition();
+            Tile current = board.getTileUnderObject(this);
+            Tile next = board.getPath().get(current);
+
+            double angle = Math.atan2(next.getCenter().y - position.y,
+                    next.getCenter().x - position.x);
+
+            this.setPosition(position.x + Math.cos(angle) * this.getSpeed(),
+                    position.y + Math.sin(angle) * this.getSpeed());
+        } else {
+            this.setRemoved(true);
+        }
     }
 }

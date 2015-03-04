@@ -87,7 +87,8 @@ public class Board {
     //*The method that runs every game-loop-update*//
     public void update() {
         for (GameObject object : this.getGameObjects().getAll()) {
-            object.update();
+            object.update(this);
         }
+        this.getGameObjects().removeObsoleteObjects();
     }
 }
