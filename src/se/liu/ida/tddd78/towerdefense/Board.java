@@ -3,15 +3,13 @@ package se.liu.ida.tddd78.towerdefense;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
 import se.liu.ida.tddd78.towerdefense.objects.GameObject;
 import se.liu.ida.tddd78.towerdefense.objects.Layout;
-import se.liu.ida.tddd78.towerdefense.objects.Theme;
+import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.basic.GameObjects;
-import se.liu.ida.tddd78.towerdefense.objects.defenses.Defense;
-import se.liu.ida.tddd78.towerdefense.objects.defenses.DefenseFactory;
-import se.liu.ida.tddd78.towerdefense.objects.defenses.DefenseType;
-import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
-import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterFactory;
-import se.liu.ida.tddd78.towerdefense.objects.monsters.MonsterType;
-import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
+import se.liu.ida.tddd78.towerdefense.objects.character.Character;
+import se.liu.ida.tddd78.towerdefense.objects.defense.Defense;
+import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseFactory;
+import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseType;
+import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +23,7 @@ public class Board {
     private Theme theme;
     private GameObjects gameObjects = new GameObjects();
     private List<Observer> observers;
+    private Character player;
 
     //TODO:Make size of window/board/tiles work solely out of the layout files size
     public final static int BOARD_SIZE = 400;
@@ -50,6 +49,9 @@ public class Board {
         return this.gameObjects;
     }
 
+    public Character getPlayer() {
+        return this.player;
+    }
     public Theme getTheme() {
         return this.theme;
     }
@@ -66,10 +68,12 @@ public class Board {
         return this.layout.getGoal();
     }
 
-    public Board(Layout layout, Theme theme) {
+    public Board(Layout layout, Theme theme, Character player) {
         this.layout = layout;
         this.theme = theme;
         this.observers = new ArrayList<Observer>();
+        this.player = player;
+        this.getGameObjects().add(this.player);
 
         Defense defense = DefenseFactory.makeDefense(DefenseType.BIG);
         defense.setPosition(60, 160);

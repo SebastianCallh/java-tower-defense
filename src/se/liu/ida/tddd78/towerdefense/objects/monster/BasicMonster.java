@@ -1,28 +1,20 @@
-package se.liu.ida.tddd78.towerdefense.objects.monsters;
+package se.liu.ida.tddd78.towerdefense.objects.monster;
 
 import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
-import se.liu.ida.tddd78.towerdefense.objects.AbstractGameObject;
+import se.liu.ida.tddd78.towerdefense.abstracts.AbstractMovable;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
-import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
-
-import java.awt.*;
+import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 
 /**
  * Created by Seba on 2015-01-24.
  */
-public class BasicMonster extends AbstractGameObject implements Monster {
+public class BasicMonster extends AbstractMovable implements Monster {
     private int health;
-    private int speed;
-    private double direction;
     private MonsterType type;
 
     public int getHealth() {
         return this.health;
-    }
-
-    @Override public int getSpeed() {
-        return this.speed;
     }
 
     @Override public void setHealth(int health) {
@@ -45,9 +37,8 @@ public class BasicMonster extends AbstractGameObject implements Monster {
     }
 
     public BasicMonster(int health, int size, int speed, MonsterType type) {
-        super(new Point(0,0), size);
+        super(new Point(0,0), size, speed);
         this.health = health;
-        this.speed = speed;
         this.type = type;
     }
 

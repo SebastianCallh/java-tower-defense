@@ -1,24 +1,20 @@
-package se.liu.ida.tddd78.towerdefense.objects.projectiles;
+package se.liu.ida.tddd78.towerdefense.objects.projectile;
 
 import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.Collision;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
-import se.liu.ida.tddd78.towerdefense.objects.AbstractGameObject;
+import se.liu.ida.tddd78.towerdefense.abstracts.AbstractMovable;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
-import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
+import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
 
-import java.awt.*;
-
-public class BasicProjectile extends AbstractGameObject implements Projectile {
+public class BasicProjectile extends AbstractMovable implements Projectile {
     private int damage;
     private ProjectileType type;
     private Monster target;
-    private int speed;
 
     public BasicProjectile(int damage, int size, int speed, ProjectileType type) {
-        super(new Point(0, 0), size);
+        super(new Point(0, 0), size, speed);
         this.damage = damage;
-        this.speed = speed;
         this.type = type;
     }
 
@@ -29,11 +25,6 @@ public class BasicProjectile extends AbstractGameObject implements Projectile {
     @Override
     public Monster getTarget() {
         return this.target;
-    }
-
-    @Override
-    public int getSpeed() {
-        return this.speed;
     }
 
     @Override

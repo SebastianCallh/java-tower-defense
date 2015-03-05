@@ -1,8 +1,8 @@
-package se.liu.ida.tddd78.towerdefense.objects.defenses;
+package se.liu.ida.tddd78.towerdefense.objects.defense;
 
 import se.liu.ida.tddd78.towerdefense.objects.GameObject;
-import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
-import se.liu.ida.tddd78.towerdefense.objects.projectiles.Projectile;
+import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
+import se.liu.ida.tddd78.towerdefense.objects.projectile.Projectile;
 
 /**
  * Created by Seba on 2015-02-12.

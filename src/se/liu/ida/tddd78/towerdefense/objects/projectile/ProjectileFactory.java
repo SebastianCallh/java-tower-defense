@@ -1,4 +1,4 @@
-package se.liu.ida.tddd78.towerdefense.objects.projectiles;
+package se.liu.ida.tddd78.towerdefense.objects.projectile;
 
 public class ProjectileFactory {
 

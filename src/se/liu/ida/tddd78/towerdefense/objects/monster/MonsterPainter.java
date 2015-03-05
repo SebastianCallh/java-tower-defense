@@ -1,8 +1,8 @@
-package se.liu.ida.tddd78.towerdefense.objects.monsters;
+package se.liu.ida.tddd78.towerdefense.objects.monster;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
-import se.liu.ida.tddd78.towerdefense.objects.Theme;
-import se.liu.ida.tddd78.towerdefense.objects.Theme.Element;
+import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
+import se.liu.ida.tddd78.towerdefense.objects.theme.Theme.Element;
 
 import java.awt.*;
 
@@ -26,7 +26,7 @@ public final class MonsterPainter implements Painter{
     @Override
     public void paint(Graphics2D g2d, Theme theme) {
         Element element;
-        switch (monster.getType()) {
+        switch (this.monster.getType()) {
             case SMALL:
                 element = Element.MONSTER_SMALL;
                 break;

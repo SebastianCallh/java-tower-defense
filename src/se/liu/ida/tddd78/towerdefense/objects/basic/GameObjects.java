@@ -1,9 +1,10 @@
 package se.liu.ida.tddd78.towerdefense.objects.basic;
 
 import se.liu.ida.tddd78.towerdefense.objects.GameObject;
-import se.liu.ida.tddd78.towerdefense.objects.defenses.Defense;
-import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
-import se.liu.ida.tddd78.towerdefense.objects.projectiles.Projectile;
+import se.liu.ida.tddd78.towerdefense.objects.character.Character;
+import se.liu.ida.tddd78.towerdefense.objects.defense.Defense;
+import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
+import se.liu.ida.tddd78.towerdefense.objects.projectile.Projectile;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,14 +13,20 @@ import java.util.List;
 
 public class GameObjects
 {
+    private List<Character> characters;
     private List<Monster> monsters;
     private List<Defense> defenses;
     private List<Projectile> projectiles;
 
     public GameObjects() {
+        this.characters = new ArrayList<Character>();
         this.monsters = new ArrayList<Monster>();
         this.defenses = new ArrayList<Defense>();
         this.projectiles = new ArrayList<Projectile>();
+    }
+
+    public List<Character> getCharacters() {
+        return Collections.unmodifiableList(this.characters);
     }
 
     public List<Monster> getMonsters() {
@@ -36,10 +43,15 @@ public class GameObjects
 
     public List<GameObject> getAll() {
         List<GameObject> gameObjects = new ArrayList<GameObject>();
+        gameObjects.addAll(this.characters);
         gameObjects.addAll(this.monsters);
         gameObjects.addAll(this.defenses);
             gameObjects.addAll(this.projectiles);
         return Collections.unmodifiableList(gameObjects);
+    }
+
+    public void add(Character character) {
+        this.characters.add(character);
     }
 
     public void add(Monster monster) {

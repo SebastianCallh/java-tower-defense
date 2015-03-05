@@ -1,7 +1,7 @@
-package se.liu.ida.tddd78.towerdefense.objects.defenses;
+package se.liu.ida.tddd78.towerdefense.objects.defense;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
-import se.liu.ida.tddd78.towerdefense.objects.Theme;
+import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 
 import java.awt.*;
 
@@ -25,7 +25,7 @@ public final class DefensePainter implements Painter {
     @Override
     public void paint(Graphics2D g2d, Theme theme) {
         Theme.Element element;
-        switch (defense.getType()) {
+        switch (this.defense.getType()) {
             case SMALL:
                 element = Theme.Element.DEFENSE_SMALL;
                 break;

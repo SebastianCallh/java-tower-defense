@@ -1,4 +1,4 @@
-package se.liu.ida.tddd78.towerdefense.objects.tiles;
+package se.liu.ida.tddd78.towerdefense.objects.tile;
 
 /**
  * Created by Seba on 2015-02-13.

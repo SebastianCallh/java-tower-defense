@@ -1,8 +1,8 @@
-package se.liu.ida.tddd78.towerdefense.objects.projectiles;
+package se.liu.ida.tddd78.towerdefense.objects.projectile;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
-import se.liu.ida.tddd78.towerdefense.objects.Theme;
-import se.liu.ida.tddd78.towerdefense.objects.Theme.Element;
+import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
+import se.liu.ida.tddd78.towerdefense.objects.theme.Theme.Element;
 
 import java.awt.*;
 
@@ -23,7 +23,7 @@ public final class ProjectilePainter implements Painter {
     @Override
     public void paint(Graphics2D g2d, Theme theme) {
         Element element;
-        switch (projectile.getType()) {
+        switch (this.projectile.getType()) {
             case NORMAL:
                 element = Element.PROJECTILE_NORMAL;
                 break;

@@ -1,4 +1,4 @@
-package se.liu.ida.tddd78.towerdefense.objects.tiles;
+package se.liu.ida.tddd78.towerdefense.objects.tile;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Paintable;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;

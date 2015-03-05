@@ -1,4 +1,4 @@
-package se.liu.ida.tddd78.towerdefense.objects.monsters;
+package se.liu.ida.tddd78.towerdefense.objects.monster;
 
 /**
  * Created by Seba on 2015-02-12.

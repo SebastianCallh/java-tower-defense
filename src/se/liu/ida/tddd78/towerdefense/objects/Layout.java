@@ -2,8 +2,8 @@ package se.liu.ida.tddd78.towerdefense.objects;
 
 import se.liu.ida.tddd78.towerdefense.objects.basic.Grid;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
-import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
-import se.liu.ida.tddd78.towerdefense.objects.tiles.TileType;
+import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
+import se.liu.ida.tddd78.towerdefense.objects.tile.TileType;
 import se.liu.ida.tddd78.towerdefense.utils.Pathfinder;
 
 import java.io.IOException;

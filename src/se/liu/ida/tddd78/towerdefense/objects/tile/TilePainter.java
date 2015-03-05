@@ -1,7 +1,7 @@
-package se.liu.ida.tddd78.towerdefense.objects.tiles;
+package se.liu.ida.tddd78.towerdefense.objects.tile;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
-import se.liu.ida.tddd78.towerdefense.objects.Theme;
+import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 
 import java.awt.*;
 

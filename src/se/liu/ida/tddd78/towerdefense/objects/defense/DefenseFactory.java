@@ -1,5 +1,4 @@
-package se.liu.ida.tddd78.towerdefense.objects.defenses;
-import java.awt.*;
+package se.liu.ida.tddd78.towerdefense.objects.defense;
 
 /**
  * Created by Seba on 2015-02-12.

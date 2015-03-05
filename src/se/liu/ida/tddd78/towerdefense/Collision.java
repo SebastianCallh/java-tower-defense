@@ -2,7 +2,7 @@ package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.objects.GameObject;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
-import se.liu.ida.tddd78.towerdefense.objects.tiles.Tile;
+import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 
 /**
  * Created by Seba on 2015-02-25.

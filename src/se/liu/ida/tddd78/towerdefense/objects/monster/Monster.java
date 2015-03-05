@@ -1,12 +1,12 @@
-package se.liu.ida.tddd78.towerdefense.objects.monsters;
+package se.liu.ida.tddd78.towerdefense.objects.monster;
 
-import se.liu.ida.tddd78.towerdefense.interfaces.Moveable;
+import se.liu.ida.tddd78.towerdefense.interfaces.Movable;
 import se.liu.ida.tddd78.towerdefense.objects.GameObject;
 
 /**
  * Created by Seba on 2015-02-12.
  */
-public interface Monster extends GameObject, Moveable
+public interface Monster extends GameObject, Movable
 {
     public int getHealth();
 

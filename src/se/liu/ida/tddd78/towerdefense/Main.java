@@ -2,8 +2,10 @@ package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.objects.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.Layout.Type;
-import se.liu.ida.tddd78.towerdefense.objects.Theme;
-import se.liu.ida.tddd78.towerdefense.objects.ThemeType;
+import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
+import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeType;
+import se.liu.ida.tddd78.towerdefense.objects.character.CharacterFactory;
+import se.liu.ida.tddd78.towerdefense.objects.character.CharacterType;
 
 import javax.swing.*;
 import java.util.Calendar;
@@ -16,7 +18,10 @@ public final class Main {
     private Main() {}
 
     public static void main(String[] args) {
-        Board board = new Board(Layout.get(Type.STANDARD), new Theme(ThemeType.GREEN_IS_GOOD));
+        Board board = new Board(Layout.get(Type.STANDARD),
+                new Theme(ThemeType.GREEN_IS_GOOD),
+                CharacterFactory.makeCharacter(CharacterType.PLAYER));
+
         Painter painter = new Painter(board);
         Game game = new Game(board, new Collision(board), new Input(painter));
         JFrame frame = new Frame("Java tower defense", board, painter);

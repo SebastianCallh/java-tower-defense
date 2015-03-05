@@ -1,10 +1,10 @@
-package se.liu.ida.tddd78.towerdefense.objects.projectiles;
+package se.liu.ida.tddd78.towerdefense.objects.projectile;
 
-import se.liu.ida.tddd78.towerdefense.interfaces.Moveable;
+import se.liu.ida.tddd78.towerdefense.interfaces.Movable;
 import se.liu.ida.tddd78.towerdefense.objects.GameObject;
-import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
+import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
 
-public interface Projectile extends GameObject, Moveable {
+public interface Projectile extends GameObject, Movable {
 
     public int getDamage();
 

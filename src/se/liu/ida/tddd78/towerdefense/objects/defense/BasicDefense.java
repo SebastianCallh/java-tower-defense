@@ -1,19 +1,15 @@
-package se.liu.ida.tddd78.towerdefense.objects.defenses;
+package se.liu.ida.tddd78.towerdefense.objects.defense;
 
 import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.Collision;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
-import se.liu.ida.tddd78.towerdefense.objects.AbstractGameObject;
-import se.liu.ida.tddd78.towerdefense.objects.GameObject;
+import se.liu.ida.tddd78.towerdefense.abstracts.AbstractGameObject;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
-import se.liu.ida.tddd78.towerdefense.objects.monsters.Monster;
-import se.liu.ida.tddd78.towerdefense.objects.projectiles.Projectile;
-import se.liu.ida.tddd78.towerdefense.objects.projectiles.ProjectileFactory;
-import se.liu.ida.tddd78.towerdefense.objects.projectiles.ProjectileType;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.awt.*;
+import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
+import se.liu.ida.tddd78.towerdefense.objects.projectile.Projectile;
+import se.liu.ida.tddd78.towerdefense.objects.projectile.ProjectileFactory;
+import se.liu.ida.tddd78.towerdefense.objects.projectile.ProjectileType;
 
 /**
  * Created by Seba on 2015-02-12.

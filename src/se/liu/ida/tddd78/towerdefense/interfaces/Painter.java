@@ -1,6 +1,6 @@
 package se.liu.ida.tddd78.towerdefense.interfaces;
 
-import se.liu.ida.tddd78.towerdefense.objects.Theme;
+import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 
 import java.awt.*;
 
