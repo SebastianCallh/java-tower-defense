@@ -16,7 +16,7 @@ public class MonsterFactory {
     }
 
     private static BasicMonster makeSmall() {
-        return new BasicMonster(10, 10, 2, MonsterType.SMALL);
+    return new BasicMonster(10, 10, 2, MonsterType.SMALL);
     }
 
     private static BasicMonster makeBig() {

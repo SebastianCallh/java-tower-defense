@@ -11,9 +11,13 @@ import java.awt.*;
  */
 public class Painter extends JComponent implements Observer {
     private Board board;
+    private Dimension scale;
 
     public Painter(Board board) {
         this.board = board;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.scale = new Dimension();
+        this.scale.setSize(screenSize.getWidth() / 10, screenSize.getHeight() / 10);
     }
 
     @Override

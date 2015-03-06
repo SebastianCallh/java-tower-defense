@@ -1,5 +1,6 @@
 package se.liu.ida.tddd78.towerdefense;
 
+import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.objects.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.Layout.Type;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
@@ -9,6 +10,7 @@ import se.liu.ida.tddd78.towerdefense.objects.character.CharacterType;
 
 import javax.swing.*;
 import java.util.Calendar;
+import java.util.Queue;
 
 /**
  * Created by Seba on 2015-01-23.
@@ -23,7 +25,7 @@ public final class Main {
                 CharacterFactory.makeCharacter(CharacterType.PLAYER));
 
         Painter painter = new Painter(board);
-        Game game = new Game(board, new Collision(board), new Input(painter));
+        Game game = new Game(board, new Collision(board), new InputHandler(painter));
         JFrame frame = new Frame("Java tower defense", board, painter);
 
         double previous = Calendar.getInstance().getTimeInMillis();
@@ -34,9 +36,10 @@ public final class Main {
             previous = current;
             delay += elapsed;
 
-            game.processInput();
 
             while (delay >= MS_PER_UPDATE) {
+                //TODO: Figure out what exactly to do with this
+                game.processInput();
                 game.update();
                 delay -= MS_PER_UPDATE;
             }

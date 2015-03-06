@@ -73,6 +73,7 @@ public class Board {
         this.theme = theme;
         this.observers = new ArrayList<Observer>();
         this.player = player;
+        player.setPosition(100, 100);
         this.getGameObjects().add(this.player);
 
         Defense defense = DefenseFactory.makeDefense(DefenseType.BIG);

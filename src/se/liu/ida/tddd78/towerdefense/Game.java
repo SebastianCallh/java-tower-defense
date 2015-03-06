@@ -1,15 +1,16 @@
 package se.liu.ida.tddd78.towerdefense;
 
-import se.liu.ida.tddd78.towerdefense.objects.basic.HorizontalDirection;
-import se.liu.ida.tddd78.towerdefense.objects.basic.VerticalDirection;
+import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
 import se.liu.ida.tddd78.towerdefense.objects.monster.*;
 import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 
+import java.util.Queue;
+
 public class Game {
 	private Board board;
 	private Collision collisionHandler;
-    private Input inputHandler;
+    private InputHandler inputHandler;
 	private int round;
 	private int lives;
 	private int monstersRemaining;
@@ -19,7 +20,7 @@ public class Game {
 
     private State state;
 
-	public Game(Board board, Collision collisionHandler, Input inputHandler) {
+	public Game(Board board, Collision collisionHandler, InputHandler inputHandler) {
 		this.board = board;
 		this.collisionHandler = collisionHandler;
         this.inputHandler = inputHandler;
@@ -65,22 +66,11 @@ public class Game {
         }
 
     }
-    public void processInput() {
-        // Testing purposes, not actual usage pattern
-        if (this.inputHandler.isKeyPressed(Input.Action.LEFT)) {
-            this.board.getPlayer().setHorizontalDirection(HorizontalDirection.LEFT);
-        } else if (this.inputHandler.isKeyPressed(Input.Action.RIGHT)) {
-            this.board.getPlayer().setHorizontalDirection(HorizontalDirection.RIGHT);
-        } else {
-            this.board.getPlayer().setHorizontalDirection(null);
-        }
 
-        if (this.inputHandler.isKeyPressed(Input.Action.UP)) {
-            this.board.getPlayer().setVerticalDirection(VerticalDirection.UP);
-        } else if (this.inputHandler.isKeyPressed(Input.Action.DOWN)) {
-            this.board.getPlayer().setVerticalDirection(VerticalDirection.DOWN);
-        } else {
-            this.board.getPlayer().setVerticalDirection(null);
+    public void processInput() {
+        Queue<Command> commandQueue = this.inputHandler.getCommands();
+        while(!commandQueue.isEmpty()) {
+            commandQueue.remove().execute(this.board);
         }
     }
 
