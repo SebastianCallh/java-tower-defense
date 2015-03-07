@@ -17,6 +17,7 @@ import se.liu.ida.tddd78.towerdefense.objects.projectile.ProjectileType;
 public class BasicDefense extends AbstractGameObject implements Defense {
     private DefenseType type;
     private int range;
+    private int cost;
     private int damage;
     private long attackSpeed;
     private Monster target;
@@ -33,6 +34,11 @@ public class BasicDefense extends AbstractGameObject implements Defense {
     @Override
     public int getRange() {
         return this.range;
+    }
+
+    @Override
+    public int getCost() {
+        return this.cost;
     }
 
     @Override
@@ -57,12 +63,13 @@ public class BasicDefense extends AbstractGameObject implements Defense {
         return !this.cooldownTimer.hasCompleted();
     }
 
-    public BasicDefense(int size, DefenseType type, int range, int damage, long attackSpeed) {
+    public BasicDefense(int size, DefenseType type, int range, int damage, long attackSpeed, int cost) {
         super(new Point(0,0), size);
         this.type = type;
         this.range = range;
         this.damage = damage;
         this.attackSpeed = attackSpeed;
+        this.cost = cost;
         this.cooldownTimer = new Timer(this.attackSpeed);
     }
 

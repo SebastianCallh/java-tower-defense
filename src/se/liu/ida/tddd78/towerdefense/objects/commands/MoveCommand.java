@@ -1,6 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.objects.commands;
 
 import se.liu.ida.tddd78.towerdefense.Board;
+import se.liu.ida.tddd78.towerdefense.Player;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Direction;
 
@@ -14,7 +15,7 @@ public class MoveCommand implements Command {
     }
 
     @Override
-    public void execute(Board board) {
-        board.getPlayer().move(this.direction);
+    public void execute(Player player, Board board) {
+        player.getCharacter().move(this.direction);
     }
 }

@@ -1,6 +1,7 @@
 package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
+import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
 import se.liu.ida.tddd78.towerdefense.objects.monster.*;
 import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
@@ -9,23 +10,33 @@ import java.util.Queue;
 
 public class Game {
 	private Board board;
+    private Player player;
 	private Collision collisionHandler;
     private InputHandler inputHandler;
 	private int round;
-	private int lives;
 	private int monstersRemaining;
 
     private Timer roundTimer;
     private Timer spawnTimer;
 
     private State state;
+    private int STARTING_LIVES = 10;
+    private int STARTING_MONEY = 500;
+    private Point STARTING_POSITION = new Point(100, 100);
 
-	public Game(Board board, Collision collisionHandler, InputHandler inputHandler) {
+	public Game(Board board,
+                Player player,
+                Collision collisionHandler,
+                InputHandler inputHandler) {
 		this.board = board;
+        this.player = player;
+        this.player.setLives(STARTING_LIVES);
+        this.player.setMoney(STARTING_MONEY);
+        this.player.getCharacter().setPosition(STARTING_POSITION);
+
 		this.collisionHandler = collisionHandler;
         this.inputHandler = inputHandler;
 		this.round = 1;
-		this.lives = 30;
 		this.monstersRemaining = 10;
 
         this.roundTimer = new Timer(2000);
@@ -64,13 +75,12 @@ public class Game {
 
                 break;
         }
-
     }
 
     public void processInput() {
         Queue<Command> commandQueue = this.inputHandler.getCommands();
         while(!commandQueue.isEmpty()) {
-            commandQueue.remove().execute(this.board);
+            commandQueue.remove().execute(this.player, this.board);
         }
     }
 
@@ -104,14 +114,14 @@ public class Game {
 		for (Monster monster : this.board.getGameObjects().getMonsters()) {
 			if (collisionHandler.isAtCenter(monster, goalTile)) {
 				monster.setRemoved(true);
-				removeLife();
+				removeLife(monster.getDamage());
 			}
 		}
 	}
 
-    private void removeLife() {
-        this.lives--;
-        if (this.lives == 0) {
+    private void removeLife(int amount) {
+        this.player.removeLives(amount);
+        if (this.player.getLives() == 0) {
             this.state = State.GAME_OVER;
         }
     }

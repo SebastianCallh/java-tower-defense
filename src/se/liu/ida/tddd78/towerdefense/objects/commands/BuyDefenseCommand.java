@@ -1,6 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.objects.commands;
 
 import se.liu.ida.tddd78.towerdefense.Board;
+import se.liu.ida.tddd78.towerdefense.Player;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.objects.defense.BasicDefense;
 import se.liu.ida.tddd78.towerdefense.objects.defense.Defense;
@@ -12,9 +13,15 @@ import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseType;
  */
 public class BuyDefenseCommand implements Command {
     @Override
-    public void execute(Board board) {
-        Defense defense = DefenseFactory.makeDefense(DefenseType.SMALL);
-        defense.setPosition(board.getPlayer().getPosition());
-        board.getGameObjects().add(defense);
+    public void execute(Player player, Board board) {
+        if (player.isReadyForAction()) {
+            Defense defense = DefenseFactory.makeDefense(player.getSelectedDefense());
+            if (player.getMoney() >= defense.getCost()) {
+                defense.setPosition(player.getCharacter().getPosition());
+                board.getGameObjects().add(defense);
+                player.removeMoney(defense.getCost());
+                player.resetActionTimer();
+            }
+        }
     }
 }

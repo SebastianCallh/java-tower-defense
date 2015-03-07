@@ -23,7 +23,6 @@ public class Board {
     private Theme theme;
     private GameObjects gameObjects = new GameObjects();
     private List<Observer> observers;
-    private Character player;
 
     //TODO:Make size of window/board/tiles work solely out of the layout files size
     public final static int BOARD_SIZE = 400;
@@ -49,9 +48,7 @@ public class Board {
         return this.gameObjects;
     }
 
-    public Character getPlayer() {
-        return this.player;
-    }
+
     public Theme getTheme() {
         return this.theme;
     }
@@ -68,13 +65,11 @@ public class Board {
         return this.layout.getGoal();
     }
 
-    public Board(Layout layout, Theme theme, Character player) {
+    public Board(Layout layout, Theme theme, Character playerCharacter) {
         this.layout = layout;
         this.theme = theme;
         this.observers = new ArrayList<Observer>();
-        this.player = player;
-        player.setPosition(100, 100);
-        this.getGameObjects().add(this.player);
+        this.getGameObjects().add(playerCharacter);
 
         Defense defense = DefenseFactory.makeDefense(DefenseType.BIG);
         defense.setPosition(60, 160);

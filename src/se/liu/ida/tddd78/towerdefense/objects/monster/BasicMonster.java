@@ -11,6 +11,7 @@ import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
  */
 public class BasicMonster extends AbstractMovable implements Monster {
     private int health;
+    private int damage;
     private MonsterType type;
 
     public int getHealth() {
@@ -27,6 +28,11 @@ public class BasicMonster extends AbstractMovable implements Monster {
     }
 
     @Override
+    public int getDamage() {
+        return this.damage;
+    }
+
+    @Override
     public boolean isAlive() {
         return this.getHealth() > 0;
     }
@@ -36,9 +42,10 @@ public class BasicMonster extends AbstractMovable implements Monster {
         return type;
     }
 
-    public BasicMonster(int health, int size, int speed, MonsterType type) {
+    public BasicMonster(int health, int size, int speed, int damage, MonsterType type) {
         super(new Point(0,0), size, speed);
         this.health = health;
+        this.damage = damage;
         this.type = type;
     }
 

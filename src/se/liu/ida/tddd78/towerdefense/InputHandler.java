@@ -34,8 +34,8 @@ public class InputHandler {
         SPACE
     }
 
-    public InputHandler(JComponent frame) {
-        this.component = frame;
+    public InputHandler(JComponent component) {
+        this.component = component;
         this.keysPressedMap = new HashMap<>();
 
         mapKey(KeyEvent.VK_UP, Input.UP);

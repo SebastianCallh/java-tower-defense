@@ -14,6 +14,8 @@ public interface Defense extends GameObject {
 
     public int getRange();
 
+    public int getCost();
+
     public Projectile getProjectile();
 
     public void coolDown();

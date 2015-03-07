@@ -14,6 +14,8 @@ public interface Monster extends GameObject, Movable
 
     public void removeHealth(int health);
 
+    public int getDamage();
+
     public boolean isAlive();
 
     public MonsterType getType();

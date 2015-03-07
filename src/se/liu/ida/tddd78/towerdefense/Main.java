@@ -20,12 +20,17 @@ public final class Main {
     private Main() {}
 
     public static void main(String[] args) {
+        Player player = new Player();
+
         Board board = new Board(Layout.get(Type.STANDARD),
                 new Theme(ThemeType.GREEN_IS_GOOD),
-                CharacterFactory.makeCharacter(CharacterType.PLAYER));
+                player.getCharacter());
 
         Painter painter = new Painter(board);
-        Game game = new Game(board, new Collision(board), new InputHandler(painter));
+        Game game = new Game(board, player,
+                new Collision(board),
+                new InputHandler(painter));
+
         JFrame frame = new Frame("Java tower defense", board, painter);
 
         double previous = Calendar.getInstance().getTimeInMillis();
@@ -38,7 +43,6 @@ public final class Main {
 
 
             while (delay >= MS_PER_UPDATE) {
-                //TODO: Figure out what exactly to do with this
                 game.processInput();
                 game.update();
                 delay -= MS_PER_UPDATE;
