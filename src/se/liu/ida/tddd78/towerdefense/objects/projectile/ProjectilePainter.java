@@ -21,7 +21,7 @@ public final class ProjectilePainter implements Painter {
     }
 
     @Override
-    public void paint(Graphics2D g2d, Theme theme) {
+    public void paint(Graphics2D g2d, Theme theme, int scale) {
         Element element;
         switch (this.projectile.getType()) {
             case NORMAL:
@@ -32,9 +32,9 @@ public final class ProjectilePainter implements Painter {
         }
 
         g2d.setColor(theme.getStyle(element));
-        g2d.fillOval((int)projectile.getPosition().x - projectile.getSize(),
-                (int)projectile.getPosition().y  - projectile.getSize(),
-                projectile.getSize() * 2,
-                projectile.getSize() * 2);
+        g2d.fillOval((int) ((projectile.getPosition().x - projectile.getSize()) * scale),
+                (int) ((projectile.getPosition().y  - projectile.getSize())  * scale),
+                projectile.getSize() * 2 * scale,
+                projectile.getSize() * 2 * scale);
     }
 }

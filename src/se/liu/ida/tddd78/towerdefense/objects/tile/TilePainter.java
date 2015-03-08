@@ -27,7 +27,7 @@ public final class TilePainter implements Painter{
     }
 
     @Override
-    public void paint(Graphics2D g2d, Theme theme) {
+    public void paint(Graphics2D g2d, Theme theme, int scale) {
         Theme.Element element;
         switch (tile.getType()) {
             case PATH:
@@ -47,8 +47,10 @@ public final class TilePainter implements Painter{
         }
 
         g2d.setColor(theme.getStyle(element));
-        g2d.fillRect((int)tile.getPosition().x, (int)tile.getPosition().y ,
-                (int)Tile.TILE_SIZE, (int)Tile.TILE_SIZE);
+        g2d.fillRect((int) tile.getPosition().x * scale,
+                (int) tile.getPosition().y * scale,
+                (int) Tile.TILE_SIZE * scale,
+                (int) Tile.TILE_SIZE * scale);
     }
 
     public Tile getTile() {

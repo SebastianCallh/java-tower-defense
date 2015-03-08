@@ -11,13 +11,17 @@ import java.awt.*;
  */
 public class Painter extends JComponent implements Observer {
     private Board board;
-    private Dimension scale;
+    private int scale;
 
     public Painter(Board board) {
         this.board = board;
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.scale = new Dimension();
-        this.scale.setSize(screenSize.getWidth() / 10, screenSize.getHeight() / 10);
+        this.scale = this.getScaling(Toolkit.getDefaultToolkit().getScreenSize());
+    }
+
+    private int getScaling(Dimension screenSize) {
+        int screenWidth = (int)screenSize.getWidth();
+        return screenWidth == 3200 ? 3 :
+                screenWidth == 2560 ? 2 : 1;
     }
 
     @Override
@@ -31,21 +35,22 @@ public class Painter extends JComponent implements Observer {
 
     private void paintGameObjects(Graphics2D g2d) {
         for (GameObject gameObject : this.board.getGameObjects().getAll()) {
-            gameObject.getPainter().paint(g2d, this.board.getTheme());
+            gameObject.getPainter().paint(g2d, this.board.getTheme(), this.scale);
         }
     }
 
     private void paintTiles(Graphics2D g2d) {
         for (int x = 0; x < this.board.getWidth(); x++) {
             for (int y = 0; y < this.board.getHeight(); y++) {
-                this.board.getTile(x, y).getPainter().paint(g2d, this.board.getTheme());
+                this.board.getTile(x, y).getPainter().paint(g2d, this.board.getTheme(), this.scale);
             }
         }
     }
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(board.BOARD_SIZE, board.BOARD_SIZE);
+        return new Dimension((int)(board.BOARD_SIZE * this.scale),
+                (int)(board.BOARD_SIZE * this.scale));
     }
 
     @Override

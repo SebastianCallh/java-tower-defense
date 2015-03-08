@@ -23,7 +23,7 @@ public final class CharacterPainter implements Painter {
     }
 
     @Override
-    public void paint(Graphics2D g2d, Theme theme) {
+    public void paint(Graphics2D g2d, Theme theme, int scale) {
         Theme.Element element;
         switch (this.character.getType()) {
             case PLAYER:
@@ -37,10 +37,10 @@ public final class CharacterPainter implements Painter {
         }
 
         g2d.setColor(theme.getStyle(element));
-        g2d.fillOval((int)character.getPosition().x - character.getSize(),
-                (int)character.getPosition().y - character.getSize(),
-                character.getSize() * 2,
-                character.getSize() * 2);
+        g2d.fillOval((int) ((character.getPosition().x - character.getSize()) * scale),
+                (int) ((character.getPosition().y - character.getSize()) * scale),
+                character.getSize() * 2 * scale,
+                character.getSize() * 2 * scale);
     }
 
     public Character getCharacter() {

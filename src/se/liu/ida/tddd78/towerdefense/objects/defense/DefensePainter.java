@@ -23,7 +23,7 @@ public final class DefensePainter implements Painter {
     }
 
     @Override
-    public void paint(Graphics2D g2d, Theme theme) {
+    public void paint(Graphics2D g2d, Theme theme, int scale) {
         Theme.Element element;
         switch (this.defense.getType()) {
             case SMALL:
@@ -37,10 +37,10 @@ public final class DefensePainter implements Painter {
         }
 
         g2d.setColor(theme.getStyle(element));
-        g2d.fillOval((int)defense.getPosition().x - defense.getSize(),
-                (int)defense.getPosition().y - defense.getSize(),
-                defense.getSize() * 2,
-                defense.getSize() * 2);
+        g2d.fillOval((int) ((defense.getPosition().x - defense.getSize()) * scale),
+                (int) ((defense.getPosition().y - defense.getSize()) * scale),
+                defense.getSize() * 2 * scale,
+                defense.getSize() * 2 * scale);
     }
 
     public Defense getDefense() {

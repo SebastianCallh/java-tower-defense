@@ -8,5 +8,5 @@ import java.awt.*;
  * Created by Seba on 2015-02-14.
  */
 public interface Painter {
-    public void paint(Graphics2D g2d, Theme theme);
+    public void paint(Graphics2D g2d, Theme theme, int scale);
 }

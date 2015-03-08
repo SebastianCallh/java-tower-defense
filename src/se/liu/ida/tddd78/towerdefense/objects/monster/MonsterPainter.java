@@ -24,7 +24,7 @@ public final class MonsterPainter implements Painter{
     }
 
     @Override
-    public void paint(Graphics2D g2d, Theme theme) {
+    public void paint(Graphics2D g2d, Theme theme, int scale) {
         Element element;
         switch (this.monster.getType()) {
             case SMALL:
@@ -38,9 +38,9 @@ public final class MonsterPainter implements Painter{
         }
 
         g2d.setColor(theme.getStyle(element));
-        g2d.fillOval((int)monster.getPosition().x - monster.getSize(),
-                (int)monster.getPosition().y - monster.getSize(),
-                monster.getSize() * 2,
-                monster.getSize() * 2);
+        g2d.fillOval((int) ((monster.getPosition().x - monster.getSize()) * scale),
+                (int) ((monster.getPosition().y - monster.getSize()) * scale),
+                monster.getSize() * 2 * scale,
+                monster.getSize() * 2 * scale);
     }
 }
