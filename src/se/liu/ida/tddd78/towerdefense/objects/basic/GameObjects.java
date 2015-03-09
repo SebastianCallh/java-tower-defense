@@ -1,5 +1,6 @@
 package se.liu.ida.tddd78.towerdefense.objects.basic;
 
+import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.objects.GameObject;
 import se.liu.ida.tddd78.towerdefense.objects.character.Character;
 import se.liu.ida.tddd78.towerdefense.objects.defense.Defense;
@@ -70,19 +71,23 @@ public class GameObjects
         return this.getAll().size();
     }
 
-    public void removeObsoleteObjects() {
-        removeObsoleteObjects(this.monsters);
-        removeObsoleteObjects(this.defenses);
-        removeObsoleteObjects(this.projectiles);
+    public List<Command> removeObsoleteObjects() {
+        List<Command> removeCommands = removeObsoleteObjects(this.monsters);
+        removeCommands.addAll(removeObsoleteObjects(this.defenses));
+        removeCommands.addAll(removeObsoleteObjects(this.projectiles));
+        return removeCommands;
     }
 
-    private void removeObsoleteObjects(List<? extends GameObject> list) {
+    private List<Command> removeObsoleteObjects(List<? extends GameObject> list) {
+        List<Command> removeCommands = new ArrayList<>();
         Iterator<? extends GameObject> iterator = list.iterator();
         while (iterator.hasNext()) {
             GameObject gameObject = iterator.next();
             if (gameObject.isRemoved()) {
+                removeCommands.add(gameObject.getOnRemovedCommand());
                 iterator.remove();
             }
         }
+        return removeCommands;
     }
 }

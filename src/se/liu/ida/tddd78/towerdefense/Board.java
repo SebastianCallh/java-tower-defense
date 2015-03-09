@@ -1,6 +1,6 @@
 package se.liu.ida.tddd78.towerdefense;
 
-import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
+import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
 import se.liu.ida.tddd78.towerdefense.objects.GameObject;
 import se.liu.ida.tddd78.towerdefense.objects.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
@@ -22,7 +22,7 @@ public class Board {
     private Layout layout;
     private Theme theme;
     private GameObjects gameObjects = new GameObjects();
-    private List<Observer> observers;
+    private List<GameObserver> gameObservers;
 
     //TODO:Make size of window/board/tiles work solely out of the layout files size
     public final static int BOARD_SIZE = 400;
@@ -68,7 +68,7 @@ public class Board {
     public Board(Layout layout, Theme theme, Character playerCharacter) {
         this.layout = layout;
         this.theme = theme;
-        this.observers = new ArrayList<Observer>();
+        this.gameObservers = new ArrayList<GameObserver>();
         this.getGameObjects().add(playerCharacter);
 
         Defense defense = DefenseFactory.makeDefense(DefenseType.BIG);
@@ -76,12 +76,12 @@ public class Board {
         this.getGameObjects().add(defense);
     }
 
-    public void addObserver(Observer observer) {
-        this.observers.add(observer);
+    public void addObserver(GameObserver gameObserver) {
+        this.gameObservers.add(gameObserver);
     }
 
-    public void removeObserver(Observer observer) {
-        this.observers.remove(observer);
+    public void removeObserver(GameObserver gameObserver) {
+        this.gameObservers.remove(gameObserver);
     }
 
     //*The method that runs every game-loop-update*//
@@ -89,6 +89,5 @@ public class Board {
         for (GameObject object : this.getGameObjects().getAll()) {
             object.update(this);
         }
-        this.getGameObjects().removeObsoleteObjects();
     }
 }

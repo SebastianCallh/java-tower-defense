@@ -1,9 +1,11 @@
 package se.liu.ida.tddd78.towerdefense.objects.monster;
 
 import se.liu.ida.tddd78.towerdefense.Board;
+import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
 import se.liu.ida.tddd78.towerdefense.abstracts.AbstractMovable;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
+import se.liu.ida.tddd78.towerdefense.objects.commands.BountyCommand;
 import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 
 /**
@@ -13,6 +15,7 @@ public class BasicMonster extends AbstractMovable implements Monster {
     private int health;
     private int damage;
     private MonsterType type;
+    private int bounty;
 
     public int getHealth() {
         return this.health;
@@ -42,10 +45,11 @@ public class BasicMonster extends AbstractMovable implements Monster {
         return type;
     }
 
-    public BasicMonster(int health, int size, int speed, int damage, MonsterType type) {
+    public BasicMonster(int health, int size, int speed, int damage, int bounty, MonsterType type) {
         super(new Point(0,0), size, speed);
         this.health = health;
         this.damage = damage;
+        this.bounty = bounty;
         this.type = type;
     }
 
@@ -69,5 +73,10 @@ public class BasicMonster extends AbstractMovable implements Monster {
         } else {
             this.setRemoved(true);
         }
+    }
+
+    @Override
+    public Command getOnRemovedCommand() {
+        return new BountyCommand(this.bounty);
     }
 }

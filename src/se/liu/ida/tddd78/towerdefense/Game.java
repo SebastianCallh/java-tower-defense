@@ -6,6 +6,7 @@ import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
 import se.liu.ida.tddd78.towerdefense.objects.monster.*;
 import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 
+import java.util.List;
 import java.util.Queue;
 
 public class Game {
@@ -48,6 +49,10 @@ public class Game {
     public void update() {
         this.board.update();
         this.checkState();
+        List<Command> removeCommands = this.board.getGameObjects().removeObsoleteObjects();
+        removeCommands.stream().filter(command -> command != null).forEach(command -> {
+            command.execute(this.player, this.board);
+        });
     }
 
     private void checkState() {

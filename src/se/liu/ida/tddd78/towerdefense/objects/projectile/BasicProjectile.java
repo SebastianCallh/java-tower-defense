@@ -2,6 +2,7 @@ package se.liu.ida.tddd78.towerdefense.objects.projectile;
 
 import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.Collision;
+import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
 import se.liu.ida.tddd78.towerdefense.abstracts.AbstractMovable;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
@@ -49,17 +50,22 @@ public class BasicProjectile extends AbstractMovable implements Projectile {
 
     @Override
     public void update(Board board) {
-        if (this.getTarget() != null &&
-                Collision.distanceBetween(this, this.getTarget()) < this.getSize()) {
-            this.getTarget().removeHealth(this.getDamage());
-            this.setRemoved(true);
+        if (this.getTarget() != null) {
+            if (Collision.distanceBetween(this, this.getTarget()) < this.getSize()) {
+                this.getTarget().removeHealth(this.getDamage());
+                this.setRemoved(true);
+            }
+
+            double angle = Math.atan2(this.getTarget().getPosition().y - this.getPosition().y,
+                    this.getTarget().getPosition().x - this.getPosition().x);
+
+            double x = this.getPosition().x + Math.cos(angle) * this.getSpeed();
+            double y = this.getPosition().y + Math.sin(angle) * this.getSpeed();
+            this.setPosition(x, y);
         }
-
-        double angle = Math.atan2(this.getTarget().getPosition().y - this.getPosition().y,
-                this.getTarget().getPosition().x - this.getPosition().x);
-
-        double x = this.getPosition().x + Math.cos(angle) * this.getSpeed();
-        double y = this.getPosition().y + Math.sin(angle) * this.getSpeed();
-        this.setPosition(x, y);
+    }
+    @Override
+    public Command getOnRemovedCommand() {
+        return null;
     }
 }

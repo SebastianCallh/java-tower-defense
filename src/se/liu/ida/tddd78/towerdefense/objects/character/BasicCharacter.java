@@ -1,6 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.objects.character;
 
 import se.liu.ida.tddd78.towerdefense.Board;
+import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
 import se.liu.ida.tddd78.towerdefense.abstracts.AbstractMovable;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
@@ -27,5 +28,11 @@ public class BasicCharacter extends AbstractMovable implements Character {
 
     @Override
     public void update(Board board) {
-   }
+
+    }
+
+    @Override
+    public Command getOnRemovedCommand() {
+        return null;
+    }
 }

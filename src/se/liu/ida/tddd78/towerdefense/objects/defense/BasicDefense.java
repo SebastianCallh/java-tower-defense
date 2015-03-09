@@ -2,6 +2,7 @@ package se.liu.ida.tddd78.towerdefense.objects.defense;
 
 import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.Collision;
+import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
 import se.liu.ida.tddd78.towerdefense.abstracts.AbstractGameObject;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
@@ -95,5 +96,10 @@ public class BasicDefense extends AbstractGameObject implements Defense {
                 }
             }
         }
+    }
+
+    @Override
+    public Command getOnRemovedCommand() {
+        return null;
     }
 }
