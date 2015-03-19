@@ -84,8 +84,7 @@ public class BasicDefense extends AbstractGameObject implements Defense {
         if (this.getTarget() != null && !this.getTarget().isRemoved()) {
             if (Collision.distanceBetween(this, this.getTarget()) > this.getRange()) {
                 this.setTarget(null);
-            }
-            if (!this.isCoolingDown()) {
+            } else if (!this.isCoolingDown()) {
                 board.getGameObjects().add(this.getProjectile());
                 this.coolDown();
             }
