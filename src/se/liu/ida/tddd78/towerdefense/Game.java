@@ -12,7 +12,6 @@ import java.util.Queue;
 public class Game {
 	private Board board;
     private Player player;
-	private Collision collisionHandler;
     private InputHandler inputHandler;
 	private int round;
 	private int monstersRemaining;
@@ -27,7 +26,6 @@ public class Game {
 
 	public Game(Board board,
                 Player player,
-                Collision collisionHandler,
                 InputHandler inputHandler) {
 		this.board = board;
         this.player = player;
@@ -35,7 +33,6 @@ public class Game {
         this.player.setMoney(STARTING_MONEY);
         this.player.getCharacter().setPosition(STARTING_POSITION);
 
-		this.collisionHandler = collisionHandler;
         this.inputHandler = inputHandler;
 		this.round = 1;
 		this.monstersRemaining = 10;
@@ -117,10 +114,10 @@ public class Game {
 	private void checkForFinishedMonsters() {
 		Tile goalTile = this.board.getGoal();
 		for (Monster monster : this.board.getGameObjects().getMonsters()) {
-			if (collisionHandler.isAtCenter(monster, goalTile)) {
-				monster.setRemoved(true);
-				removeLife(monster.getDamage());
-			}
+            if (goalTile== this.board.getTileUnderObject(monster)) {
+                monster.setRemoved(true);
+                removeLife(monster.getDamage());
+            }
 		}
 	}
 

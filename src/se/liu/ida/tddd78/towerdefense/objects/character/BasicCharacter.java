@@ -3,7 +3,7 @@ package se.liu.ida.tddd78.towerdefense.objects.character;
 import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
-import se.liu.ida.tddd78.towerdefense.abstracts.AbstractMovable;
+import se.liu.ida.tddd78.towerdefense.objects.abstracts.AbstractMovable;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**

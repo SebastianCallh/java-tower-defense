@@ -1,16 +1,13 @@
 package se.liu.ida.tddd78.towerdefense;
 
-import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.objects.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.Layout.Type;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeType;
-import se.liu.ida.tddd78.towerdefense.objects.character.CharacterFactory;
-import se.liu.ida.tddd78.towerdefense.objects.character.CharacterType;
+import se.liu.ida.tddd78.towerdefense.utils.Collision;
 
 import javax.swing.*;
 import java.util.Calendar;
-import java.util.Queue;
 
 /**
  * Created by Seba on 2015-01-23.
@@ -28,7 +25,6 @@ public final class Main {
 
         Painter painter = new Painter(board);
         Game game = new Game(board, player,
-                new Collision(board),
                 new InputHandler(painter));
 
         JFrame frame = new Frame("Java tower defense", board, painter);

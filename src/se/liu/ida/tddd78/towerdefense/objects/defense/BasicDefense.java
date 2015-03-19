@@ -1,10 +1,10 @@
 package se.liu.ida.tddd78.towerdefense.objects.defense;
 
 import se.liu.ida.tddd78.towerdefense.Board;
-import se.liu.ida.tddd78.towerdefense.Collision;
+import se.liu.ida.tddd78.towerdefense.utils.Collision;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
-import se.liu.ida.tddd78.towerdefense.abstracts.AbstractGameObject;
+import se.liu.ida.tddd78.towerdefense.objects.abstracts.AbstractGameObject;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
 import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;

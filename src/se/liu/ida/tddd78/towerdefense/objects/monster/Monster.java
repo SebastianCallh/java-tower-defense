@@ -1,7 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.objects.monster;
 
-import se.liu.ida.tddd78.towerdefense.interfaces.Movable;
-import se.liu.ida.tddd78.towerdefense.objects.GameObject;
+import se.liu.ida.tddd78.towerdefense.objects.abstracts.Movable;
+import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
 
 /**
  * Created by Seba on 2015-02-12.

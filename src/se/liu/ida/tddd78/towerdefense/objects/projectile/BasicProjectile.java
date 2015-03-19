@@ -1,10 +1,10 @@
 package se.liu.ida.tddd78.towerdefense.objects.projectile;
 
 import se.liu.ida.tddd78.towerdefense.Board;
-import se.liu.ida.tddd78.towerdefense.Collision;
+import se.liu.ida.tddd78.towerdefense.utils.Collision;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
-import se.liu.ida.tddd78.towerdefense.abstracts.AbstractMovable;
+import se.liu.ida.tddd78.towerdefense.objects.abstracts.AbstractMovable;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
 
@@ -51,14 +51,12 @@ public class BasicProjectile extends AbstractMovable implements Projectile {
     @Override
     public void update(Board board) {
         if (this.getTarget() != null) {
-            if (Collision.distanceBetween(this, this.getTarget()) < this.getSize()) {
+            if (Collision.isColliding(this, this.getTarget())) {
                 this.getTarget().removeHealth(this.getDamage());
                 this.setRemoved(true);
             }
 
-            double angle = Math.atan2(this.getTarget().getPosition().y - this.getPosition().y,
-                    this.getTarget().getPosition().x - this.getPosition().x);
-
+            double angle = Collision.getAngle(this.getTarget(), this);
             double x = this.getPosition().x + Math.cos(angle) * this.getSpeed();
             double y = this.getPosition().y + Math.sin(angle) * this.getSpeed();
             this.setPosition(x, y);

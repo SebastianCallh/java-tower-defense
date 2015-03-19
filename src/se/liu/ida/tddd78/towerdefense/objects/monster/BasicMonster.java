@@ -3,10 +3,11 @@ package se.liu.ida.tddd78.towerdefense.objects.monster;
 import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
-import se.liu.ida.tddd78.towerdefense.abstracts.AbstractMovable;
+import se.liu.ida.tddd78.towerdefense.objects.abstracts.AbstractMovable;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.commands.BountyCommand;
 import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
+import se.liu.ida.tddd78.towerdefense.utils.Collision;
 
 /**
  * Created by Seba on 2015-01-24.
@@ -61,16 +62,13 @@ public class BasicMonster extends AbstractMovable implements Monster {
     @Override
     public void update(Board board) {
         if (this.isAlive()) {
-            Point position = this.getPosition();
             Tile current = board.getTileUnderObject(this);
             Tile next = board.getPath().get(current);
 
-            double angle = Math.atan2(next.getCenter().y - position.y,
-                    next.getCenter().x - position.x);
+            double angle = Collision.getAngle(next.getCenter(), this.getPosition());
+            this.move(angle);
 
-            this.setPosition(position.x + Math.cos(angle) * this.getSpeed(),
-                    position.y + Math.sin(angle) * this.getSpeed());
-        } else {
+            } else {
             this.setRemoved(true);
         }
     }

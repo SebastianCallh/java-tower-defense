@@ -1,6 +1,5 @@
-package se.liu.ida.tddd78.towerdefense.abstracts;
+package se.liu.ida.tddd78.towerdefense.objects.abstracts;
 
-import se.liu.ida.tddd78.towerdefense.objects.GameObject;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**

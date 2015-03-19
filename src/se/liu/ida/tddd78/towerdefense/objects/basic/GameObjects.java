@@ -1,7 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.objects.basic;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
-import se.liu.ida.tddd78.towerdefense.objects.GameObject;
+import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
 import se.liu.ida.tddd78.towerdefense.objects.character.Character;
 import se.liu.ida.tddd78.towerdefense.objects.defense.Defense;
 import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;

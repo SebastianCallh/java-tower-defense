@@ -23,8 +23,9 @@ public class Tile implements Paintable {
     }
 
     public Point getCenter() {
-        return new Point(this.getPosition().x + TILE_SIZE / 2,
-                this.getPosition().y + TILE_SIZE / 2);
+        Point position = this.getPosition();
+        return new Point(position.x + TILE_SIZE / 2,
+                position.y + TILE_SIZE / 2);
     }
 
     public TileType getType() {

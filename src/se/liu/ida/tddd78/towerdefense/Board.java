@@ -1,8 +1,8 @@
 package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
-import se.liu.ida.tddd78.towerdefense.objects.GameObject;
 import se.liu.ida.tddd78.towerdefense.objects.Layout;
+import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.basic.GameObjects;
 import se.liu.ida.tddd78.towerdefense.objects.character.Character;

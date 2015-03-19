@@ -1,4 +1,4 @@
-package se.liu.ida.tddd78.towerdefense.objects;
+package se.liu.ida.tddd78.towerdefense.objects.abstracts;
 
 import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;

@@ -2,7 +2,7 @@ package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Direction;
-import se.liu.ida.tddd78.towerdefense.objects.commands.BuyDefenseCommand;
+import se.liu.ida.tddd78.towerdefense.objects.commands.BuyCommand;
 import se.liu.ida.tddd78.towerdefense.objects.commands.MoveCommand;
 
 import javax.swing.*;
@@ -23,7 +23,7 @@ public class InputHandler {
         put(Input.DOWN, new MoveCommand(Direction.SOUTH));
         put(Input.LEFT, new MoveCommand(Direction.WEST));
         put(Input.RIGHT, new MoveCommand(Direction.EAST));
-        put(Input.SPACE, new BuyDefenseCommand());
+        put(Input.SPACE, new BuyCommand());
     }};
 
     public enum Input {
@@ -86,6 +86,6 @@ public class InputHandler {
         return this.keysPressedMap.keySet().stream()
                 .filter(this.keysPressedMap::get)
                 .map(this.commandMap::get)
-                .collect(Collectors.toCollection(() -> new ConcurrentLinkedQueue<Command>()));
+                .collect(Collectors.toCollection(ConcurrentLinkedQueue::new));
     }
 }

@@ -1,7 +1,7 @@
 package se.liu.ida.tddd78.towerdefense;
 
-import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
-import se.liu.ida.tddd78.towerdefense.objects.GameObject;
+import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
+import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * Created by Seba on 2015-01-23.
  */
-public class Painter extends JComponent implements Observer {
+public class Painter extends JComponent implements GameObserver {
     private Board board;
     private int scale;
 
@@ -20,7 +20,8 @@ public class Painter extends JComponent implements Observer {
 
     private int getScaling(Dimension screenSize) {
         int screenWidth = (int)screenSize.getWidth();
-        return screenWidth == 3200 ? 3 :
+        return  screenWidth == 4000 ? 4 :
+                screenWidth == 3200 ? 3 :
                 screenWidth == 2560 ? 2 : 1;
     }
 
@@ -30,6 +31,7 @@ public class Painter extends JComponent implements Observer {
         final Graphics2D g2d = (Graphics2D) g;
         paintTiles(g2d);
         paintGameObjects(g2d);
+        paintUI(g2d);
         this.setDoubleBuffered(true);
     }
 
@@ -47,14 +49,18 @@ public class Painter extends JComponent implements Observer {
         }
     }
 
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension((int)(board.BOARD_SIZE * this.scale),
-                (int)(board.BOARD_SIZE * this.scale));
+    private void paintUI(Graphics2D g2d) {
+        //g2d.drawString();
     }
 
     @Override
-    public void onNotify() {
-        this.repaint();
+    public Dimension getPreferredSize() {
+        return new Dimension(Board.BOARD_SIZE * this.scale,
+                Board.BOARD_SIZE * this.scale);
+    }
+
+    @Override
+    public void onNotify(Game game) {
+        this.repaint( );
     }
 }
