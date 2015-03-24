@@ -13,29 +13,32 @@ public class Game {
 	private Board board;
     private Player player;
     private InputHandler inputHandler;
-	private int round;
-	private int monstersRemaining;
+	private Spawner spawner;
+    private int round;
+	private List<Monster> spawnList;
 
     private Timer roundTimer;
     private Timer spawnTimer;
 
     private State state;
-    private int STARTING_LIVES = 10;
-    private int STARTING_MONEY = 500;
-    private Point STARTING_POSITION = new Point(100, 100);
+    private static int STARTING_LIVES = 10;
+    private static int STARTING_MONEY = 500;
+    private static Point STARTING_POSITION = new Point(100, 100);
 
 	public Game(Board board,
                 Player player,
-                InputHandler inputHandler) {
+                InputHandler inputHandler,
+                Spawner spawner) {
 		this.board = board;
         this.player = player;
+        this.inputHandler = inputHandler;
+        this.spawner = spawner;
+
         this.player.setLives(STARTING_LIVES);
         this.player.setMoney(STARTING_MONEY);
         this.player.getCharacter().setPosition(STARTING_POSITION);
 
-        this.inputHandler = inputHandler;
-		this.round = 1;
-		this.monstersRemaining = 10;
+		this.round = 0;
 
         this.roundTimer = new Timer(2000);
         this.spawnTimer = new Timer(500);
@@ -61,9 +64,9 @@ public class Game {
 
                 break;
             case ROUND:
-                if (this.monstersRemaining > 0) {
+                if (!this.spawnList.isEmpty()) {
                     if (this.spawnTimer.hasCompleted()) {
-                        spawnNewMonster();
+                        spawnNewMonsters();
                     }
                 } else if (board.getGameObjects().getMonsters().size() == 0) {
                     nextRound();
@@ -73,8 +76,7 @@ public class Game {
 
                 break;
             case GAME_OVER:
-                System.out.println("We lost");
-
+                this.state = State.GAME_OVER;
                 break;
         }
     }
@@ -98,17 +100,15 @@ public class Game {
 
         this.state = State.ROUND;
         this.spawnTimer.reset();
-        this.monstersRemaining = 10;
         this.round++;
+        this.spawnList = this.spawner.spawn(this.round);
     }
 
-    private void spawnNewMonster() {
-        Monster monster = MonsterFactory.makeMonster(MonsterType.SMALL); // TODO: Pick monster from round
+    private void spawnNewMonsters() {
+        Monster monster = this.spawnList.remove(this.spawnList.size() - 1);
         monster.setPosition(this.board.getSpawn().getCenter());
-
         this.spawnTimer.reset();
         this.board.getGameObjects().add(monster);
-        this.monstersRemaining--;
     }
 
 	private void checkForFinishedMonsters() {

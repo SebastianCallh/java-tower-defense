@@ -25,7 +25,8 @@ public final class Main {
 
         Painter painter = new Painter(board);
         Game game = new Game(board, player,
-                new InputHandler(painter));
+                new InputHandler(painter),
+                new Spawner());
 
         JFrame frame = new Frame("Java tower defense", board, painter);
 

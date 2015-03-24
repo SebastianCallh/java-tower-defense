@@ -76,8 +76,16 @@
             vi bör överväga att byta till ett observer-pattern istället för att löskoppla bättre.
         </li>
         <li>
-            <h2>IMPLEMENTATION</h2>
-            MOTIVATION
+            <h2>RemovedCommands</h2>
+            För att kunna köra logik på när monster och försvar förstörs så returnerar de ett command som
+            sedan exekveras i game på en högre nivå som har tillgång till alla nödvändiga objekt.
+        </li>
+        <li>
+            <h2>Spawner</h2>
+            En spawner-klass hanterar vilka monster som ska skapas utifrån vilken runda man är på.
+            Ju senare in i spelet man är desto fler "monster-poäng" får spawnern att spendera på
+            monster. Den kommer alltid "köpa" det monster som är dyrast för att skapa en så
+            svår runda som möjligt.
         </li>
     </ul>
     <!--BOILERPLATE
