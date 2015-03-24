@@ -3,6 +3,7 @@ package se.liu.ida.tddd78.towerdefense;
 import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
 import se.liu.ida.tddd78.towerdefense.objects.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
+import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.basic.GameObjects;
 import se.liu.ida.tddd78.towerdefense.objects.character.Character;
@@ -39,9 +40,13 @@ public class Board {
         return this.layout.getTile(x, y);
     }
 
-    public Tile getTileUnderObject(GameObject object) {
-        return this.getTile(Math.floorDiv((int)object.getPosition().x, (int)Tile.TILE_SIZE),
-                Math.floorDiv((int)object.getPosition().y, (int)Tile.TILE_SIZE));
+    public Tile getTileUnder(GameObject object) {
+        return this.getTileUnder(object.getPosition());
+    }
+
+    public Tile getTileUnder(Point point) {
+        return this.getTile(Math.floorDiv((int)point.x, (int)Tile.TILE_SIZE),
+                Math.floorDiv((int)point.y, (int)Tile.TILE_SIZE));
     }
 
     public GameObjects getGameObjects() {

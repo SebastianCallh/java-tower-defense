@@ -62,7 +62,7 @@ public class BasicMonster extends AbstractMovable implements Monster {
     @Override
     public void update(Board board) {
         if (this.isAlive()) {
-            Tile current = board.getTileUnderObject(this);
+            Tile current = board.getTileUnder(this);
             Tile next = board.getPath().get(current);
 
             double angle = Collision.getAngle(next.getCenter(), this.getPosition());

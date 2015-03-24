@@ -76,7 +76,7 @@ public class Game {
 
                 break;
             case GAME_OVER:
-                this.state = State.GAME_OVER;
+
                 break;
         }
     }
@@ -113,12 +113,12 @@ public class Game {
 
 	private void checkForFinishedMonsters() {
 		Tile goalTile = this.board.getGoal();
-		for (Monster monster : this.board.getGameObjects().getMonsters()) {
-            if (goalTile== this.board.getTileUnderObject(monster)) {
-                monster.setRemoved(true);
-                removeLife(monster.getDamage());
-            }
-		}
+        this.board.getGameObjects().getMonsters().stream()
+                .filter(monster -> goalTile == this.board.getTileUnder(monster))
+                .forEach(monster -> {
+            monster.setRemoved(true);
+            removeLife(monster.getDamage());
+        });
 	}
 
     private void removeLife(int amount) {
