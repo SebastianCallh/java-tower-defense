@@ -98,7 +98,7 @@ public class BasicDefense extends AbstractGameObject implements Defense {
     }
 
     @Override
-    public Command getOnRemovedCommand() {
+    public Command remove() {
         return null;
     }
 }

@@ -63,7 +63,7 @@ public class BasicProjectile extends AbstractMovable implements Projectile {
         }
     }
     @Override
-    public Command getOnRemovedCommand() {
+    public Command remove() {
         return null;
     }
 }
