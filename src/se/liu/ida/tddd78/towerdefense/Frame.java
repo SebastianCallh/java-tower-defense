@@ -1,5 +1,6 @@
 package se.liu.ida.tddd78.towerdefense;
 
+import se.liu.ida.tddd78.towerdefense.ui.EconomyPanel;
 import se.liu.ida.tddd78.towerdefense.ui.ScorePanel;
 
 import javax.swing.*;
@@ -12,11 +13,9 @@ import java.awt.event.WindowEvent;
  */
 public class Frame extends JFrame {
 
-    public Frame(String title, Board board, Painter painter, ScorePanel scorePanel) throws HeadlessException {
+    public Frame(String title, Board board) throws HeadlessException {
         super(title);
         this.setLayout(new BorderLayout());
-        this.add(painter, BorderLayout.CENTER);
-        this.add(scorePanel, BorderLayout.PAGE_START);
 
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -24,8 +23,11 @@ public class Frame extends JFrame {
                 System.exit(0);
             }
         });
-
-        this.pack();
-        this.setVisible(true);
     }
+
+    public void create() {
+        pack();
+        setVisible(true);
+    }
+
 }

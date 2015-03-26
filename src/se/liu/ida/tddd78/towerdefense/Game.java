@@ -8,6 +8,7 @@ import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
 import se.liu.ida.tddd78.towerdefense.objects.monster.*;
 import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
@@ -17,7 +18,7 @@ public class Game implements Observer {
     private InputHandler inputHandler;
 	private int round;
 	private int monstersRemaining;
-    private GameObserver scoreObserver;
+    private List<GameObserver> scoreObservers;
 	private Spawner spawner;
 	private List<Monster> spawnList;
 
@@ -32,14 +33,13 @@ public class Game implements Observer {
 	public Game(Board board,
                 Player player,
                 InputHandler inputHandler,
-		        Spawner spawner,
-                GameObserver scoreObserver) {
+		        Spawner spawner) {
 	this.board = board;
         this.player = player;
         this.player.addScoreObserver(this);
-        this.scoreObserver = scoreObserver;
         this.inputHandler = inputHandler;
         this.spawner = spawner;
+        this.scoreObservers = new ArrayList<>();
 
         this.player.setLives(STARTING_LIVES);
         this.player.setMoney(STARTING_MONEY);
@@ -154,7 +154,7 @@ public class Game implements Observer {
     }
 
     private void notifyScoreChanged() {
-        if (this.scoreObserver != null) {
+        for (GameObserver scoreObserver : scoreObservers) {
             scoreObserver.onNotify(this);
         }
     }
@@ -162,6 +162,11 @@ public class Game implements Observer {
     @Override
     public void onNotify() {
         notifyScoreChanged();
+    }
+
+    public void addScoreObserver(GameObserver scoreObserver) {
+        this.scoreObservers.add(scoreObserver);
+        scoreObserver.onNotify(this);
     }
 
     private enum State {

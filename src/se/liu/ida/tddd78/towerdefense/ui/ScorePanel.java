@@ -9,30 +9,33 @@ import java.awt.*;
 
 public class ScorePanel extends JPanel implements GameObserver {
     private static final String ROUND_FORMAT = "Round: %d";
-    private static final String LIFES_FORMAT = "Lifes: %d";
+    private static final String LIVES_FORMAT = "Lives: %d";
     private static final int BORDER_SIZE = 5;
 
     private JLabel roundLabel;
-    private JLabel lifesLabel;
+    private JLabel livesLabel;
 
-    public ScorePanel() {
+    private int scale;
+
+    public ScorePanel(int scale) {
+        this.scale = scale;
         initLayout();
     }
 
     private void initLayout() {
-        roundLabel = new JLabel();
-        lifesLabel = new JLabel();
+        roundLabel = new ScaledJLabel(this.scale);
+        livesLabel = new ScaledJLabel(this.scale);
 
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
 
         add(roundLabel, BorderLayout.LINE_START);
-        add(lifesLabel, BorderLayout.LINE_END);
+        add(livesLabel, BorderLayout.LINE_END);
     }
 
     @Override
     public void onNotify(Game game) {
         roundLabel.setText(String.format(ROUND_FORMAT, game.getRound()));
-        lifesLabel.setText(String.format(LIFES_FORMAT, game.getPlayer().getLives()));
+        livesLabel.setText(String.format(LIVES_FORMAT, game.getPlayer().getLives()));
     }
 }

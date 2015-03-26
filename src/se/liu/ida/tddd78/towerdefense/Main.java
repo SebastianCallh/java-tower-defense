@@ -4,10 +4,13 @@ import se.liu.ida.tddd78.towerdefense.objects.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.Layout.Type;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeType;
+import se.liu.ida.tddd78.towerdefense.ui.EconomyPanel;
 import se.liu.ida.tddd78.towerdefense.ui.ScorePanel;
 import se.liu.ida.tddd78.towerdefense.utils.Collision;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.util.Calendar;
 
 /**
@@ -25,13 +28,19 @@ public final class Main {
                 player.getCharacter());
 
         Painter painter = new Painter(board);
-        ScorePanel scorePanel = new ScorePanel();
+        ScorePanel scorePanel = new ScorePanel(painter.getScale());
+        EconomyPanel economyPanel = new EconomyPanel(painter.getScale());
+
         Game game = new Game(board, player,
-			     new InputHandler(painter), new Spawner(), scorePanel);
+			     new InputHandler(painter), new Spawner());
+        game.addScoreObserver(scorePanel);
+        game.addScoreObserver(economyPanel);
 
-
-
-        JFrame frame = new Frame("Java tower defense", board, painter, scorePanel);
+        Frame frame = new Frame("Java tower defense", board);
+        frame.add(painter, BorderLayout.CENTER);
+        frame.add(scorePanel, BorderLayout.PAGE_START);
+        frame.add(economyPanel, BorderLayout.PAGE_END);
+        frame.create();
 
         double previous = System.currentTimeMillis();
         double delay = 0.0;

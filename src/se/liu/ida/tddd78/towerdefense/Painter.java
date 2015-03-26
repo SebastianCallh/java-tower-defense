@@ -25,6 +25,10 @@ public class Painter extends JComponent implements GameObserver {
                 screenWidth == 2560 ? 2 : 1;
     }
 
+    public int getScale() {
+        return this.scale;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
