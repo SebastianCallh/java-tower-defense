@@ -32,7 +32,7 @@ public class Game implements Observer {
 	public Game(Board board,
                 Player player,
                 InputHandler inputHandler,
-		Spawner spawner
+		        Spawner spawner,
                 GameObserver scoreObserver) {
 	this.board = board;
         this.player = player;

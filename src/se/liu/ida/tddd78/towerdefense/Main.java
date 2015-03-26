@@ -27,7 +27,7 @@ public final class Main {
         Painter painter = new Painter(board);
         ScorePanel scorePanel = new ScorePanel();
         Game game = new Game(board, player,
-			     new InputHandler(painter), new Spawner(), ScorePanel);
+			     new InputHandler(painter), new Spawner(), scorePanel);
 
 
 
