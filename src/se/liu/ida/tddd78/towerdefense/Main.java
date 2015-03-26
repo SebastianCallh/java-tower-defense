@@ -4,6 +4,7 @@ import se.liu.ida.tddd78.towerdefense.objects.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.Layout.Type;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeType;
+import se.liu.ida.tddd78.towerdefense.ui.ScorePanel;
 import se.liu.ida.tddd78.towerdefense.utils.Collision;
 
 import javax.swing.*;
@@ -24,15 +25,18 @@ public final class Main {
                 player.getCharacter());
 
         Painter painter = new Painter(board);
+        ScorePanel scorePanel = new ScorePanel();
         Game game = new Game(board, player,
-                new InputHandler(painter));
+                new InputHandler(painter), scorePanel);
 
-        JFrame frame = new Frame("Java tower defense", board, painter);
 
-        double previous = Calendar.getInstance().getTimeInMillis();
+
+        JFrame frame = new Frame("Java tower defense", board, painter, scorePanel);
+
+        double previous = System.currentTimeMillis();
         double delay = 0.0;
         while(true) {
-            double current = Calendar.getInstance().getTimeInMillis();
+            double current = System.currentTimeMillis();
             double elapsed = current - previous;
             previous = current;
             delay += elapsed;
