@@ -4,12 +4,10 @@ import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.Player;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
-import se.liu.ida.tddd78.towerdefense.objects.defense.BasicDefense;
+import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.defense.Defense;
 import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseFactory;
-import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseType;
 import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
-import se.liu.ida.tddd78.towerdefense.objects.tile.TileType;
 import se.liu.ida.tddd78.towerdefense.utils.Collision;
 
 import java.util.List;
@@ -33,7 +31,20 @@ public class BuyCommand implements Command {
                 }
 
                 for (Map.Entry<Tile, Tile> tile : board.getPath().entrySet()) {
-                    if (board.getTileUnderObject(defense) == tile) {
+                    if (board.getTileUnder(defense) == tile) {
+                        return;
+                    }
+                }
+                //TODO:Will probably act out if defense size is bigger than tile
+                Map<Tile, Tile> path = board.getPath();
+                Point defensePos = defense.getPosition();
+                for (Map.Entry<Tile, Tile> entry : path.entrySet()) {
+                    Point tilePos = entry.getValue().getCenter();
+                    double angle = Math.atan2(tilePos.y - defensePos.y, tilePos.x - defensePos.x);
+                    Point closestPos = new Point(defensePos.x + (Math.cos(angle) * defense.getSize()),
+                            defensePos.y + (Math.sin(angle) * defense.getSize()));
+
+                    if (board.getTileUnder(closestPos) == entry.getValue()) {
                         return;
                     }
                 }

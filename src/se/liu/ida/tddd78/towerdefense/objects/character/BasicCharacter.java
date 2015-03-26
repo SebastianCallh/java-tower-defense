@@ -32,7 +32,7 @@ public class BasicCharacter extends AbstractMovable implements Character {
     }
 
     @Override
-    public Command getOnRemovedCommand() {
+    public Command remove() {
         return null;
     }
 }

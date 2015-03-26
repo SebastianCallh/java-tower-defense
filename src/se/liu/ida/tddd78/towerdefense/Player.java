@@ -46,6 +46,8 @@ public class Player {
         return this.selectedDefense;
     }
 
+    public void setSelectedDefense (DefenseType type) { this.selectedDefense = type; }
+
     public boolean isReadyForAction() {
         return this.actionTimer.hasCompleted();
     }

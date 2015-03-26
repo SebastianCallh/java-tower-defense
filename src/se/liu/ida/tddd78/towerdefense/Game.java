@@ -18,29 +18,34 @@ public class Game implements Observer {
 	private int round;
 	private int monstersRemaining;
     private GameObserver scoreObserver;
+	private Spawner spawner;
+	private List<Monster> spawnList;
 
     private Timer roundTimer;
     private Timer spawnTimer;
 
     private State state;
-    private int STARTING_LIVES = 10;
-    private int STARTING_MONEY = 50000;
-    private Point STARTING_POSITION = new Point(100, 100);
+    private static int STARTING_LIVES = 10;
+    private static int STARTING_MONEY = 500;
+    private static Point STARTING_POSITION = new Point(100, 100);
 
 	public Game(Board board,
                 Player player,
                 InputHandler inputHandler,
+		Spawner spawner
                 GameObserver scoreObserver) {
-		this.board = board;
+	this.board = board;
         this.player = player;
         this.player.addScoreObserver(this);
         this.scoreObserver = scoreObserver;
+        this.inputHandler = inputHandler;
+        this.spawner = spawner;
+
         this.player.setLives(STARTING_LIVES);
         this.player.setMoney(STARTING_MONEY);
         this.player.getCharacter().setPosition(STARTING_POSITION);
 
-        this.inputHandler = inputHandler;
-		this.monstersRemaining = 10;
+	this.monstersRemaining = 10;
 
         this.roundTimer = new Timer(2000);
         this.spawnTimer = new Timer(500);
@@ -81,9 +86,9 @@ public class Game implements Observer {
 
                 break;
             case ROUND:
-                if (this.monstersRemaining > 0) {
+                if (!this.spawnList.isEmpty()) {
                     if (this.spawnTimer.hasCompleted()) {
-                        spawnNewMonster();
+                        spawnNewMonsters();
                     }
                 } else if (board.getGameObjects().getMonsters().size() == 0) {
                     nextRound();
@@ -93,7 +98,6 @@ public class Game implements Observer {
 
                 break;
             case GAME_OVER:
-                System.out.println("We lost");
 
                 break;
         }
@@ -121,25 +125,25 @@ public class Game implements Observer {
         this.monstersRemaining = 10;
 
         setRound(this.round + 1);
+        this.round++;
+        this.spawnList = this.spawner.spawn(this.round);
     }
 
-    private void spawnNewMonster() {
-        Monster monster = MonsterFactory.makeMonster(MonsterType.SMALL); // TODO: Pick monster from round
+    private void spawnNewMonsters() {
+        Monster monster = this.spawnList.remove(this.spawnList.size() - 1);
         monster.setPosition(this.board.getSpawn().getCenter());
-
         this.spawnTimer.reset();
         this.board.getGameObjects().add(monster);
-        this.monstersRemaining--;
     }
 
 	private void checkForFinishedMonsters() {
 		Tile goalTile = this.board.getGoal();
-		for (Monster monster : this.board.getGameObjects().getMonsters()) {
-            if (goalTile== this.board.getTileUnderObject(monster)) {
-                monster.setRemoved(true);
-                removeLife(monster.getDamage());
-            }
-		}
+        this.board.getGameObjects().getMonsters().stream()
+                .filter(monster -> goalTile == this.board.getTileUnder(monster))
+                .forEach(monster -> {
+            monster.setRemoved(true);
+            removeLife(monster.getDamage());
+        });
 	}
 
     private void removeLife(int amount) {

@@ -17,5 +17,5 @@ public interface GameObject extends Positionable, Paintable {
 
     public void setRemoved(boolean removed);
 
-    public Command getOnRemovedCommand();
+    public Command remove();
 }

@@ -4,6 +4,8 @@ import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Direction;
 import se.liu.ida.tddd78.towerdefense.objects.commands.BuyCommand;
 import se.liu.ida.tddd78.towerdefense.objects.commands.MoveCommand;
+import se.liu.ida.tddd78.towerdefense.objects.commands.SelectCommand;
+import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseType;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -23,6 +25,9 @@ public class InputHandler {
         put(Input.DOWN, new MoveCommand(Direction.SOUTH));
         put(Input.LEFT, new MoveCommand(Direction.WEST));
         put(Input.RIGHT, new MoveCommand(Direction.EAST));
+        put(Input.ONE, new SelectCommand(DefenseType.SMALL));
+        put(Input.TWO, new SelectCommand(DefenseType.BIG));
+        put(Input.THREE, new SelectCommand(DefenseType.FAST));
         put(Input.SPACE, new BuyCommand());
     }};
 
@@ -31,7 +36,17 @@ public class InputHandler {
         DOWN,
         LEFT,
         RIGHT,
-        SPACE
+        SPACE,
+        ONE,
+        TWO,
+        THREE,
+        FOUR,
+        FIVE,
+        SIX,
+        SEVEN,
+        EIGHT,
+        NINE,
+        ZERO
     }
 
     public InputHandler(JComponent component) {
@@ -43,6 +58,9 @@ public class InputHandler {
         mapKey(KeyEvent.VK_LEFT, Input.LEFT);
         mapKey(KeyEvent.VK_RIGHT, Input.RIGHT);
         mapKey(KeyEvent.VK_SPACE, Input.SPACE);
+        mapKey(KeyEvent.VK_1, Input.ONE);
+        mapKey(KeyEvent.VK_2, Input.TWO);
+        mapKey(KeyEvent.VK_3, Input.THREE);
     }
 
     private void mapKey(int key, final Input input) {

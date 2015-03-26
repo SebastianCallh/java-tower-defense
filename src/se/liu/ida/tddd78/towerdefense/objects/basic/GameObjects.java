@@ -84,7 +84,7 @@ public class GameObjects
         while (iterator.hasNext()) {
             GameObject gameObject = iterator.next();
             if (gameObject.isRemoved()) {
-                removeCommands.add(gameObject.getOnRemovedCommand());
+                removeCommands.add(gameObject.remove());
                 iterator.remove();
             }
         }
