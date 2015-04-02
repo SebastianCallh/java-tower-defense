@@ -148,7 +148,7 @@ public class Game implements Observer {
 
     private void removeLife(int amount) {
         this.player.removeLives(amount);
-        if (this.player.getLives() == 0) {
+        if (this.player.getLives() <= 0) {
             this.state = State.GAME_OVER;
         }
     }
