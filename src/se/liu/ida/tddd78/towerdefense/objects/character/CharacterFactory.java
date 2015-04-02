@@ -17,10 +17,10 @@ public class CharacterFactory {
     }
 
     private static BasicCharacter makePlayer() {
-        return new BasicCharacter(new Point(0,0), 10, 2, CharacterType.PLAYER);
+        return new BasicCharacter(new Point(0,0), 10, 1, CharacterType.PLAYER);
     }
 
     private static BasicCharacter makeOther() {
-        return new BasicCharacter(new Point(0,0), 10, 15, CharacterType.SOMEDUDE);
+        return new BasicCharacter(new Point(0,0), 10, 8, CharacterType.SOMEDUDE);
     }
 }

@@ -12,7 +12,7 @@ public class ProjectileFactory {
     }
 
     private static Projectile makeNormal() {
-        return new BasicProjectile(5, 5, 6, ProjectileType.NORMAL);
+        return new BasicProjectile(5, 5, 3, ProjectileType.NORMAL);
     }
 
 }

@@ -16,10 +16,10 @@ public class MonsterFactory {
     }
 
     private static BasicMonster makeSmall() {
-    return new BasicMonster(30, 10, 2, 1, 5, MonsterType.SMALL);
+    return new BasicMonster(30, 10, 1, 1, 5, MonsterType.SMALL);
     }
 
     private static BasicMonster makeBig() {
-        return new BasicMonster(80, 12, 1, 2, 10, MonsterType.BIG);
+        return new BasicMonster(80, 12, 1, 2, 10, MonsterType.BIG); // TODO: Change speed to 0.5
     }
 }

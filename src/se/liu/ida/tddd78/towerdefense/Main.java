@@ -11,13 +11,14 @@ import se.liu.ida.tddd78.towerdefense.utils.Collision;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.Calendar;
 
 /**
  * Created by Seba on 2015-01-23.
  */
 public final class Main {
-    private final static int MS_PER_UPDATE = 30;
+    private final static int MS_PER_UPDATE = 15;
     private Main() {}
 
     public static void main(String[] args) {
@@ -42,23 +43,15 @@ public final class Main {
         frame.add(economyPanel, BorderLayout.PAGE_END);
         frame.create();
 
-        double previous = System.currentTimeMillis();
-        double delay = 0.0;
-        while(true) {
-            double current = System.currentTimeMillis();
-            double elapsed = current - previous;
-            previous = current;
-            delay += elapsed;
-
-
-            while (delay >= MS_PER_UPDATE) {
+        Timer updateTimer = new Timer(MS_PER_UPDATE, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 game.processInput();
                 game.update();
-                delay -= MS_PER_UPDATE;
+                frame.repaint();
             }
-
-            //TODO: Account for different processing speeds delay / MS_PER_UPDATE
-            frame.repaint();
-        }
+        });
+        updateTimer.setCoalesce(true);
+        updateTimer.start();
     }
 }
