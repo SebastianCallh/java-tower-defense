@@ -125,7 +125,6 @@ public class Game implements Observer {
         this.monstersRemaining = 10;
 
         setRound(this.round + 1);
-        this.round++;
         this.spawnList = this.spawner.spawn(this.round);
     }
 
