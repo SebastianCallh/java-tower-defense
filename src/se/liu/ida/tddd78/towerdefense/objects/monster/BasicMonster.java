@@ -75,6 +75,10 @@ public class BasicMonster extends AbstractMovable implements Monster {
 
     @Override
     public Command remove() {
-        return new BountyCommand(this.bounty);
+        if (!this.isAlive()) {
+            return new BountyCommand(this.bounty);
+        } else {
+            return null;
+        }
     }
 }
