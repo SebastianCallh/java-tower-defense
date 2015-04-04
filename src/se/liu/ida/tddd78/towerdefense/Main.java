@@ -5,6 +5,7 @@ import se.liu.ida.tddd78.towerdefense.objects.Layout.Type;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeType;
 import se.liu.ida.tddd78.towerdefense.ui.EconomyPanel;
+import se.liu.ida.tddd78.towerdefense.ui.GameOverScreen;
 import se.liu.ida.tddd78.towerdefense.ui.ScorePanel;
 import se.liu.ida.tddd78.towerdefense.utils.Collision;
 
@@ -29,18 +30,26 @@ public final class Main {
                 player.getCharacter());
 
         Painter painter = new Painter(board);
-        ScorePanel scorePanel = new ScorePanel(painter.getScale());
-        EconomyPanel economyPanel = new EconomyPanel(painter.getScale());
+
+        int scale = painter.getScale();
+        ScorePanel scorePanel = new ScorePanel(scale);
+        EconomyPanel economyPanel = new EconomyPanel(scale);
+        GameOverScreen gameOverScreen = new GameOverScreen(scale);
+        gameOverScreen.setVisible(false);
 
         Game game = new Game(board, player,
 			     new InputHandler(painter), new Spawner());
         game.addScoreObserver(scorePanel);
         game.addScoreObserver(economyPanel);
+        game.addScoreObserver(gameOverScreen);
 
-        Frame frame = new Frame("Java tower defense", board);
-        frame.add(painter, BorderLayout.CENTER);
-        frame.add(scorePanel, BorderLayout.PAGE_START);
-        frame.add(economyPanel, BorderLayout.PAGE_END);
+        gameOverScreen.addButtonClickListener(game);
+
+        Frame frame = new Frame("Java tower defense");
+        frame.addInnerComponent(painter, BorderLayout.CENTER);
+        frame.addInnerComponent(scorePanel, BorderLayout.PAGE_START);
+        frame.addInnerComponent(economyPanel, BorderLayout.PAGE_END);
+        frame.addLayeredComponent(gameOverScreen, JLayeredPane.PALETTE_LAYER);
         frame.create();
 
         Timer updateTimer = new Timer(MS_PER_UPDATE, new AbstractAction() {

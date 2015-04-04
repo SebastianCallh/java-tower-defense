@@ -12,10 +12,13 @@ import java.awt.event.WindowEvent;
  * Created by Seba on 2015-01-23.
  */
 public class Frame extends JFrame {
+    private JPanel innerPanel;
 
-    public Frame(String title, Board board) throws HeadlessException {
+    public Frame(String title) throws HeadlessException {
         super(title);
-        this.setLayout(new BorderLayout());
+
+        this.innerPanel = new JPanel();
+        innerPanel.setLayout(new BorderLayout());
 
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -25,7 +28,25 @@ public class Frame extends JFrame {
         });
     }
 
+    public void addInnerComponent(JComponent component, String placement) {
+        innerPanel.add(component, placement);
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        Dimension normalSize = super.getPreferredSize();
+        Dimension contentSize = innerPanel.getPreferredSize();
+
+        return new Dimension(normalSize.width + contentSize.width, normalSize.height + contentSize.height);
+    }
+
+    public void addLayeredComponent(JComponent component, Integer layer) {
+        getLayeredPane().add(component, layer);
+        component.setBounds(0, 0, (int) innerPanel.getPreferredSize().getWidth(), (int) innerPanel.getPreferredSize().getHeight());
+    }
+
     public void create() {
+        addLayeredComponent(innerPanel, JLayeredPane.DEFAULT_LAYER);
         pack();
         setVisible(true);
     }

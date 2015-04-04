@@ -95,4 +95,13 @@ public class Board {
             object.update(this);
         }
     }
+
+    public void reset(Character playerCharacter) {
+        this.gameObjects = new GameObjects();
+        this.getGameObjects().add(playerCharacter);
+
+        Defense defense = DefenseFactory.makeDefense(DefenseType.BIG);
+        defense.setPosition(60, 160);
+        this.getGameObjects().add(defense);
+    }
 }

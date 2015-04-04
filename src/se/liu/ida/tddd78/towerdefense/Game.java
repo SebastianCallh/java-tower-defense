@@ -1,8 +1,10 @@
 package se.liu.ida.tddd78.towerdefense;
 
+import se.liu.ida.tddd78.towerdefense.interfaces.ButtonObserver;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
+import se.liu.ida.tddd78.towerdefense.objects.ButtonKind;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
 import se.liu.ida.tddd78.towerdefense.objects.monster.*;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-public class Game implements Observer {
+public class Game implements Observer, ButtonObserver {
 	private Board board;
     private Player player;
     private InputHandler inputHandler;
@@ -41,18 +43,7 @@ public class Game implements Observer {
         this.spawner = spawner;
         this.scoreObservers = new ArrayList<>();
 
-        this.player.setLives(STARTING_LIVES);
-        this.player.setMoney(STARTING_MONEY);
-        this.player.getCharacter().setPosition(STARTING_POSITION);
-
-	this.monstersRemaining = 10;
-
-        this.roundTimer = new Timer(2000);
-        this.spawnTimer = new Timer(500);
-
-        this.state = State.PRE_ROUND;
-
-        setRound(1);
+        resetGame();
     }
 
     public int getRound() {
@@ -63,9 +54,34 @@ public class Game implements Observer {
         return this.player;
     }
 
+    public State getState() {
+        return this.state;
+    }
+
     private void setRound(int round) {
         this.round = round;
         notifyScoreChanged();
+    }
+
+    private void setState(State state) {
+        this.state = state;
+        notifyScoreChanged();
+    }
+
+    public void resetGame() {
+        this.player.setLives(STARTING_LIVES);
+        this.player.setMoney(STARTING_MONEY);
+        this.player.getCharacter().setPosition(STARTING_POSITION);
+
+        this.board.reset(this.player.getCharacter());
+
+        this.monstersRemaining = 10;
+
+        this.roundTimer = new Timer(2000);
+        this.spawnTimer = new Timer(500);
+
+        setState(State.PRE_ROUND);
+        setRound(1);
     }
 
     public void update() {
@@ -114,14 +130,14 @@ public class Game implements Observer {
         if (this.state == State.GAME_OVER) return;
 
         setRound(this.round + 1);
-        this.state = State.PRE_ROUND;
+        setState(State.PRE_ROUND);
         this.roundTimer.reset();
     }
 
     private void startRound() {
         if (this.state == State.GAME_OVER) return;
 
-        this.state = State.ROUND;
+        setState(State.ROUND);
         this.spawnTimer.reset();
         this.monstersRemaining = 10;
 
@@ -148,7 +164,7 @@ public class Game implements Observer {
     private void removeLife(int amount) {
         this.player.removeLives(amount);
         if (this.player.getLives() <= 0) {
-            this.state = State.GAME_OVER;
+            setState(State.GAME_OVER);
         }
     }
 
@@ -168,7 +184,17 @@ public class Game implements Observer {
         scoreObserver.onNotify(this);
     }
 
-    private enum State {
+    @Override
+    public void onButtonClicked(ButtonKind buttonKind) {
+        switch (buttonKind) {
+            case NEW_GAME:
+                resetGame();
+
+                break;
+        }
+    }
+
+    public enum State {
         PRE_ROUND,
         ROUND,
         GAME_OVER
