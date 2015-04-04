@@ -15,6 +15,12 @@ public class ScaledJLabel extends JLabel {
         setFont(getFont());
     }
 
+    public ScaledJLabel(int scale, int size) {
+        this.scale = scale;
+
+        setFont(getFont().deriveFont((float) size));
+    }
+
     private Font createScaledFont(Font font) {
         return font.deriveFont((float) font.getSize() * scale);
     }
