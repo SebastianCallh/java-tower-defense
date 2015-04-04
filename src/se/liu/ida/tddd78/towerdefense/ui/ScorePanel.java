@@ -27,7 +27,7 @@ public class ScorePanel extends JPanel implements GameObserver {
         livesLabel = new ScaledJLabel(this.scale);
 
         setLayout(new BorderLayout());
-        setBorder(new EmptyBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
+        setBorder(new EmptyBorder(BORDER_SIZE * scale, BORDER_SIZE * scale, BORDER_SIZE * scale, BORDER_SIZE * scale));
 
         add(roundLabel, BorderLayout.LINE_START);
         add(livesLabel, BorderLayout.LINE_END);

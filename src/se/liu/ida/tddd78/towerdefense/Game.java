@@ -36,7 +36,7 @@ public class Game implements Observer {
 		        Spawner spawner) {
 	this.board = board;
         this.player = player;
-        this.player.addScoreObserver(this);
+        this.player.addPlayerObserver(this);
         this.inputHandler = inputHandler;
         this.spawner = spawner;
         this.scoreObservers = new ArrayList<>();

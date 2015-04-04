@@ -31,7 +31,7 @@ public class Player {
 
     public void setMoney(int money) {
         this.money = money;
-        notifyScoreChanged();
+        notifyPlayerChanged();
     }
 
     public void removeMoney(int amount) {
@@ -48,6 +48,7 @@ public class Player {
 
     public void setSelectedDefense (DefenseType type) {
         this.selectedDefense = type;
+        notifyPlayerChanged();
     }
 
     public boolean isReadyForAction() {
@@ -60,20 +61,20 @@ public class Player {
 
     public void setLives(int amount) {
         this.lives = amount;
-        notifyScoreChanged();
+        notifyPlayerChanged();
     }
 
     public void removeLives(int amount) {
         this.setLives(this.getLives() - amount);
     }
 
-    private void notifyScoreChanged() {
+    private void notifyPlayerChanged() {
         for (Observer observer : this.scoreObservers) {
             observer.onNotify();
         }
     }
 
-    public void addScoreObserver(Observer observer) {
+    public void addPlayerObserver(Observer observer) {
         this.scoreObservers.add(observer);
     }
 
