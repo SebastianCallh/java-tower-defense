@@ -113,6 +113,7 @@ public class Game implements Observer {
     private void nextRound() {
         if (this.state == State.GAME_OVER) return;
 
+        setRound(this.round + 1);
         this.state = State.PRE_ROUND;
         this.roundTimer.reset();
     }
@@ -124,7 +125,6 @@ public class Game implements Observer {
         this.spawnTimer.reset();
         this.monstersRemaining = 10;
 
-        setRound(this.round + 1);
         this.spawnList = this.spawner.spawn(this.round);
     }
 
