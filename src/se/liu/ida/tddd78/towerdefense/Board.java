@@ -73,12 +73,8 @@ public class Board {
     public Board(Layout layout, Theme theme, Character playerCharacter) {
         this.layout = layout;
         this.theme = theme;
-        this.gameObservers = new ArrayList<GameObserver>();
-        this.getGameObjects().add(playerCharacter);
-
-        Defense defense = DefenseFactory.makeDefense(DefenseType.BIG);
-        defense.setPosition(60, 160);
-        this.getGameObjects().add(defense);
+        this.gameObservers = new ArrayList<>();
+        this.reset(playerCharacter);
     }
 
     public void addObserver(GameObserver gameObserver) {
@@ -99,9 +95,5 @@ public class Board {
     public void reset(Character playerCharacter) {
         this.gameObjects = new GameObjects();
         this.getGameObjects().add(playerCharacter);
-
-        Defense defense = DefenseFactory.makeDefense(DefenseType.BIG);
-        defense.setPosition(60, 160);
-        this.getGameObjects().add(defense);
     }
 }
