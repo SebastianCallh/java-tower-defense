@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Seba on 2015-03-06.
+ * Keeps track of the players stats.
  */
 public class Player {
     private int lives;

@@ -12,6 +12,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * The base class of everything that can be placed on the board.
+ */
 public class GameObjects
 {
     private List<Character> characters;

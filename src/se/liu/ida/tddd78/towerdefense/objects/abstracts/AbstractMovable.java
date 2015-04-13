@@ -3,7 +3,7 @@ package se.liu.ida.tddd78.towerdefense.objects.abstracts;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**
- * Created by Seba on 2015-03-04.
+ * Contains all required fields and methods for a class to be moved on the board.
  */
 public abstract class AbstractMovable extends AbstractGameObject implements Movable {
     private int speed;

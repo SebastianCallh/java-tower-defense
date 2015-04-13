@@ -5,7 +5,7 @@ import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
 import se.liu.ida.tddd78.towerdefense.objects.projectile.Projectile;
 
 /**
- * Created by Seba on 2015-02-12.
+ * Represents a defense on the board.
  */
 public interface Defense extends GameObject {
     public DefenseType getType();

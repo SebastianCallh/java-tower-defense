@@ -1,7 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.objects.basic;
 
 /**
- * Created by Seba on 2015-01-28.
+ * Represents a coordinate on the board.
  */
 public class Point {
     public double x;

@@ -8,6 +8,9 @@ import se.liu.ida.tddd78.towerdefense.objects.abstracts.AbstractMovable;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
 
+/**
+ * Basic implementation of a defense projectile to be fired at a monster.
+ */
 public class BasicProjectile extends AbstractMovable implements Projectile {
     private int damage;
     private ProjectileType type;

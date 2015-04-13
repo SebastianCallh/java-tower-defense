@@ -11,6 +11,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
+/**
+ * Presents information about a purchasable defens to the player.
+ */
 public class TowerIndicator extends JPanel implements GameObserver {
     private static final int TEXT_PADDING = 3;
     private static final int BORDER_THICKNESS = 2;

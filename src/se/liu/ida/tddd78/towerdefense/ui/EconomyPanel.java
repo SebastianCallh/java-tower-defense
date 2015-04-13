@@ -8,6 +8,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Presents information about money and possible purchases to the player.
+ */
 public class EconomyPanel extends JPanel implements GameObserver {
     private static final String MONEY_FORMAT = "Money:\n%d";
     private static final int BORDER_SIZE = 5;

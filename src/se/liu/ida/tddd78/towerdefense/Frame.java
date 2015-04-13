@@ -9,7 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
- * Created by Seba on 2015-01-23.
+ * Acts as the window that contains the game.
  */
 public class Frame extends JFrame {
     private JPanel innerPanel;

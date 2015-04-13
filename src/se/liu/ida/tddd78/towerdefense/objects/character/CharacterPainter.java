@@ -6,7 +6,7 @@ import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 import java.awt.*;
 
 /**
- * Created by Seba on 2015-02-14.
+ * Contains methods for painting characters.
  */
 public final class CharacterPainter implements Painter {
     private static CharacterPainter INSTANCE = new CharacterPainter();

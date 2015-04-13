@@ -7,6 +7,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Presents game information such as remaining lives and the current round to the player.
+ */
 public class ScorePanel extends JPanel implements GameObserver {
     private static final String ROUND_FORMAT = "Round: %d";
     private static final String LIVES_FORMAT = "Lives: %d";

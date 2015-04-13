@@ -1,7 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.objects.monster;
 
 /**
- * Created by Seba on 2015-01-26.
+ * Contains methods for creating monsters.
  */
 public class MonsterFactory {
     public static BasicMonster makeMonster(MonsterType type) {

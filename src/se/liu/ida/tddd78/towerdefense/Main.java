@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.util.Calendar;
 
 /**
- * Created by Seba on 2015-01-23.
+ * Bootstraps the game and hosts the game loop.
  */
 public final class Main {
     private final static int MS_PER_UPDATE = 15;

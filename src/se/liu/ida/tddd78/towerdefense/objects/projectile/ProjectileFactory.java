@@ -1,5 +1,8 @@
 package se.liu.ida.tddd78.towerdefense.objects.projectile;
 
+/**
+ * Contains methods for creating projectile classes.
+ */
 public class ProjectileFactory {
 
     public static Projectile makeProjectile(ProjectileType type) {

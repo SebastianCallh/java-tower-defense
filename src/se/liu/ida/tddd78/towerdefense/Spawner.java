@@ -7,7 +7,7 @@ import se.liu.ida.tddd78.towerdefense.objects.monster.MonsterType;
 import java.util.*;
 
 /**
- * Created by Seba on 2015-03-24.
+ * Handles creating and placing monsters on the board, and the games difficulty.
  */
 public class Spawner {
     private static int STARTING_MONSTER_POINTS = 5;

@@ -3,7 +3,7 @@ package se.liu.ida.tddd78.towerdefense.objects.abstracts;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**
- * Created by Seba on 2015-02-12.
+ * Contains all required fields amd methods for a class to be placed on the board.
  */
 public abstract class AbstractGameObject implements GameObject {
     private Point position;

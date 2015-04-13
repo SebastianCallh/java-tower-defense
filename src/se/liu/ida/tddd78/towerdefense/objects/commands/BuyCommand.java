@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Seba on 2015-03-05.
+ * Attemps to purchase and place a tower at the players position upon execution.
  */
 public class BuyCommand implements Command {
     @Override

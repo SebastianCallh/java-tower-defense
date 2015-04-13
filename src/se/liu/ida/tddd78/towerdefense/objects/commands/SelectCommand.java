@@ -6,7 +6,7 @@ import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseType;
 
 /**
- * Created by Seba on 2015-03-24.
+ * Sets the players selected defense upon execution.
  */
 public class SelectCommand implements Command {
     DefenseType type;

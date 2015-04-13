@@ -4,7 +4,7 @@ import se.liu.ida.tddd78.towerdefense.objects.abstracts.Movable;
 import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
 
 /**
- * Created by Seba on 2015-03-04.
+ * Represent a character on the board that is not a monster.
  */
 public interface Character extends GameObject, Movable {
     public CharacterType getType();

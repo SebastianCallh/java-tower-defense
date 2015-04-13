@@ -3,7 +3,7 @@ package se.liu.ida.tddd78.towerdefense.interfaces;
 import se.liu.ida.tddd78.towerdefense.Game;
 
 /**
- * Created by Seba on 2015-02-12.
+ * Allows the implementing class to be notified upon changes in the game.
  */
 public interface GameObserver {
     public void onNotify(Game game);

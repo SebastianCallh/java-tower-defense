@@ -5,9 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Seba on 2015-01-23.
+ * Handles the appearance of the board and the game objects.
  */
-
 public class Theme {
     private Map<Element, Color> elementStyleMap = new HashMap<Element, Color>();
 

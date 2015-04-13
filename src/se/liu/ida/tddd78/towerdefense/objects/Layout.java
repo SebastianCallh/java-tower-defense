@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Seba on 2015-02-10.
+ * Keeps track of the map layout and the pathable terrain.
  */
 public class Layout {
     private Grid<Tile> grid;

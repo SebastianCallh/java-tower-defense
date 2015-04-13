@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Seba on 2015-01-23.
+ * Keeps track of all game objects, the map layout and the theme.
  */
 public class Board {
     private Layout layout;

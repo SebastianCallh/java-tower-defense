@@ -13,7 +13,7 @@ import se.liu.ida.tddd78.towerdefense.objects.projectile.ProjectileFactory;
 import se.liu.ida.tddd78.towerdefense.objects.projectile.ProjectileType;
 
 /**
- * Created by Seba on 2015-02-12.
+ * Basic implementation of a defense that can be placed on the board.
  */
 public class BasicDefense extends AbstractGameObject implements Defense {
     private DefenseType type;

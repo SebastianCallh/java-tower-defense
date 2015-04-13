@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
 /**
- * Created by Seba on 2015-02-25.
+ * Keeps track on all pressed down keys.
  */
 public class InputHandler {
     private JComponent component;

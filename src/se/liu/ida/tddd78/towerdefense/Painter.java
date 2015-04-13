@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by Seba on 2015-01-23.
+ * Handles the drawing of all game objects and tiles on the board.
  */
 public class Painter extends JComponent implements GameObserver {
     private Board board;
