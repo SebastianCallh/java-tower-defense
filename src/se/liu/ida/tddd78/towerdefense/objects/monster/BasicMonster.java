@@ -18,17 +18,9 @@ public class BasicMonster extends AbstractMovable implements Monster {
     private MonsterType type;
     private int bounty;
 
-    public int getHealth() {
-        return this.health;
-    }
-
-    @Override public void setHealth(int health) {
-        this.health = health;
-    }
-
     @Override
     public void removeHealth(int health) {
-        this.setHealth(this.getHealth() - health);
+        this.health -= health;
     }
 
     @Override
@@ -38,7 +30,7 @@ public class BasicMonster extends AbstractMovable implements Monster {
 
     @Override
     public boolean isAlive() {
-        return this.getHealth() > 0;
+        return this.health > 0;
     }
 
     @Override

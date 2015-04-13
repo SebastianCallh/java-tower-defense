@@ -1,25 +1,31 @@
 package se.liu.ida.tddd78.towerdefense.objects.defense;
 
+import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
+
 /**
  * Created by Seba on 2015-02-12.
  */
-public class DefenseFactory {
-    public static BasicDefense makeDefense(DefenseType type) {
+public final class DefenseFactory {
+    private DefenseFactory() {
+    }
+
+    public static Defense makeDefense(DefenseType type) throws TypeNotSupportedException {
         switch (type) {
             case SMALL:
                 return makeSmall();
             case BIG:
                 return makeBig();
+            case FAST:
             default:
-                throw new IllegalArgumentException("Defense type not supported");
+                throw new TypeNotSupportedException("Defense type not supported");
         }
     }
 
-    private static BasicDefense makeSmall() {
+    private static Defense makeSmall() {
         return new BasicDefense(10, DefenseType.SMALL, 50, 5, 500, 100);
     }
 
-    private static BasicDefense makeBig() {
+    private static Defense makeBig() {
         return new BasicDefense(15, DefenseType.BIG, 500, 10, 500, 200);
     }
 }

@@ -15,14 +15,14 @@ public abstract class AbstractGameObject implements GameObject {
     }
 
     public void setPosition(double x, double y) {
-        this.position.x = x;
-        this.position.y = y;
+        this.position.setX(x);
+        this.position.setY(y);
     }
 
     @Override
     public void setPosition(Point position) {
-        this.position.x = position.x;
-        this.position.y = position.y;
+        this.position.setX(position.getX());
+        this.position.setY(position.getY());
     }
 
     public int getSize() {
@@ -39,7 +39,7 @@ public abstract class AbstractGameObject implements GameObject {
         this.removed = removed;
     }
 
-    public AbstractGameObject(Point position, int size) {
+    protected AbstractGameObject(Point position, int size) {
         if (size < 0) {
             throw new IllegalArgumentException("Negative size not supported");
         }

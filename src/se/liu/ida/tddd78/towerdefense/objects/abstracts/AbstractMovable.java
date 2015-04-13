@@ -8,7 +8,7 @@ import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 public abstract class AbstractMovable extends AbstractGameObject implements Movable {
     private int speed;
 
-    public AbstractMovable(Point position, int size, int speed) {
+    protected AbstractMovable(Point position, int size, int speed) {
         super(position, size);
         this.speed = speed;
     }
@@ -21,7 +21,7 @@ public abstract class AbstractMovable extends AbstractGameObject implements Mova
     @Override
     public void move(double angle) {
         Point position = this.getPosition();
-        this.setPosition(position.x + Math.cos(angle) * this.getSpeed(),
-                position.y + Math.sin(angle) * this.getSpeed());
+        this.setPosition(position.getX() + Math.cos(angle) * this.speed,
+                position.getY() + Math.sin(angle) * this.speed);
     }
 }

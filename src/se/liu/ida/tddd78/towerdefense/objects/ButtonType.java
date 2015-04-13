@@ -1,5 +1,5 @@
 package se.liu.ida.tddd78.towerdefense.objects;
 
-public enum ButtonKind {
+public enum ButtonType {
     NEW_GAME
 }

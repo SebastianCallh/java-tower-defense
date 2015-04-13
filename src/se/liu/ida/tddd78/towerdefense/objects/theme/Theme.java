@@ -1,15 +1,16 @@
 package se.liu.ida.tddd78.towerdefense.objects.theme;
 
 import java.awt.*;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
  * Created by Seba on 2015-01-23.
  */
 
+@SuppressWarnings("MagicNumber")
 public class Theme {
-    private Map<Element, Color> elementStyleMap = new HashMap<Element, Color>();
+    private Map<Element, Color> elementStyleMap = new EnumMap<>(Element.class);
 
     public Theme(ThemeType type) {
         switch(type) {

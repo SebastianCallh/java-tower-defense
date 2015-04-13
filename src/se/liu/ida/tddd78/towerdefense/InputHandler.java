@@ -20,16 +20,18 @@ import java.util.stream.Collectors;
 public class InputHandler {
     private JComponent component;
     private Map<Input, Boolean> keysPressedMap;
-    private Map<Input, Command> commandMap = new HashMap<Input, Command>() {{
-        put(Input.UP, new MoveCommand(Direction.NORTH));
-        put(Input.DOWN, new MoveCommand(Direction.SOUTH));
-        put(Input.LEFT, new MoveCommand(Direction.WEST));
-        put(Input.RIGHT, new MoveCommand(Direction.EAST));
-        put(Input.ONE, new SelectCommand(DefenseType.SMALL));
-        put(Input.TWO, new SelectCommand(DefenseType.BIG));
-        put(Input.THREE, new SelectCommand(DefenseType.FAST));
-        put(Input.SPACE, new BuyCommand());
-    }};
+    private static final Map<Input, Command> COMMAND_MAP = new EnumMap<>(Input.class);
+
+    static {
+        COMMAND_MAP.put(Input.UP, new MoveCommand(Direction.NORTH));
+        COMMAND_MAP.put(Input.DOWN, new MoveCommand(Direction.SOUTH));
+        COMMAND_MAP.put(Input.LEFT, new MoveCommand(Direction.WEST));
+        COMMAND_MAP.put(Input.RIGHT, new MoveCommand(Direction.EAST));
+        COMMAND_MAP.put(Input.ONE, new SelectCommand(DefenseType.SMALL));
+        COMMAND_MAP.put(Input.TWO, new SelectCommand(DefenseType.BIG));
+        COMMAND_MAP.put(Input.THREE, new SelectCommand(DefenseType.FAST));
+        COMMAND_MAP.put(Input.SPACE, new BuyCommand());
+    }
 
     public enum Input {
         UP,
@@ -51,7 +53,7 @@ public class InputHandler {
 
     public InputHandler(JComponent component) {
         this.component = component;
-        this.keysPressedMap = new HashMap<>();
+        this.keysPressedMap = new EnumMap<>(Input.class);
 
         mapKey(KeyEvent.VK_UP, Input.UP);
         mapKey(KeyEvent.VK_DOWN, Input.DOWN);
@@ -92,18 +94,10 @@ public class InputHandler {
         this.keysPressedMap.put(input, pressed);
     }
 
-    public boolean isKeyPressed(Input action) {
-        if (!this.keysPressedMap.containsKey(action)) {
-            throw new RuntimeException(String.format("Action %s has not been mapped", action));
-        }
-
-        return this.keysPressedMap.get(action);
-    }
-
     public Queue<Command> getCommands() {
         return this.keysPressedMap.keySet().stream()
                 .filter(this.keysPressedMap::get)
-                .map(this.commandMap::get)
+                .map(COMMAND_MAP::get)
                 .collect(Collectors.toCollection(ConcurrentLinkedQueue::new));
     }
 }

@@ -6,16 +6,10 @@ import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
 
 public interface Projectile extends GameObject, Movable {
 
-    public int getDamage();
+    void setDamage(int damage);
 
-    public void setDamage(int damage);
+    void setTarget(Monster target);
 
-    public void setTarget(Monster target);
-
-    public Monster getTarget();
-
-    public int getSpeed();
-
-    public ProjectileType getType();
+    ProjectileType getType();
 
 }

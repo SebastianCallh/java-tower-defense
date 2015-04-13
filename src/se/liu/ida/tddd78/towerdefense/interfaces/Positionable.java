@@ -6,9 +6,9 @@ import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
  * Created by Seba on 2015-02-09.
  */
 public interface Positionable {
-    public Point getPosition();
+    Point getPosition();
 
-    public void setPosition(double x, double y);
+    void setPosition(double x, double y);
 
-    public void setPosition(Point position);
+    void setPosition(Point position);
 }

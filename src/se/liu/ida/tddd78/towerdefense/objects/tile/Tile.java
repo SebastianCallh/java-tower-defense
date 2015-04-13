@@ -9,31 +9,31 @@ import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
  */
 public class Tile implements Paintable {
     private TileType type;
-    private Point position;
+    private Point gridPosition;
 
     public final static double TILE_SIZE = 40.0;
 
-    public Point getTilePosition() {
-        return position;
+    public Point getGridPosition() {
+        return gridPosition;
     }
 
     public Point getPosition() {
-        return new Point(this.getTilePosition().x * TILE_SIZE,
-                  this.getTilePosition().y * TILE_SIZE);
+        return new Point(gridPosition.getX() * TILE_SIZE,
+                  gridPosition.getY() * TILE_SIZE);
     }
 
     public Point getCenter() {
         Point position = this.getPosition();
-        return new Point(position.x + TILE_SIZE / 2,
-                position.y + TILE_SIZE / 2);
+        return new Point(position.getX() + TILE_SIZE / 2,
+                position.getY() + TILE_SIZE / 2);
     }
 
     public TileType getType() {
         return type;
     }
 
-    public Tile(TileType type, Point position) {
-        this.position = position;
+    public Tile(TileType type, Point gridPosition) {
+        this.gridPosition = gridPosition;
         this.type = type;
     }
 

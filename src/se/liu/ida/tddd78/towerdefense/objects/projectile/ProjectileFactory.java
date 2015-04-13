@@ -1,13 +1,18 @@
 package se.liu.ida.tddd78.towerdefense.objects.projectile;
 
-public class ProjectileFactory {
+import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 
-    public static Projectile makeProjectile(ProjectileType type) {
+public final class ProjectileFactory {
+
+    private ProjectileFactory() {
+    }
+
+    public static Projectile makeProjectile(ProjectileType type) throws TypeNotSupportedException {
         switch (type) {
             case NORMAL:
                 return makeNormal();
             default:
-                throw new IllegalArgumentException("Projectile type not supported");
+                throw new TypeNotSupportedException("Projectile type not supported");
         }
     }
 

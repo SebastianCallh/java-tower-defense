@@ -1,5 +1,6 @@
 package se.liu.ida.tddd78.towerdefense;
 
+import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.objects.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.Layout.Type;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
@@ -7,23 +8,30 @@ import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeType;
 import se.liu.ida.tddd78.towerdefense.ui.EconomyPanel;
 import se.liu.ida.tddd78.towerdefense.ui.GameOverScreen;
 import se.liu.ida.tddd78.towerdefense.ui.ScorePanel;
-import se.liu.ida.tddd78.towerdefense.utils.Collision;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Seba on 2015-01-23.
  */
-public final class Main {
+public final class EntryPoint {
+    private static final Logger LOG = Logger.getLogger(EntryPoint.class.getName());
+
     private final static int MS_PER_UPDATE = 15;
-    private Main() {}
+    private EntryPoint() {}
 
     public static void main(String[] args) {
-        Player player = new Player();
+        Player player;
+        try {
+            player = new Player();
+        } catch (TypeNotSupportedException e) {
+            LOG.log(Level.SEVERE, "Misconfigured Player class. Default character type not supported", e);
+            return;
+        }
 
         Board board = new Board(Layout.get(Type.STANDARD),
                 new Theme(ThemeType.GREEN_IS_GOOD),
@@ -45,19 +53,19 @@ public final class Main {
 
         gameOverScreen.addButtonClickListener(game);
 
-        Frame frame = new Frame("Java tower defense");
-        frame.addInnerComponent(painter, BorderLayout.CENTER);
-        frame.addInnerComponent(scorePanel, BorderLayout.PAGE_START);
-        frame.addInnerComponent(economyPanel, BorderLayout.PAGE_END);
-        frame.addLayeredComponent(gameOverScreen, JLayeredPane.PALETTE_LAYER);
-        frame.create();
+        GameWindow gameWindow = new GameWindow("Java tower defense");
+        gameWindow.addInnerComponent(painter, BorderLayout.CENTER);
+        gameWindow.addInnerComponent(scorePanel, BorderLayout.PAGE_START);
+        gameWindow.addInnerComponent(economyPanel, BorderLayout.PAGE_END);
+        gameWindow.addLayeredComponent(gameOverScreen, JLayeredPane.PALETTE_LAYER);
+        gameWindow.create();
 
         Timer updateTimer = new Timer(MS_PER_UPDATE, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 game.processInput();
                 game.update();
-                frame.repaint();
+                gameWindow.repaint();
             }
         });
         updateTimer.setCoalesce(true);

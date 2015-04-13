@@ -7,10 +7,7 @@ import se.liu.ida.tddd78.towerdefense.objects.defense.Defense;
 import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
 import se.liu.ida.tddd78.towerdefense.objects.projectile.Projectile;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class GameObjects
 {
@@ -20,17 +17,13 @@ public class GameObjects
     private List<Projectile> projectiles;
 
     public GameObjects() {
-        this.characters = new ArrayList<Character>();
-        this.monsters = new ArrayList<Monster>();
-        this.defenses = new ArrayList<Defense>();
-        this.projectiles = new ArrayList<Projectile>();
+        this.characters = new ArrayList<>();
+        this.monsters = new ArrayList<>();
+        this.defenses = new ArrayList<>();
+        this.projectiles = new ArrayList<>();
     }
 
-    public List<Character> getCharacters() {
-        return Collections.unmodifiableList(this.characters);
-    }
-
-    public List<Monster> getMonsters() {
+    public Collection<Monster> getMonsters() {
         return Collections.unmodifiableList(this.monsters);
     }
 
@@ -38,12 +31,8 @@ public class GameObjects
         return Collections.unmodifiableList(this.defenses);
     }
 
-    public List<Projectile> getProjectiles() {
-        return Collections.unmodifiableList(this.projectiles);
-    }
-
-    public List<GameObject> getAll() {
-        List<GameObject> gameObjects = new ArrayList<GameObject>();
+    public Iterable<GameObject> getAll() {
+        List<GameObject> gameObjects = new ArrayList<>();
         gameObjects.addAll(this.characters);
         gameObjects.addAll(this.monsters);
         gameObjects.addAll(this.defenses);
@@ -67,10 +56,6 @@ public class GameObjects
         this.projectiles.add(projectile);
     }
 
-    public int size() {
-        return this.getAll().size();
-    }
-
     public List<Command> removeObsoleteObjects() {
         List<Command> removeCommands = removeObsoleteObjects(this.monsters);
         removeCommands.addAll(removeObsoleteObjects(this.defenses));
@@ -78,7 +63,7 @@ public class GameObjects
         return removeCommands;
     }
 
-    private List<Command> removeObsoleteObjects(List<? extends GameObject> list) {
+    private List<Command> removeObsoleteObjects(Iterable<? extends GameObject> list) {
         List<Command> removeCommands = new ArrayList<>();
         Iterator<? extends GameObject> iterator = list.iterator();
         while (iterator.hasNext()) {

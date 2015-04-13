@@ -17,20 +17,11 @@ public class BasicProjectile extends AbstractMovable implements Projectile {
         super(new Point(0, 0), size, speed);
         this.damage = damage;
         this.type = type;
+        this.target = null;
     }
 
     public void setTarget(Monster target) {
         this.target = target;
-    }
-
-    @Override
-    public Monster getTarget() {
-        return this.target;
-    }
-
-    @Override
-    public int getDamage() {
-        return damage;
     }
 
     @Override
@@ -50,15 +41,15 @@ public class BasicProjectile extends AbstractMovable implements Projectile {
 
     @Override
     public void update(Board board) {
-        if (this.getTarget() != null) {
-            if (Collision.isColliding(this, this.getTarget())) {
-                this.getTarget().removeHealth(this.getDamage());
+        if (this.target != null) {
+            if (Collision.isColliding(this, this.target)) {
+                this.target.removeHealth(damage);
                 this.setRemoved(true);
             }
 
-            double angle = Collision.getAngle(this.getTarget(), this);
-            double x = this.getPosition().x + Math.cos(angle) * this.getSpeed();
-            double y = this.getPosition().y + Math.sin(angle) * this.getSpeed();
+            double angle = Collision.getAngle(this.target, this);
+            double x = this.getPosition().getX() + Math.cos(angle) * this.getSpeed();
+            double y = this.getPosition().getY() + Math.sin(angle) * this.getSpeed();
             this.setPosition(x, y);
         }
     }

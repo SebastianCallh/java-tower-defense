@@ -1,10 +1,10 @@
 package se.liu.ida.tddd78.towerdefense.ui;
 
 import se.liu.ida.tddd78.towerdefense.Game;
+import se.liu.ida.tddd78.towerdefense.Game.State;
 import se.liu.ida.tddd78.towerdefense.interfaces.ButtonObserver;
 import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
-import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
-import se.liu.ida.tddd78.towerdefense.objects.ButtonKind;
+import se.liu.ida.tddd78.towerdefense.objects.ButtonType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +18,7 @@ import java.util.List;
 public class GameOverScreen extends JPanel implements GameObserver, ActionListener {
     private static final Color OVERLAY_COLOR = new Color(0, 0, 0, 100);
     private static final Color FOREGROUND_COLOR = Color.white;
+    private static final int TEXT_SIZE = 40;
 
     private int scale;
     private List<ButtonObserver> buttonClickListeners;
@@ -37,9 +38,9 @@ public class GameOverScreen extends JPanel implements GameObserver, ActionListen
         innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
         innerPanel.setOpaque(false);
 
-        JLabel gameOverLabel = new ScaledJLabel(scale, 40);
+        JLabel gameOverLabel = new ScaledJLabel(scale, TEXT_SIZE);
         gameOverLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        gameOverLabel.setHorizontalAlignment(JLabel.CENTER);
+        gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
         gameOverLabel.setForeground(FOREGROUND_COLOR);
         gameOverLabel.setText("Game over");
 
@@ -66,21 +67,21 @@ public class GameOverScreen extends JPanel implements GameObserver, ActionListen
 
     @Override
     public void onNotify(Game game) {
-        setVisible(game.getState() == Game.State.GAME_OVER);
+        setVisible(game.getState() == State.GAME_OVER);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        notifyButtonClickListeners(ButtonKind.NEW_GAME);
+        notifyButtonClickListeners(ButtonType.NEW_GAME);
     }
 
     public void addButtonClickListener(ButtonObserver listener) {
         buttonClickListeners.add(listener);
     }
 
-    private void notifyButtonClickListeners(ButtonKind buttonKind) {
+    private void notifyButtonClickListeners(ButtonType buttonType) {
         for (ButtonObserver listener : buttonClickListeners) {
-            listener.onButtonClicked(buttonKind);
+            listener.onButtonClicked(buttonType);
         }
     }
 }

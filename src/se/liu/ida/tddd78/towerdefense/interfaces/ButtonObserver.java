@@ -1,7 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.interfaces;
 
-import se.liu.ida.tddd78.towerdefense.objects.ButtonKind;
+import se.liu.ida.tddd78.towerdefense.objects.ButtonType;
 
 public interface ButtonObserver {
-    void onButtonClicked(ButtonKind buttonKind);
+    void onButtonClicked(ButtonType buttonType);
 }

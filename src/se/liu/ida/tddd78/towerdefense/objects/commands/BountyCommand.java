@@ -8,7 +8,7 @@ import se.liu.ida.tddd78.towerdefense.interfaces.Command;
  * Created by Seba on 2015-03-08.
  */
 public class BountyCommand implements Command{
-    int bounty;
+    private int bounty;
 
     public BountyCommand(int bounty) {
         this.bounty = bounty;

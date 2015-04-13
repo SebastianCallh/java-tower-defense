@@ -1,8 +1,5 @@
 package se.liu.ida.tddd78.towerdefense;
 
-import se.liu.ida.tddd78.towerdefense.ui.EconomyPanel;
-import se.liu.ida.tddd78.towerdefense.ui.ScorePanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -11,10 +8,10 @@ import java.awt.event.WindowEvent;
 /**
  * Created by Seba on 2015-01-23.
  */
-public class Frame extends JFrame {
+public class GameWindow extends JFrame {
     private JPanel innerPanel;
 
-    public Frame(String title) throws HeadlessException {
+    public GameWindow(String title) throws HeadlessException {
         super(title);
 
         this.innerPanel = new JPanel();
@@ -23,6 +20,7 @@ public class Frame extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
                 System.exit(0);
             }
         });

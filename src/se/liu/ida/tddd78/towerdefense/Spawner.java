@@ -1,16 +1,22 @@
 package se.liu.ida.tddd78.towerdefense;
 
+import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
 import se.liu.ida.tddd78.towerdefense.objects.monster.MonsterFactory;
 import se.liu.ida.tddd78.towerdefense.objects.monster.MonsterType;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Seba on 2015-03-24.
  */
 public class Spawner {
-    private static int STARTING_MONSTER_POINTS = 5;
+    private static final Logger LOG = Logger.getLogger(Spawner.class.getName());
+
+    private static final int STARTING_MONSTER_POINTS = 5;
+
     private List<SpawnMapper> spawns = new ArrayList<>();
     private int cheapestMonsterPrice;
 
@@ -29,7 +35,11 @@ public class Spawner {
         while (monsterPoints >= this.cheapestMonsterPrice) {
             SpawnMapper spawn = this.spawns.get(i);
             if (spawn.price <= monsterPoints && spawn.appearsOnWave <= round) {
-                monsters.add(MonsterFactory.makeMonster(this.spawns.get(i).type));
+                try {
+                    monsters.add(MonsterFactory.makeMonster(this.spawns.get(i).type));
+                } catch (TypeNotSupportedException e) {
+                    LOG.log(Level.WARNING, "Unable to spawn monster of unsupported type", e);
+                }
                 monsterPoints -= spawn.price;
             } else {
                 i--;
@@ -38,19 +48,15 @@ public class Spawner {
         return monsters;
     }
 
-    private class SpawnMapper implements Comparable<SpawnMapper> {
+    private final class SpawnMapper implements Comparable<SpawnMapper> {
         private int appearsOnWave;
         private int price;
         private MonsterType type;
 
-        public SpawnMapper(int appearsOnWave, int price, MonsterType type) {
+        private SpawnMapper(int appearsOnWave, int price, MonsterType type) {
             this.appearsOnWave = appearsOnWave;
             this.price = price;
             this.type = type;
-        }
-
-        public MonsterType getType() {
-            return type;
         }
 
         @Override
@@ -62,6 +68,28 @@ public class Spawner {
             } else {
                 return 1;
             }
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            SpawnMapper that = (SpawnMapper) o;
+
+            if (appearsOnWave != that.appearsOnWave) return false;
+            if (price != that.price) return false;
+            if (type != that.type) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = appearsOnWave;
+            result = 31 * result + price;
+            result = 31 * result + (type != null ? type.hashCode() : 0);
+            return result;
         }
     }
 }

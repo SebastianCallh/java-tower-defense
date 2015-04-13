@@ -1,22 +1,29 @@
 package se.liu.ida.tddd78.towerdefense.objects;
 
+import se.liu.ida.tddd78.towerdefense.exceptions.LayoutParseException;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Grid;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 import se.liu.ida.tddd78.towerdefense.objects.tile.TileType;
 import se.liu.ida.tddd78.towerdefense.utils.Pathfinder;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Seba on 2015-02-10.
  */
-public class Layout {
+public final class Layout {
+    private static final Logger LOG = Logger.getLogger(Layout.class.getName());
+
     private Grid<Tile> grid;
     private Tile spawn;
     private Tile goal;
@@ -46,7 +53,7 @@ public class Layout {
         return this.grid.get(x, y);
     }
 
-    public List<Tile> getNeighbors(int x, int y) {
+    public Collection<Tile> getNeighbors(int x, int y) {
         return this.grid.getNeighbors(x, y);
     }
 
@@ -58,19 +65,26 @@ public class Layout {
         this.grid = grid;
         this.spawn = spawn;
         this.goal = goal;
-        this.path = Pathfinder.floodFill(this, goal.getTilePosition());
+        this.path = Pathfinder.floodFill(this, goal.getGridPosition());
     }
 
-    private static Map<Type, Layout> layoutTypeMap = new HashMap<Type, Layout>() {{
-        put(Type.STANDARD, readLayout("layouts/standard"));
-    }};
+    private static final Map<Type, Layout> LAYOUT_TYPE_MAP = new EnumMap<>(Type.class);
 
-    public static Type[] getTypes() { return Type.values(); }
+    static {
+        try {
+            LAYOUT_TYPE_MAP.put(Type.STANDARD, readLayout("layouts/standard"));
+        } catch (LayoutParseException e) {
+            LOG.log(Level.SEVERE, "Failed to parse default layout", e);
+            JOptionPane.showMessageDialog(null, "Unable to load standard map, please specify a valid map to load!");
+            // TODO: Rework to not load the layout here!
+            System.exit(1);
+        }
+    }
 
-    public static Layout get(Type type) { return layoutTypeMap.get(type); }
+    public static Layout get(Type type) { return LAYOUT_TYPE_MAP.get(type); }
 
     //*Reads a grid text file (20*20 chars) for a grid of tiles*//
-    private static Layout readLayout(String path) {
+    private static Layout readLayout(String path) throws LayoutParseException {
         try {
             List<String> fileContent = Files.readAllLines(Paths.get(path));
             //TODO:Regex. Convert all int sizes to dimensions
@@ -78,7 +92,7 @@ public class Layout {
             int x = 0, y = 0,
                     width = Integer.valueOf(header.substring(0, 2)),
                     height = Integer.valueOf(header.substring(2,4));
-            Grid<Tile> grid = new Grid<Tile>(Tile.class, width, height);
+            Grid<Tile> grid = new Grid<>(Tile.class, width, height);
             Tile spawnTile = null, goalTile = null;
 
             for (String line : fileContent.subList(1, fileContent.size())) {
@@ -96,7 +110,7 @@ public class Layout {
                 y++;
             }
             if (spawnTile == null || goalTile == null) {
-                throw new RuntimeException("Invalid format in layout file");
+                throw new LayoutParseException("Spawn tile or goal tile missing");
             }
             return new Layout(grid, spawnTile, goalTile);
         } catch (IOException e) {

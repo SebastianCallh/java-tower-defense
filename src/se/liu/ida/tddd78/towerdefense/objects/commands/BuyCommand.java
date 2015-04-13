@@ -2,6 +2,7 @@ package se.liu.ida.tddd78.towerdefense.objects.commands;
 
 import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.Player;
+import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
@@ -12,15 +13,28 @@ import se.liu.ida.tddd78.towerdefense.utils.Collision;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Seba on 2015-03-05.
  */
 public class BuyCommand implements Command {
+    private static final Logger LOG = Logger.getLogger(BuyCommand.class.getName());
+
     @Override
     public void execute(Player player, Board board) {
         if (player.isReadyForAction()) {
-            Defense defense = DefenseFactory.makeDefense(player.getSelectedDefense());
+            Defense defense;
+            try {
+                defense = DefenseFactory.makeDefense(player.getSelectedDefense());
+            } catch (TypeNotSupportedException e) {
+                LOG.log(Level.WARNING, "Unable to create tower of unsupported type", e);
+                return;
+            }
+
             if (player.getMoney() >= defense.getCost()) {
                 defense.setPosition(player.getCharacter().getPosition());
                 List<Defense> defenses = board.getGameObjects().getDefenses();
@@ -30,21 +44,16 @@ public class BuyCommand implements Command {
                     }
                 }
 
-                for (Map.Entry<Tile, Tile> tile : board.getPath().entrySet()) {
-                    if (board.getTileUnder(defense) == tile) {
-                        return;
-                    }
-                }
                 //TODO:Will probably act out if defense size is bigger than tile
                 Map<Tile, Tile> path = board.getPath();
                 Point defensePos = defense.getPosition();
-                for (Map.Entry<Tile, Tile> entry : path.entrySet()) {
+                for (Entry<Tile, Tile> entry : path.entrySet()) {
                     Point tilePos = entry.getValue().getCenter();
-                    double angle = Math.atan2(tilePos.y - defensePos.y, tilePos.x - defensePos.x);
-                    Point closestPos = new Point(defensePos.x + (Math.cos(angle) * defense.getSize()),
-                            defensePos.y + (Math.sin(angle) * defense.getSize()));
+                    double angle = Math.atan2(tilePos.getY() - defensePos.getY(), tilePos.getX() - defensePos.getX());
+                    Point closestPos = new Point(defensePos.getX() + (Math.cos(angle) * defense.getSize()),
+                            defensePos.getY() + (Math.sin(angle) * defense.getSize()));
 
-                    if (board.getTileUnder(closestPos) == entry.getValue()) {
+                    if (Objects.equals(board.getTileUnder(closestPos), entry.getValue())) {
                         return;
                     }
                 }

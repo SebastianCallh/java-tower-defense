@@ -8,15 +8,12 @@ import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
  */
 public interface Monster extends GameObject, Movable
 {
-    public int getHealth();
 
-    public void setHealth(int health);
+    void removeHealth(int health);
 
-    public void removeHealth(int health);
+    int getDamage();
 
-    public int getDamage();
+    boolean isAlive();
 
-    public boolean isAlive();
-
-    public MonsterType getType();
+    MonsterType getType();
 }

@@ -2,14 +2,14 @@ package se.liu.ida.tddd78.towerdefense.objects.basic;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Created by Seba on 2015-02-10.
  */
 
 public class Grid<E> {
-    E[][] grid = null;
+    private E[][] grid = null;
 
     public E get(int x, int y) {
         return this.grid[x][y];
@@ -27,8 +27,8 @@ public class Grid<E> {
         return this.getWidth() > 0 ? this.grid[0].length : 0;
     }
 
-    public List<E> getNeighbors(int x, int y) {
-        ArrayList<E> neighbors = new ArrayList<E>();
+    public Collection<E> getNeighbors(int x, int y) {
+        Collection<E> neighbors = new ArrayList<>();
         neighbors.add(this.get(Math.min(this.getWidth() - 1, x + 1), y));
         neighbors.add(this.get(Math.max(0, x - 1), y));
         neighbors.add(this.get(x, Math.min(this.getHeight() - 1, y + 1)));
@@ -36,8 +36,8 @@ public class Grid<E> {
         return neighbors;
     }
 
-    public Grid(Class<E> c, int width, int height) {
-        this.grid = (E[][]) Array.newInstance(c, width, height);
+    public Grid(Class<E> classType, int width, int height) {
+        this.grid = (E[][]) Array.newInstance(classType, width, height);
     }
 }
 

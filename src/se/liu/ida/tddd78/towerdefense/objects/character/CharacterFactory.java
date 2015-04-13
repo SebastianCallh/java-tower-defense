@@ -1,26 +1,30 @@
 package se.liu.ida.tddd78.towerdefense.objects.character;
+import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**
  * Created by Seba on 2015-02-12.
  */
-public class CharacterFactory {
-    public static BasicCharacter makeCharacter(CharacterType type) {
+public final class CharacterFactory {
+    private CharacterFactory() {
+    }
+
+    public static Character makeCharacter(CharacterType type) throws TypeNotSupportedException {
         switch (type) {
             case PLAYER:
                 return makePlayer();
             case SOMEDUDE:
                 return makeOther();
             default:
-                throw new IllegalArgumentException("Character type not supported");
+                throw new TypeNotSupportedException("Character type not supported");
         }
     }
 
-    private static BasicCharacter makePlayer() {
+    private static Character makePlayer() {
         return new BasicCharacter(new Point(0,0), 10, 1, CharacterType.PLAYER);
     }
 
-    private static BasicCharacter makeOther() {
+    private static Character makeOther() {
         return new BasicCharacter(new Point(0,0), 10, 8, CharacterType.SOMEDUDE);
     }
 }

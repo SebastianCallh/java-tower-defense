@@ -4,7 +4,7 @@ import se.liu.ida.tddd78.towerdefense.interfaces.ButtonObserver;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
-import se.liu.ida.tddd78.towerdefense.objects.ButtonKind;
+import se.liu.ida.tddd78.towerdefense.objects.ButtonType;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
 import se.liu.ida.tddd78.towerdefense.objects.monster.*;
@@ -12,14 +12,19 @@ import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
 
 public class Game implements Observer, ButtonObserver {
-	private Board board;
+    private static final int STARTING_LIVES = 10;
+    private static final int STARTING_MONEY = 500;
+    private static final int NEW_ROUND_DELAY_MILLIS = 2000;
+    private static final int MONSTER_SPAWN_INTERVAL_MILLIS = 500;
+
+    private Board board;
     private Player player;
     private InputHandler inputHandler;
 	private int round;
-	private int monstersRemaining;
     private List<GameObserver> scoreObservers;
 	private Spawner spawner;
 	private List<Monster> spawnList;
@@ -28,15 +33,13 @@ public class Game implements Observer, ButtonObserver {
     private Timer spawnTimer;
 
     private State state;
-    private static int STARTING_LIVES = 10;
-    private static int STARTING_MONEY = 500;
-    private static Point STARTING_POSITION = new Point(100, 100);
+    private static final Point STARTING_POSITION = new Point(100, 100);
 
 	public Game(Board board,
                 Player player,
                 InputHandler inputHandler,
 		        Spawner spawner) {
-	this.board = board;
+	    this.board = board;
         this.player = player;
         this.player.addPlayerObserver(this);
         this.inputHandler = inputHandler;
@@ -75,10 +78,8 @@ public class Game implements Observer, ButtonObserver {
 
         this.board.reset(this.player.getCharacter());
 
-        this.monstersRemaining = 10;
-
-        this.roundTimer = new Timer(2000);
-        this.spawnTimer = new Timer(500);
+        this.roundTimer = new Timer(NEW_ROUND_DELAY_MILLIS);
+        this.spawnTimer = new Timer(MONSTER_SPAWN_INTERVAL_MILLIS);
 
         setState(State.PRE_ROUND);
         setRound(1);
@@ -88,9 +89,7 @@ public class Game implements Observer, ButtonObserver {
         this.board.update();
         this.checkState();
         List<Command> removeCommands = this.board.getGameObjects().removeObsoleteObjects();
-        removeCommands.stream().filter(command -> command != null).forEach(command -> {
-            command.execute(this.player, this.board);
-        });
+        removeCommands.stream().filter(command -> command != null).forEach(command -> command.execute(this.player, this.board));
     }
 
     private void checkState() {
@@ -106,7 +105,7 @@ public class Game implements Observer, ButtonObserver {
                     if (this.spawnTimer.hasCompleted()) {
                         spawnNewMonsters();
                     }
-                } else if (board.getGameObjects().getMonsters().size() == 0) {
+                } else if (board.getGameObjects().getMonsters().isEmpty()) {
                     nextRound();
                 }
 
@@ -139,7 +138,6 @@ public class Game implements Observer, ButtonObserver {
 
         setState(State.ROUND);
         this.spawnTimer.reset();
-        this.monstersRemaining = 10;
 
         this.spawnList = this.spawner.spawn(this.round);
     }
@@ -154,7 +152,7 @@ public class Game implements Observer, ButtonObserver {
 	private void checkForFinishedMonsters() {
 		Tile goalTile = this.board.getGoal();
         this.board.getGameObjects().getMonsters().stream()
-                .filter(monster -> goalTile == this.board.getTileUnder(monster))
+                .filter(monster -> Objects.equals(goalTile, this.board.getTileUnder(monster)))
                 .forEach(monster -> {
             monster.setRemoved(true);
             removeLife(monster.getDamage());
@@ -185,12 +183,9 @@ public class Game implements Observer, ButtonObserver {
     }
 
     @Override
-    public void onButtonClicked(ButtonKind buttonKind) {
-        switch (buttonKind) {
-            case NEW_GAME:
-                resetGame();
-
-                break;
+    public void onButtonClicked(ButtonType buttonType) {
+        if (buttonType == ButtonType.NEW_GAME) {
+            resetGame();
         }
     }
 

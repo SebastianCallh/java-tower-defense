@@ -1,6 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.objects.defense;
 
 import se.liu.ida.tddd78.towerdefense.Board;
+import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.utils.Collision;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
@@ -12,10 +13,15 @@ import se.liu.ida.tddd78.towerdefense.objects.projectile.Projectile;
 import se.liu.ida.tddd78.towerdefense.objects.projectile.ProjectileFactory;
 import se.liu.ida.tddd78.towerdefense.objects.projectile.ProjectileType;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Created by Seba on 2015-02-12.
  */
 public class BasicDefense extends AbstractGameObject implements Defense {
+    private static final Logger LOG = Logger.getLogger(BasicDefense.class.getName());
+
     private DefenseType type;
     private int range;
     private int cost;
@@ -28,15 +34,6 @@ public class BasicDefense extends AbstractGameObject implements Defense {
         return type;
     }
 
-    @Override public Monster getTarget() {
-        return this.target;
-    }
-
-    @Override
-    public int getRange() {
-        return this.range;
-    }
-
     @Override
     public int getCost() {
         return this.cost;
@@ -44,20 +41,23 @@ public class BasicDefense extends AbstractGameObject implements Defense {
 
     @Override
     public Projectile getProjectile() {
-        Projectile projectile = ProjectileFactory.makeProjectile(ProjectileType.NORMAL);
-        projectile.setDamage(this.damage);
-        projectile.setPosition(this.getPosition().x, this.getPosition().y);
-        projectile.setTarget(this.getTarget());
-        return projectile;
+        try {
+            Projectile projectile = ProjectileFactory.makeProjectile(ProjectileType.NORMAL);
+            projectile.setDamage(this.damage);
+            projectile.setPosition(this.getPosition().getX(), this.getPosition().getY());
+            projectile.setTarget(this.target);
+
+            return projectile;
+        } catch (TypeNotSupportedException e) {
+            LOG.log(Level.WARNING, "Unable to fire projectile of unsupported type", e);
+
+            return null;
+        }
     }
 
     @Override
     public void coolDown() {
         this.cooldownTimer.reset(this.attackSpeed);
-    }
-
-    @Override public void setTarget(final Monster target) {
-        this.target = target;
     }
 
     @Override public boolean isCoolingDown() {
@@ -72,6 +72,7 @@ public class BasicDefense extends AbstractGameObject implements Defense {
         this.attackSpeed = attackSpeed;
         this.cost = cost;
         this.cooldownTimer = new Timer(this.attackSpeed);
+        this.target = null;
     }
 
     @Override
@@ -81,19 +82,17 @@ public class BasicDefense extends AbstractGameObject implements Defense {
 
     @Override
     public void update(Board board) {
-        if (this.getTarget() != null && !this.getTarget().isRemoved()) {
-            if (Collision.distanceBetween(this, this.getTarget()) > this.getRange()) {
-                this.setTarget(null);
+        if (this.target != null && !this.target.isRemoved()) {
+            if (Collision.distanceBetween(this, this.target) > this.range) {
+                this.target = null;
             } else if (!this.isCoolingDown()) {
                 board.getGameObjects().add(this.getProjectile());
                 this.coolDown();
             }
         } else {
-            for (Monster monster : board.getGameObjects().getMonsters()) {
-                if (Collision.distanceBetween(this, monster) < this.getRange()) {
-                    this.setTarget(monster);
-                }
-            }
+            board.getGameObjects().getMonsters().stream().filter(
+                    monster -> Collision.distanceBetween(this, monster) < this.range).forEach(
+                    monster -> this.target = monster);
         }
     }
 

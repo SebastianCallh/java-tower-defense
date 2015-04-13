@@ -1,6 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.ui;
 
 import se.liu.ida.tddd78.towerdefense.Game;
+import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
 import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseFactory;
 import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseType;
@@ -10,8 +11,12 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TowerIndicator extends JPanel implements GameObserver {
+    private static final Logger LOG = Logger.getLogger(TowerIndicator.class.getName());
+
     private static final int TEXT_PADDING = 3;
     private static final int BORDER_THICKNESS = 2;
     private static final int SIZE = 65;
@@ -44,7 +49,7 @@ public class TowerIndicator extends JPanel implements GameObserver {
 
     private void initLayout() {
         JLabel nameLabel = new ScaledJLabel(scale);
-        nameLabel.setHorizontalAlignment(JLabel.CENTER);
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         nameLabel.setBorder(new EmptyBorder(TEXT_PADDING * scale, TEXT_PADDING * scale, TEXT_PADDING * scale, TEXT_PADDING * scale));
         nameLabel.setText(name);
 
@@ -89,10 +94,9 @@ public class TowerIndicator extends JPanel implements GameObserver {
         try {
             cost = DefenseFactory.makeDefense(type).getCost();
             constructable = true;
-        } catch (IllegalArgumentException e) {
-            System.out.println("Unable to retrieve cost from defense type " + type + ", unsupported type");
-
-            cost = -1;
+        } catch (TypeNotSupportedException e) {
+            LOG.log(Level.WARNING, "Unable to retrieve cost from unsupported defense type", e);
+            cost = 0;
             constructable = false;
         }
     }
@@ -111,6 +115,8 @@ public class TowerIndicator extends JPanel implements GameObserver {
 
     @Override
     public Dimension getPreferredSize() {
+        super.getPreferredSize();
+
         return new Dimension(SIZE * scale, SIZE * scale);
     }
 
