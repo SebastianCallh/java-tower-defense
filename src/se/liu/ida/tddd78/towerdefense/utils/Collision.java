@@ -5,7 +5,7 @@ import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**
- * Created by Seba on 2015-02-25.
+ * Contains methods for checking collision and distances of game objects.
  */
 public final class Collision {
 

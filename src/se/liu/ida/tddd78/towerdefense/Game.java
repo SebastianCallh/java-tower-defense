@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
 
+/**
+ * Keeps track of the board, the players stats, the input, game time and the spawning of monsters.
+ */
 public class Game implements Observer, ButtonObserver {
     private static final int STARTING_LIVES = 10;
     private static final int STARTING_MONEY = 500;

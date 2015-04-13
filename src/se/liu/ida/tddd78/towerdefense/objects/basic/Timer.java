@@ -1,5 +1,8 @@
 package se.liu.ida.tddd78.towerdefense.objects.basic;
 
+/**
+ * Keeps track of if a certain amount of time has passed.
+ */
 public class Timer {
     private long timerDurationMillis;
     private long startTimeMillis;

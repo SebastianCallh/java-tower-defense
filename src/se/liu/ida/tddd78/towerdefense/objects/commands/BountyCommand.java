@@ -5,7 +5,7 @@ import se.liu.ida.tddd78.towerdefense.Player;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 
 /**
- * Created by Seba on 2015-03-08.
+ * Adds the bounty to the players money upon execution.
  */
 public class BountyCommand implements Command{
     private int bounty;

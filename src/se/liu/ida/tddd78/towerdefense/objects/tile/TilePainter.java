@@ -8,7 +8,7 @@ import se.liu.ida.tddd78.towerdefense.objects.theme.Theme.Element;
 import java.awt.*;
 
 /**
- * Created by Seba on 2015-02-14.
+ * Handles painting the tiles.
  */
 public final class TilePainter implements Painter{
     private static final TilePainter INSTANCE = new TilePainter();

@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Seba on 2015-02-12.
+ * Basic implementation of a defense that can be placed on the board.
  */
 public class BasicDefense extends AbstractGameObject implements Defense {
     private static final Logger LOG = Logger.getLogger(BasicDefense.class.getName());
@@ -39,8 +39,7 @@ public class BasicDefense extends AbstractGameObject implements Defense {
         return this.cost;
     }
 
-    @Override
-    public Projectile getProjectile() {
+    private Projectile getProjectile() {
         try {
             Projectile projectile = ProjectileFactory.makeProjectile(ProjectileType.NORMAL);
             projectile.setDamage(this.damage);
@@ -55,12 +54,11 @@ public class BasicDefense extends AbstractGameObject implements Defense {
         }
     }
 
-    @Override
-    public void coolDown() {
+    private void coolDown() {
         this.cooldownTimer.reset(this.attackSpeed);
     }
 
-    @Override public boolean isCoolingDown() {
+    private boolean isCoolingDown() {
         return !this.cooldownTimer.hasCompleted();
     }
 

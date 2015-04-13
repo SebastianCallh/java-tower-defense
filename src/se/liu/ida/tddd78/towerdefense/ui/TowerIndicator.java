@@ -14,6 +14,9 @@ import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Presents information about a purchasable defens to the player.
+ */
 public class TowerIndicator extends JPanel implements GameObserver {
     private static final Logger LOG = Logger.getLogger(TowerIndicator.class.getName());
 

@@ -7,6 +7,9 @@ import se.liu.ida.tddd78.towerdefense.objects.theme.Theme.Element;
 
 import java.awt.*;
 
+/**
+ * Handles the painting of all projectiles.
+ */
 public final class ProjectilePainter implements Painter {
     private static final ProjectilePainter INSTANCE = new ProjectilePainter();
 

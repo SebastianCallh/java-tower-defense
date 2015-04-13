@@ -1,5 +1,6 @@
 package se.liu.ida.tddd78.towerdefense;
 
+import com.sun.istack.internal.NotNull;
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
 import se.liu.ida.tddd78.towerdefense.objects.monster.MonsterFactory;
@@ -10,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Seba on 2015-03-24.
+ * Handles creating and placing monsters on the board, and the games difficulty.
  */
 public class Spawner {
     private static final Logger LOG = Logger.getLogger(Spawner.class.getName());

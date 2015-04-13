@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Seba on 2015-02-10.
+ * Allows for structuring several objects of a class into a grid.
  */
-
 public class Grid<E> {
     private E[][] grid = null;
 

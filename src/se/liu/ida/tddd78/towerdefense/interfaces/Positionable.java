@@ -3,7 +3,7 @@ package se.liu.ida.tddd78.towerdefense.interfaces;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**
- * Created by Seba on 2015-02-09.
+ * Allows implementing class to be placed on the board.
  */
 public interface Positionable {
     Point getPosition();

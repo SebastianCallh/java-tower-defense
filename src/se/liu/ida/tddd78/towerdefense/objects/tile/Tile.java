@@ -5,7 +5,7 @@ import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**
- * Created by Seba on 2015-01-23.
+ * Represents a square on the board.
  */
 public class Tile implements Paintable {
     private TileType type;

@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Seba on 2015-01-23.
+ * Bootstraps the game and hosts the game loop.
  */
 public final class EntryPoint {
     private static final Logger LOG = Logger.getLogger(EntryPoint.class.getName());

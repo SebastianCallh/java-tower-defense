@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Presents a menu and information to the player upon losing the game.
+ */
 public class GameOverScreen extends JPanel implements GameObserver, ActionListener {
     private static final Color OVERLAY_COLOR = new Color(0, 0, 0, 100);
     private static final Color FOREGROUND_COLOR = Color.white;

@@ -10,7 +10,7 @@ import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 import se.liu.ida.tddd78.towerdefense.utils.Collision;
 
 /**
- * Created by Seba on 2015-01-24.
+ * Basic implementation of a monster that can be placed upon the board.
  */
 public class BasicMonster extends AbstractMovable implements Monster {
     private int health;
@@ -28,8 +28,7 @@ public class BasicMonster extends AbstractMovable implements Monster {
         return this.damage;
     }
 
-    @Override
-    public boolean isAlive() {
+    private boolean isAlive() {
         return this.health > 0;
     }
 
@@ -59,8 +58,7 @@ public class BasicMonster extends AbstractMovable implements Monster {
 
             double angle = Collision.getAngle(next.getCenter(), this.getPosition());
             this.move(angle);
-
-            } else {
+        } else {
             this.setRemoved(true);
         }
     }

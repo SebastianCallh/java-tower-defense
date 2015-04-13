@@ -3,7 +3,7 @@ import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**
- * Created by Seba on 2015-02-12.
+ * Contains methods for creating characters.
  */
 public final class CharacterFactory {
     private CharacterFactory() {

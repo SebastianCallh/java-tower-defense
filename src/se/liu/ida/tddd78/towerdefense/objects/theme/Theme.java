@@ -5,7 +5,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * Created by Seba on 2015-01-23.
+ * Handles the appearance of the board and the game objects.
  */
 
 @SuppressWarnings("MagicNumber")

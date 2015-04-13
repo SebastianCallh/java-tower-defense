@@ -7,7 +7,7 @@ import se.liu.ida.tddd78.towerdefense.objects.abstracts.AbstractMovable;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**
- * Created by Seba on 2015-03-03.
+ * Basic implementation of a character that can be placed upon the board.
  */
 public class BasicCharacter extends AbstractMovable implements Character {
     private CharacterType type;

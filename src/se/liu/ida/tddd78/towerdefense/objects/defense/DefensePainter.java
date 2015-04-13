@@ -8,7 +8,7 @@ import se.liu.ida.tddd78.towerdefense.objects.theme.Theme.Element;
 import java.awt.*;
 
 /**
- * Created by Seba on 2015-02-14.
+ * Handles painting all defenses.
  */
 public final class DefensePainter implements Painter {
     private static final DefensePainter INSTANCE = new DefensePainter();

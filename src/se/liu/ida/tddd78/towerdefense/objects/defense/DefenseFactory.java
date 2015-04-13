@@ -3,7 +3,7 @@ package se.liu.ida.tddd78.towerdefense.objects.defense;
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 
 /**
- * Created by Seba on 2015-02-12.
+ * Contains methods for creating defenses.
  */
 public final class DefenseFactory {
     private DefenseFactory() {

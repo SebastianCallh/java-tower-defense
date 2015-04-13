@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Seba on 2015-01-23.
+ * Handles the drawing of all game objects and tiles on the board.
  */
 public class Painter extends JComponent implements GameObserver {
     private static final Logger LOG = Logger.getLogger(Painter.class.getName());

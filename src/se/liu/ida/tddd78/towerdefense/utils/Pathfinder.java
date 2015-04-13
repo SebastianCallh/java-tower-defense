@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Queue;
 
 /**
- * Created by Seba on 2015-02-06.
+ * Contains methods for finding the shortest paths on a layout.
  */
 public final class Pathfinder {
     private Pathfinder() {

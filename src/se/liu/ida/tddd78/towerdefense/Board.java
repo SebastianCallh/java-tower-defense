@@ -12,7 +12,7 @@ import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 import java.util.Map;
 
 /**
- * Created by Seba on 2015-01-23.
+ * Keeps track of all game objects, the map layout and the theme.
  */
 public class Board {
     private Layout layout;

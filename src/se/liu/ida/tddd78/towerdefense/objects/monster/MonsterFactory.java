@@ -3,7 +3,7 @@ package se.liu.ida.tddd78.towerdefense.objects.monster;
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 
 /**
- * Created by Seba on 2015-01-26.
+ * Contains methods for creating monsters.
  */
 public final class MonsterFactory {
     private MonsterFactory() {

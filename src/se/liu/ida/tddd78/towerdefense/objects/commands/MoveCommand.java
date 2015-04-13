@@ -9,7 +9,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * Created by Seba on 2015-03-05.
+ * Moves the players character in a direction upon execution.
  */
 public class MoveCommand implements Command {
     private double angle;

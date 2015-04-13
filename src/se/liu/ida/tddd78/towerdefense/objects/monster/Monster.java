@@ -4,7 +4,7 @@ import se.liu.ida.tddd78.towerdefense.objects.abstracts.Movable;
 import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
 
 /**
- * Created by Seba on 2015-02-12.
+ * Represents a monster on the board.
  */
 public interface Monster extends GameObject, Movable
 {
@@ -12,8 +12,6 @@ public interface Monster extends GameObject, Movable
     void removeHealth(int health);
 
     int getDamage();
-
-    boolean isAlive();
 
     MonsterType getType();
 }

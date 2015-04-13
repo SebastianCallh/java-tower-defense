@@ -1,7 +1,9 @@
 package se.liu.ida.tddd78.towerdefense.objects.projectile;
 
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
-
+/**
+ * Contains methods for creating projectile classes.
+ */
 public final class ProjectileFactory {
 
     private ProjectileFactory() {

@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Seba on 2015-02-10.
+ * Keeps track of the map layout and the pathable terrain.
  */
 public final class Layout {
     private static final Logger LOG = Logger.getLogger(Layout.class.getName());

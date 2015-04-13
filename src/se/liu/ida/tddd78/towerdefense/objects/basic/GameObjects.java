@@ -9,6 +9,9 @@ import se.liu.ida.tddd78.towerdefense.objects.projectile.Projectile;
 
 import java.util.*;
 
+/**
+ * The base class of everything that can be placed on the board.
+ */
 public class GameObjects
 {
     private List<Character> characters;

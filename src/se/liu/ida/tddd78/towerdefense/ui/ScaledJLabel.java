@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by sebastian on 2015-03-26.
+ * Presents a text with the possibility of scaling.
  */
 public class ScaledJLabel extends JLabel {
     private int scale;

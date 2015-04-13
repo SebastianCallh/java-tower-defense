@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Seba on 2015-03-05.
+ * Attemps to purchase and place a tower at the players position upon execution.
  */
 public class BuyCommand implements Command {
     private static final Logger LOG = Logger.getLogger(BuyCommand.class.getName());
