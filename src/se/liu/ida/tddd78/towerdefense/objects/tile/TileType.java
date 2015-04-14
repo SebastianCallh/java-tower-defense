@@ -1,5 +1,7 @@
 package se.liu.ida.tddd78.towerdefense.objects.tile;
 
-public enum TileType {
+import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
+
+public enum TileType implements ThemeableType {
     PATH, BLOCKED, GOAL, SPAWN
 }

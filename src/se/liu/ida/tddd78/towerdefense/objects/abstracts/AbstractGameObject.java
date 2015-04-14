@@ -1,5 +1,6 @@
 package se.liu.ida.tddd78.towerdefense.objects.abstracts;
 
+import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**
@@ -9,6 +10,14 @@ public abstract class AbstractGameObject implements GameObject {
     private Point position;
     private int size;
     private boolean removed;
+
+    protected AbstractGameObject(Point position, int size) {
+        if (size < 0) {
+            throw new IllegalArgumentException("Negative size not supported");
+        }
+        this.position = position;
+        this.size = size;
+    }
 
     public Point getPosition() {
         return position;
@@ -37,13 +46,5 @@ public abstract class AbstractGameObject implements GameObject {
     @Override
     public void setRemoved(boolean removed) {
         this.removed = removed;
-    }
-
-    protected AbstractGameObject(Point position, int size) {
-        if (size < 0) {
-            throw new IllegalArgumentException("Negative size not supported");
-        }
-        this.position = position;
-        this.size = size;
     }
 }

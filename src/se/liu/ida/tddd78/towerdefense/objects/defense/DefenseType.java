@@ -1,6 +1,8 @@
 package se.liu.ida.tddd78.towerdefense.objects.defense;
 
-public enum DefenseType {
+import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
+
+public enum DefenseType implements ThemeableType {
     SMALL,
     BIG,
     FAST
