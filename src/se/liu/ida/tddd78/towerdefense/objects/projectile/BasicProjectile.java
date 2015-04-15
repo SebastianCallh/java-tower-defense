@@ -38,11 +38,6 @@ public class BasicProjectile extends AbstractMovable implements Projectile {
     }
 
     @Override
-    public Painter getPainter() {
-        return ProjectilePainter.instanceFor(this);
-    }
-
-    @Override
     public void update(Board board) {
         if (this.target != null) {
             if (Collision.isColliding(this, this.target)) {

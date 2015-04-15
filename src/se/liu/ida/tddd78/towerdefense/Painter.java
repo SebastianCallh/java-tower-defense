@@ -3,6 +3,7 @@ package se.liu.ida.tddd78.towerdefense;
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
 import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
+import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,6 @@ import java.util.logging.Logger;
  * Handles the drawing of all game objects and tiles on the board.
  */
 public class Painter extends JComponent implements GameObserver {
-    private static final Logger LOG = Logger.getLogger(Painter.class.getName());
 
     private static final int SCREEN_WIDTH_LARGEST = 4000;
     private static final int SCREEN_WIDTH_LARGER = 3200;
@@ -56,23 +56,21 @@ public class Painter extends JComponent implements GameObserver {
 
     private void paintGameObjects(Graphics2D g2d) {
         for (GameObject gameObject : this.board.getGameObjects().getAll()) {
-            try {
-                gameObject.getPainter().paint(g2d, this.board.getTheme(), this.scale);
-            } catch (TypeNotSupportedException e) {
-                LOG.log(Level.WARNING, "Unable to paint object with unsupported type", e);
-            }
-
+            g2d.drawImage(this.board.getTheme().getSprite(gameObject.getType()),
+                    ((int)gameObject.getPosition().getX() - gameObject.getSize()) * scale,
+                    ((int)gameObject.getPosition().getY() - gameObject.getSize()) * scale,
+                    null);
         }
     }
 
     private void paintTiles(Graphics2D g2d) {
         for (int x = 0; x < this.board.getWidth(); x++) {
             for (int y = 0; y < this.board.getHeight(); y++) {
-                try {
-                    this.board.getTile(x, y).getPainter().paint(g2d, this.board.getTheme(), this.scale);
-                } catch (TypeNotSupportedException e) {
-                    LOG.log(Level.WARNING, "Unable to paint tile with unsupported type", e);
-                }
+                Tile tile = this.board.getTile(x, y);
+                g2d.drawImage(this.board.getTheme().getSprite(tile.getType()),
+                        (int)(tile.getPosition().getX() - Tile.TILE_SIZE) * scale,
+                        (int)(tile.getPosition().getY() - Tile.TILE_SIZE) * scale,
+                        null);
             }
         }
     }

@@ -46,11 +46,6 @@ public class BasicMonster extends AbstractMovable implements Monster {
     }
 
     @Override
-    public Painter getPainter() {
-        return MonsterPainter.instanceFor(this);
-    }
-
-    @Override
     public void update(Board board) {
         if (this.isAlive()) {
             Tile current = board.getTileUnder(this);

@@ -8,7 +8,6 @@ import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
  */
 public interface Monster extends GameObject, Movable
 {
-
     void removeHealth(int health);
 
     int getDamage();

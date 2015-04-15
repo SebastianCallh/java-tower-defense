@@ -1,6 +1,12 @@
 package se.liu.ida.tddd78.towerdefense.objects.theme;
 
+import se.liu.ida.tddd78.towerdefense.Painter;
+import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -45,8 +51,13 @@ public class Theme {
         }
     }
 
-    public Color getStyle(Element element) {
-        return this.elementStyleMap.get(element);
+    public BufferedImage getSprite(ThemeableType element) {
+        try {
+            return ImageIO.read(Painter.class.getClassLoader().getResource("resources/monster.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public enum Element {
