@@ -17,6 +17,7 @@ import java.util.Map;
 @SuppressWarnings("MagicNumber")
 public class Theme {
     private Map<Element, Color> elementStyleMap = new EnumMap<>(Element.class);
+    private BufferedImage placeholder;
 
     public Theme(ThemeType type) {
         switch(type) {
@@ -53,7 +54,10 @@ public class Theme {
 
     public BufferedImage getSprite(ThemeableType element) {
         try {
-            return ImageIO.read(Painter.class.getClassLoader().getResource("resources/monster.png"));
+            if (placeholder == null) {
+                placeholder = ImageIO.read(Painter.class.getClassLoader().getResource("resources/standard_monster.png"));
+            }
+            return placeholder;
         } catch (IOException e) {
             e.printStackTrace();
         }
