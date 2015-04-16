@@ -137,7 +137,7 @@ public final class ThemeLoader {
 
     public static void main(String[] args) {
         try {
-            loadTheme(ThemeLoader.class.getClassLoader().getResource("data/theme.xml"));
+            loadTheme(ThemeLoader.class.getClassLoader().getResource("data/pirate_theme.xml"));
         } catch (ThemeLoadException e) {
             e.printStackTrace();
         }

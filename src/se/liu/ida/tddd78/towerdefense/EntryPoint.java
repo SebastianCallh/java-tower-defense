@@ -6,7 +6,6 @@ import se.liu.ida.tddd78.towerdefense.objects.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.Layout.Type;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeLoader;
-import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeType;
 import se.liu.ida.tddd78.towerdefense.ui.EconomyPanel;
 import se.liu.ida.tddd78.towerdefense.ui.GameOverScreen;
 import se.liu.ida.tddd78.towerdefense.ui.ScorePanel;
@@ -37,7 +36,7 @@ public final class EntryPoint {
 
         Theme theme;
         try {
-            theme = ThemeLoader.loadTheme("data/theme.xml");
+            theme = ThemeLoader.loadTheme("data/pirate_theme.xml");
         } catch (ThemeLoadException e) {
             LOG.log(Level.SEVERE, "Sniff boys, no theme", e);
             return;
