@@ -1,7 +1,12 @@
 package se.liu.ida.tddd78.towerdefense.objects.theme;
 
+import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
+import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseType;
+import se.liu.ida.tddd78.towerdefense.objects.monster.MonsterType;
+
 import java.awt.*;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -11,6 +16,11 @@ import java.util.Map;
 @SuppressWarnings("MagicNumber")
 public class Theme {
     private Map<Element, Color> elementStyleMap = new EnumMap<>(Element.class);
+    private Map<ThemeableType, Color> elementColorMap = new HashMap<>();
+
+    private Theme() {
+
+    }
 
     public Theme(ThemeType type) {
         switch(type) {
@@ -61,6 +71,25 @@ public class Theme {
         PROJECTILE_NORMAL,
         DEFENSE_BIG,
         DEFENSE_SMALL
+    }
+
+    protected static class ThemeFactory {
+        private Theme theme;
+
+        public ThemeFactory() {
+            this.theme = new Theme();
+        }
+
+        public ThemeFactory addSpriteMapping(ThemeableType type, Image image) {
+            return this;
+        }
+
+        public ThemeFactory addColorMapping(ThemeableType type, Color color) {
+            theme.elementColorMap.put(type, color);
+
+            return this;
+        }
+
     }
 
 }
