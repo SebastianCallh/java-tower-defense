@@ -130,8 +130,8 @@ public final class ThemeLoader {
 
     private static Image scaleSprite(Image image, ThemeableType type) {
         return image.getScaledInstance(
-                type.getSize() * 2 * GraphicsUtil.getScale(),
-                type.getSize() * 2 * GraphicsUtil.getScale(),
+                type.getSize() * 4 * GraphicsUtil.getScale(),
+                type.getSize() * 4 * GraphicsUtil.getScale(),
                 Image.SCALE_SMOOTH);
     }
 

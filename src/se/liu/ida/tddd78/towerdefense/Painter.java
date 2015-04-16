@@ -56,6 +56,8 @@ public class Painter extends JComponent implements GameObserver {
             g2d.drawImage(this.board.getTheme().getSprite(gameObject.getType()),
                     ((int)gameObject.getPosition().getX() - gameObject.getSize()) * scale,
                     ((int)gameObject.getPosition().getY() - gameObject.getSize()) * scale,
+                    gameObject.getSize() * 2 * scale,
+                    gameObject.getSize() * 2 * scale,
                     null);
         }
     }
@@ -67,6 +69,8 @@ public class Painter extends JComponent implements GameObserver {
                 g2d.drawImage(this.board.getTheme().getSprite(tile.getType()),
                         (int)(tile.getPosition().getX()) * scale,
                         (int)(tile.getPosition().getY()) * scale,
+                        (int) Tile.TILE_SIZE,
+                        (int) Tile.TILE_SIZE,
                         null);
             }
         }

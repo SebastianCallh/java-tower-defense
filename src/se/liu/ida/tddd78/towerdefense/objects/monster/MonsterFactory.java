@@ -7,13 +7,13 @@ import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
  */
 public final class MonsterFactory {
     private  final static int SMALL_HEALTH = 30;
-    private  final static int SMALL_SIZE = 6;
+    private  final static int SMALL_SIZE = 17;
     private  final static int SMALL_SPEED = 1;
     private  final static int SMALL_DAMAGE = 1;
     private  final static int SMALL_BOUNTY = 5;
 
     private  final static int BIG_HEALTH = 120;
-    private  final static int BIG_SIZE = 12;
+    private  final static int BIG_SIZE = 20;
     private  final static int BIG_SPEED = 1;
     private  final static int BIG_DAMAGE = 4;
     private  final static int BIG_BOUNTY = 20;

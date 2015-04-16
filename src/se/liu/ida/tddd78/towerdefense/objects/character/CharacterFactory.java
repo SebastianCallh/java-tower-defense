@@ -6,7 +6,7 @@ import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
  * Contains methods for creating characters.
  */
 public final class CharacterFactory {
-    private static final int PLAYER_SIZE = 10;
+    private static final int PLAYER_SIZE = 17;
     private static final int PLAYER_SPEED = 1;
 
     private static final int SOMEDUDE_SIZE = 10;

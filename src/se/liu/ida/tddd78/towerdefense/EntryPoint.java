@@ -39,7 +39,7 @@ public final class EntryPoint {
         try {
             theme = ThemeLoader.loadTheme("data/theme.xml");
         } catch (ThemeLoadException e) {
-            LOG.log(Level.SEVERE, "Sniff boys, no theme");
+            LOG.log(Level.SEVERE, "Sniff boys, no theme", e);
             return;
         }
 
