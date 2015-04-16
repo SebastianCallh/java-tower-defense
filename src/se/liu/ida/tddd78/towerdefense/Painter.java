@@ -1,14 +1,11 @@
 package se.liu.ida.tddd78.towerdefense;
 
-import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
 import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
 import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handles the drawing of all game objects and tiles on the board.

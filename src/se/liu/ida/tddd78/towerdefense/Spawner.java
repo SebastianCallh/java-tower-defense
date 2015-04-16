@@ -1,6 +1,5 @@
 package se.liu.ida.tddd78.towerdefense;
 
-import com.sun.istack.internal.NotNull;
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
 import se.liu.ida.tddd78.towerdefense.objects.monster.MonsterFactory;

@@ -1,6 +1,5 @@
 package se.liu.ida.tddd78.towerdefense.objects.abstracts;
 
-import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**

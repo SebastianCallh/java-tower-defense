@@ -6,6 +6,18 @@ import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
  * Contains methods for creating defenses.
  */
 public final class DefenseFactory {
+    private final static int SMALL_SIZE = 10;
+    private final static int SMALL_RANGE = 5;
+    private final static int SMALL_DAMAGE = 5;
+    private final static long SMALL_ATTACK_SPEED = 500;
+    private final static int SMALL_COST = 100;
+
+    private final static int BIG_SIZE = 15;
+    private final static int BIG_RANGE = 10;
+    private final static int BIG_DAMAGE = 10;
+    private final static long BIG_ATTACK_SPEED = 500;
+    private final static int BIG_COST = 200;
+
     private DefenseFactory() {
     }
 
@@ -22,10 +34,12 @@ public final class DefenseFactory {
     }
 
     private static Defense makeSmall() {
-        return new BasicDefense(10, DefenseType.SMALL, 50, 5, 500, 100);
+        return new BasicDefense(SMALL_SIZE, SMALL_RANGE, SMALL_DAMAGE,
+                SMALL_ATTACK_SPEED, SMALL_COST, DefenseType.SMALL);
     }
 
     private static Defense makeBig() {
-        return new BasicDefense(15, DefenseType.BIG, 500, 10, 500, 200);
+        return new BasicDefense(BIG_SIZE, BIG_RANGE, BIG_DAMAGE,
+                BIG_ATTACK_SPEED, BIG_COST, DefenseType.BIG);
     }
 }

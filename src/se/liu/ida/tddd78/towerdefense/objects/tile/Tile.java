@@ -26,6 +26,7 @@ public class Tile {
                 position.getY() + TILE_SIZE / 2);
     }
 
+    //We're unsure why only this getType-method is upset with the interface
     public TileType getType() {
         return type;
     }

@@ -4,7 +4,6 @@ import se.liu.ida.tddd78.towerdefense.Board;
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.utils.Collision;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
-import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
 import se.liu.ida.tddd78.towerdefense.objects.abstracts.AbstractGameObject;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
@@ -62,14 +61,14 @@ public class BasicDefense extends AbstractGameObject implements Defense {
         return !this.cooldownTimer.hasCompleted();
     }
 
-    public BasicDefense(int size, DefenseType type, int range, int damage, long attackSpeed, int cost) {
+    public BasicDefense(int size, int range, int damage, long attackSpeed, int cost, DefenseType type) {
         super(new Point(0,0), size);
-        this.type = type;
         this.range = range;
         this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.cost = cost;
         this.cooldownTimer = new Timer(this.attackSpeed);
+        this.type = type;
         this.target = null;
     }
 

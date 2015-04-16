@@ -6,6 +6,18 @@ import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
  * Contains methods for creating monsters.
  */
 public final class MonsterFactory {
+    private  final static int SMALL_HEALTH = 30;
+    private  final static int SMALL_SIZE = 6;
+    private  final static int SMALL_SPEED = 1;
+    private  final static int SMALL_DAMAGE = 1;
+    private  final static int SMALL_BOUNTY = 5;
+
+    private  final static int BIG_HEALTH = 120;
+    private  final static int BIG_SIZE = 12;
+    private  final static int BIG_SPEED = 1;
+    private  final static int BIG_DAMAGE = 4;
+    private  final static int BIG_BOUNTY = 20;
+
     private MonsterFactory() {
     }
 
@@ -21,10 +33,12 @@ public final class MonsterFactory {
     }
 
     private static Monster makeSmall() {
-    return new BasicMonster(30, 10, 1, 1, 5, MonsterType.SMALL);
+        return new BasicMonster(SMALL_HEALTH, SMALL_SIZE, SMALL_SPEED,
+                SMALL_DAMAGE, SMALL_BOUNTY, MonsterType.SMALL);
     }
 
     private static Monster makeBig() {
-        return new BasicMonster(80, 12, 1, 2, 10, MonsterType.BIG); // TODO: Change speed to 0.5
+        return new BasicMonster(BIG_HEALTH, BIG_SIZE, BIG_SPEED,
+                BIG_DAMAGE, BIG_BOUNTY, MonsterType.BIG);
     }
 }
