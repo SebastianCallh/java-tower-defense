@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<theme>
+    <element object="monster" type="small">
+        <sprite>resources/standard_monster.png</sprite>
+    </element>
+    <element object="monster" type="big">
+        <sprite>resources/pirate_monster.png</sprite>
+    </element>
+    <element object="character" type="player">
+        <sprite>resources/standard_player.png</sprite>
+    </element>
+    <element object="projectile" type="normal">
+        <sprite>resources/standard_projectile.png</sprite>
+    </element>
+    <element object="tile" type="path">
+        <sprite>resources/standard_tile.png</sprite>
+    </element>
+    <element object="defense" type="big">
+        <sprite>resources/pirate_player.png</sprite>
+    </element>
+    <element object="defense" type="small">
+        <sprite>resources/pirate_player.png</sprite>
+    </element>
+</theme>

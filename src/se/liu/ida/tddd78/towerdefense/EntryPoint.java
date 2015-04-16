@@ -1,9 +1,11 @@
 package se.liu.ida.tddd78.towerdefense;
 
+import se.liu.ida.tddd78.towerdefense.exceptions.ThemeLoadException;
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.objects.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.Layout.Type;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
+import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeLoader;
 import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeType;
 import se.liu.ida.tddd78.towerdefense.ui.EconomyPanel;
 import se.liu.ida.tddd78.towerdefense.ui.GameOverScreen;
@@ -33,8 +35,16 @@ public final class EntryPoint {
             return;
         }
 
+        Theme theme;
+        try {
+            theme = ThemeLoader.loadTheme("data/theme.xml");
+        } catch (ThemeLoadException e) {
+            LOG.log(Level.SEVERE, "Sniff boys, no theme");
+            return;
+        }
+
         Board board = new Board(Layout.get(Type.STANDARD),
-                new Theme(ThemeType.GREEN_IS_GOOD),
+                theme,
                 player.getCharacter());
 
         Painter painter = new Painter(board);
