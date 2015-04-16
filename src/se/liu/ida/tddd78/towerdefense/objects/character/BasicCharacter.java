@@ -22,11 +22,6 @@ public class BasicCharacter extends AbstractMovable implements Character {
     }
 
     @Override
-    public Painter getPainter() {
-        return CharacterPainter.instanceFor(this);
-    }
-
-    @Override
     public void update(Board board) {
 
     }

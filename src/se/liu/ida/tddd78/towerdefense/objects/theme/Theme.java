@@ -4,7 +4,13 @@ import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
 import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseType;
 import se.liu.ida.tddd78.towerdefense.objects.monster.MonsterType;
 
+import se.liu.ida.tddd78.towerdefense.Painter;
+import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +23,7 @@ import java.util.Map;
 public class Theme {
     private Map<Element, Color> elementStyleMap = new EnumMap<>(Element.class);
     private Map<ThemeableType, Color> elementColorMap = new HashMap<>();
+    private BufferedImage placeholder;
 
     private Theme() {
 
@@ -55,8 +62,16 @@ public class Theme {
         }
     }
 
-    public Color getStyle(Element element) {
-        return this.elementStyleMap.get(element);
+    public BufferedImage getSprite(ThemeableType element) {
+        try {
+            if (placeholder == null) {
+                placeholder = ImageIO.read(Painter.class.getClassLoader().getResource("resources/standard_monster.png"));
+            }
+            return placeholder;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public enum Element {

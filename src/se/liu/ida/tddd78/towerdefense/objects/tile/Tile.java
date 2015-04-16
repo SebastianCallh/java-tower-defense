@@ -1,13 +1,11 @@
 package se.liu.ida.tddd78.towerdefense.objects.tile;
 
-import se.liu.ida.tddd78.towerdefense.interfaces.Paintable;
-import se.liu.ida.tddd78.towerdefense.interfaces.Painter;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 
 /**
  * Represents a square on the board.
  */
-public class Tile implements Paintable {
+public class Tile {
     private TileType type;
     private Point gridPosition;
 
@@ -35,11 +33,5 @@ public class Tile implements Paintable {
     public Tile(TileType type, Point gridPosition) {
         this.gridPosition = gridPosition;
         this.type = type;
-    }
-
-
-    @Override
-    public Painter getPainter() {
-        return TilePainter.instanceFor(this);
     }
 }

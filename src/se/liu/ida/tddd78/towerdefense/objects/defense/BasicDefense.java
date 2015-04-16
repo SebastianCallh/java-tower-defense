@@ -74,11 +74,6 @@ public class BasicDefense extends AbstractGameObject implements Defense {
     }
 
     @Override
-    public Painter getPainter() {
-        return DefensePainter.instanceFor(this);
-    }
-
-    @Override
     public void update(Board board) {
         if (this.target != null && !this.target.isRemoved()) {
             if (Collision.distanceBetween(this, this.target) > this.range) {
