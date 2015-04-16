@@ -13,9 +13,7 @@ import java.util.Map;
  */
 
 @SuppressWarnings("MagicNumber")
-public class Theme {
-    private Map<Element, Color> elementStyleMap = new EnumMap<>(Element.class);
-    private Map<ThemeableType, Color> elementColorMap = new HashMap<>();
+public final class Theme {
     private Map<ThemeableType, Image> elementSpriteMap = new HashMap<>();
     private Image placeholder;
 
@@ -40,20 +38,6 @@ public class Theme {
         }
     }
 
-    public enum Element {
-        TILE_PATH,
-        TILE_BLOCKED,
-        TILE_SPAWN,
-        TILE_GOAL,
-        CHARACTER_PLAYER,
-        CHARACTER_OTHER,
-        MONSTER_BIG,
-        MONSTER_SMALL,
-        PROJECTILE_NORMAL,
-        DEFENSE_BIG,
-        DEFENSE_SMALL
-    }
-
     protected static class ThemeFactory {
         private Theme theme;
 
@@ -64,13 +48,6 @@ public class Theme {
         public ThemeFactory addSpriteMapping(ThemeableType type, Image image) {
             assert type != null;
             theme.elementSpriteMap.put(type, image);
-
-            return this;
-        }
-
-        public ThemeFactory addColorMapping(ThemeableType type, Color color) {
-            assert type != null;
-            theme.elementColorMap.put(type, color);
 
             return this;
         }

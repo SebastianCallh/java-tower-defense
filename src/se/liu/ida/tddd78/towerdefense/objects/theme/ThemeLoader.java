@@ -14,6 +14,7 @@ import se.liu.ida.tddd78.towerdefense.objects.monster.MonsterType;
 import se.liu.ida.tddd78.towerdefense.objects.projectile.ProjectileType;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme.ThemeFactory;
 import se.liu.ida.tddd78.towerdefense.objects.tile.TileType;
+import se.liu.ida.tddd78.towerdefense.utils.GraphicsUtil;
 
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
@@ -24,16 +25,12 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 public final class ThemeLoader {
     private static final String ELEMENT_SELECTOR = "/theme/element";
-    private static final String COLOR_SELECTOR = "color";
     private static final String SPRITE_SELECTOR = "sprite";
 
     private static XPathExpression elementExpression = null;
-    private static XPathExpression colorExpression = null;
     private static XPathExpression spriteSelector = null;
     private static boolean hasInitializedExpressions = false;
 
@@ -48,7 +45,6 @@ public final class ThemeLoader {
 
         try {
             elementExpression = xpath.compile(ELEMENT_SELECTOR);
-            colorExpression = xpath.compile(COLOR_SELECTOR);
             spriteSelector = xpath.compile(SPRITE_SELECTOR);
         } catch (XPathExpressionException e) {
             throw new ThemeParseException("Failed to initialize theme parser XPath expressions", e);
@@ -76,8 +72,8 @@ public final class ThemeLoader {
                 Node element = elements.item(i);
 
                 ThemeableType type = retrieveType(element);
-                //themeFactory.addColorMapping(type, retrieveColor(element));
-                themeFactory.addSpriteMapping(type, retrieveSprite(element));
+                Image scaledSprite = scaleSprite(retrieveSprite(element), type);
+                themeFactory.addSpriteMapping(type, scaledSprite);
             }
 
             return themeFactory.build();
@@ -132,10 +128,11 @@ public final class ThemeLoader {
         }
     }
 
-    private static Color retrieveColor(Node element) throws XPathExpressionException {
-        String color = colorExpression.evaluate(element);
-
-        return new Color(Integer.decode(color));
+    private static Image scaleSprite(Image image, ThemeableType type) {
+        return image.getScaledInstance(
+                type.getSize() * 2 * GraphicsUtil.getScale(),
+                type.getSize() * 2 * GraphicsUtil.getScale(),
+                Image.SCALE_SMOOTH);
     }
 
     public static void main(String[] args) {

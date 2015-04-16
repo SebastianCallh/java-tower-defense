@@ -32,6 +32,17 @@ public final class MonsterFactory {
         }
     }
 
+    public static int getSize(MonsterType type) throws TypeNotSupportedException {
+        switch (type) {
+            case SMALL:
+                return SMALL_SIZE;
+            case BIG:
+                return BIG_SIZE;
+            default:
+                throw new TypeNotSupportedException("Monster type not supported");
+        }
+    }
+
     private static Monster makeSmall() {
         return new BasicMonster(SMALL_HEALTH, SMALL_SIZE, SMALL_SPEED,
                 SMALL_DAMAGE, SMALL_BOUNTY, MonsterType.SMALL);

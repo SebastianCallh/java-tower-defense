@@ -1,9 +1,19 @@
 package se.liu.ida.tddd78.towerdefense.objects.defense;
 
+import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
 
 public enum DefenseType implements ThemeableType {
     SMALL,
     BIG,
-    FAST
+    FAST;
+
+    @Override
+    public int getSize() {
+        try {
+            return DefenseFactory.getSize(this);
+        } catch (TypeNotSupportedException ignored) {
+            return 0;
+        }
+    }
 }

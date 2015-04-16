@@ -65,8 +65,8 @@ public class Painter extends JComponent implements GameObserver {
             for (int y = 0; y < this.board.getHeight(); y++) {
                 Tile tile = this.board.getTile(x, y);
                 g2d.drawImage(this.board.getTheme().getSprite(tile.getType()),
-                        (int)(tile.getPosition().getX() - Tile.TILE_SIZE) * scale,
-                        (int)(tile.getPosition().getY() - Tile.TILE_SIZE) * scale,
+                        (int)(tile.getPosition().getX()) * scale,
+                        (int)(tile.getPosition().getY()) * scale,
                         null);
             }
         }
