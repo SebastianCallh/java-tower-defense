@@ -6,9 +6,7 @@ import se.liu.ida.tddd78.towerdefense.objects.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.Layout.Type;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeLoader;
-import se.liu.ida.tddd78.towerdefense.ui.EconomyPanel;
-import se.liu.ida.tddd78.towerdefense.ui.GameOverScreen;
-import se.liu.ida.tddd78.towerdefense.ui.ScorePanel;
+import se.liu.ida.tddd78.towerdefense.ui.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +34,7 @@ public final class EntryPoint {
 
         Theme theme;
         try {
-            theme = ThemeLoader.loadTheme("data/pirate_theme.xml");
+            theme = ThemeLoader.loadTheme("data/pirate_theme.theme");
         } catch (ThemeLoadException e) {
             LOG.log(Level.SEVERE, "Sniff boys, no theme", e);
             return;
@@ -52,21 +50,34 @@ public final class EntryPoint {
         ScorePanel scorePanel = new ScorePanel(scale);
         EconomyPanel economyPanel = new EconomyPanel(scale);
         GameOverScreen gameOverScreen = new GameOverScreen(scale);
-        gameOverScreen.setVisible(false);
+        //gameOverScreen.setVisible(false);
+        MenuScreen menuScreen = new MenuScreen(scale);
+        OptionsScreen optionsScreen = new OptionsScreen(scale);
+        Options options = new Options();
 
         Game game = new Game(board, player,
-			     new InputHandler(painter), new Spawner());
+			     new InputHandler(painter), new Spawner(), options);
         game.addScoreObserver(scorePanel);
         game.addScoreObserver(economyPanel);
         game.addScoreObserver(gameOverScreen);
+        game.addScoreObserver(menuScreen);
+        game.addScoreObserver(optionsScreen);
 
         gameOverScreen.addButtonClickListener(game);
+        menuScreen.addButtonClickListener(game);
+        menuScreen.addButtonClickListener(options);
+        optionsScreen.addButtonClickListener(game);
+        optionsScreen.addButtonClickListener(options);
+
+        options.addOptionChangeObserver(game);
 
         GameWindow gameWindow = new GameWindow("Java tower defense");
         gameWindow.addInnerComponent(painter, BorderLayout.CENTER);
         gameWindow.addInnerComponent(scorePanel, BorderLayout.PAGE_START);
         gameWindow.addInnerComponent(economyPanel, BorderLayout.PAGE_END);
         gameWindow.addLayeredComponent(gameOverScreen, JLayeredPane.PALETTE_LAYER);
+        gameWindow.addLayeredComponent(menuScreen, 2);
+        gameWindow.addLayeredComponent(optionsScreen, 3);
         gameWindow.create();
 
         Timer updateTimer = new Timer(MS_PER_UPDATE, new AbstractAction() {

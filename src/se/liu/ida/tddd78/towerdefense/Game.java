@@ -30,6 +30,7 @@ public class Game implements Observer, ButtonObserver {
 	private int round;
     private List<GameObserver> scoreObservers;
 	private Spawner spawner;
+    private Options options;
 	private List<Monster> spawnList;
 
     private Timer roundTimer;
@@ -41,15 +42,18 @@ public class Game implements Observer, ButtonObserver {
 	public Game(Board board,
                 Player player,
                 InputHandler inputHandler,
-		        Spawner spawner) {
+		        Spawner spawner,
+                Options options) {
 	    this.board = board;
         this.player = player;
         this.player.addPlayerObserver(this);
         this.inputHandler = inputHandler;
         this.spawner = spawner;
+        this.options = options;
         this.scoreObservers = new ArrayList<>();
 
         resetGame();
+        gotoMenu();
     }
 
     public int getRound() {
@@ -64,6 +68,10 @@ public class Game implements Observer, ButtonObserver {
         return this.state;
     }
 
+    public Options getOptions() {
+        return options;
+    }
+
     private void setRound(int round) {
         this.round = round;
         notifyScoreChanged();
@@ -71,6 +79,7 @@ public class Game implements Observer, ButtonObserver {
 
     private void setState(State state) {
         this.state = state;
+
         notifyScoreChanged();
     }
 
@@ -86,6 +95,10 @@ public class Game implements Observer, ButtonObserver {
 
         setState(State.PRE_ROUND);
         setRound(1);
+    }
+
+    public void gotoMenu() {
+        setState(State.MAIN_MENU);
     }
 
     public void update() {
@@ -187,14 +200,27 @@ public class Game implements Observer, ButtonObserver {
 
     @Override
     public void onButtonClicked(ButtonType buttonType) {
-        if (buttonType == ButtonType.NEW_GAME) {
-            resetGame();
+        switch (buttonType) {
+            case NEW_GAME:
+                resetGame();
+                break;
+            case MAIN_MENU:
+                setState(State.MAIN_MENU);
+                break;
+            case OPTIONS:
+                setState(State.OPTIONS_MENU);
+                break;
+            case EXIT:
+                System.exit(0);
+                break;
         }
     }
 
     public enum State {
         PRE_ROUND,
         ROUND,
-        GAME_OVER
+        GAME_OVER,
+        MAIN_MENU,
+        OPTIONS_MENU
     }
 }

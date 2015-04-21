@@ -72,7 +72,7 @@ public final class Layout {
 
     static {
         try {
-            LAYOUT_TYPE_MAP.put(Type.STANDARD, readLayout("layouts/standard"));
+            LAYOUT_TYPE_MAP.put(Type.STANDARD, readLayout("layouts/standard.layout"));
         } catch (LayoutParseException e) {
             LOG.log(Level.SEVERE, "Failed to parse default layout", e);
             JOptionPane.showMessageDialog(null, "Unable to load standard map, please specify a valid map to load!");
