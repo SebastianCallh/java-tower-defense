@@ -1,137 +1,82 @@
 package se.liu.ida.tddd78.towerdefense;
 
-import se.liu.ida.tddd78.towerdefense.Game.State;
+import se.liu.ida.tddd78.towerdefense.exceptions.LayoutParseException;
 import se.liu.ida.tddd78.towerdefense.exceptions.ThemeLoadException;
 import se.liu.ida.tddd78.towerdefense.interfaces.ButtonObserver;
-import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
 import se.liu.ida.tddd78.towerdefense.objects.ButtonType;
+import se.liu.ida.tddd78.towerdefense.objects.layout.Layout;
+import se.liu.ida.tddd78.towerdefense.objects.layout.LayoutLoader;
+import se.liu.ida.tddd78.towerdefense.objects.layout.LayoutType;
+import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeLoader;
-import se.liu.ida.tddd78.towerdefense.utils.FileDiscoveryUtil;
-import se.liu.ida.tddd78.towerdefense.utils.FileDiscoveryUtil.FileType;
+import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeType;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Keeps track of the game settings, such as map layout, theme and difficulty
+ */
 public class Options implements ButtonObserver {
-    private State lastState;
-    private List<String> availableLayouts;
-    private List<String> availableThemes;
+    private List<Layout> availableLayouts;
+    private List<Theme> availableThemes;
     private int layoutIndex;
     private int themeIndex;
 
+    private Theme theme;
+    private Layout layout;
+    private static final ThemeType DEFAULT_THEME = ThemeType.STANDARD;
+    private static final LayoutType DEFAULT_LAYOUT = LayoutType.STANDARD;
+
     private List<Observer> optionChangeObservers;
 
-    public Options() {
-        this.lastState = null;
-        this.availableLayouts = new ArrayList<>();
-        this.availableThemes = new ArrayList<>();
+    public Options() throws LayoutParseException, ThemeLoadException {
         this.optionChangeObservers = new ArrayList<>();
+
+        this.theme = ThemeLoader.load(DEFAULT_THEME);
+        this.layout = LayoutLoader.load(DEFAULT_LAYOUT);
+        this.reloadFiles();
+
+        layoutIndex = 1;
+        themeIndex = 1;
     }
 
-    public String getCurrentLayoutName() {
-        if (availableLayouts.size() > layoutIndex) {
-            return availableLayouts.get(layoutIndex);
-        } else {
-            return "None";
-        }
+    public Layout getLayout() {
+        return this.layout;
     }
 
-    public String getCurrentThemeName() {
-        if (availableThemes.size() > themeIndex) {
-            return availableThemes.get(themeIndex);
-        } else {
-            return "None";
-        }
+    public Theme getTheme() {
+        return this.theme;
     }
 
-    private boolean verifyLayout(URL file) {
-        return true;
-    }
-
-    private boolean verifyTheme(URL file) {
+    //Currently holds all themes & layouts in memory. Should probably be lazy loaded
+    //Catches should propagate to the UI an deliver error message to user
+    private void reloadFiles() {
         try {
-            ThemeLoader.loadTheme(file);
-            return true;
+            availableLayouts = LayoutLoader.getAvailableLayouts();
+        } catch (LayoutParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            availableThemes = ThemeLoader.getAvailableThemes();
         } catch (ThemeLoadException e) {
             e.printStackTrace();
         }
-        return false;
-    }
-
-    private String getName(URL url) {
-        String str = url.getFile();
-        return str.substring(str.lastIndexOf('/') + 1, str.lastIndexOf('.'));
-    }
-
-    private void reloadFiles() {
-        availableLayouts = new ArrayList<>();
-        availableThemes = new ArrayList<>();
-
-        List<URL> foundLayouts = FileDiscoveryUtil.retrieveExistingFiles(FileType.LAYOUT);
-        for (URL layout : foundLayouts) {
-            if (verifyLayout(layout)) {
-                availableLayouts.add(getName(layout));
-            }
-        }
-
-        List<URL> foundThemes = FileDiscoveryUtil.retrieveExistingFiles(FileType.THEME);
-        for (URL theme : foundThemes) {
-            if (verifyTheme(theme)) {
-                availableThemes.add(getName(theme));
-            }
-        }
-
-        layoutIndex = Math.min(layoutIndex, availableLayouts.size());
-        themeIndex = Math.min(themeIndex, availableThemes.size());
-    }
-
-    private void applyOptions() {
-
-    }
-
-    private void onStateChanged(State state) {
-        if (state == State.OPTIONS_MENU) {
-            reloadFiles();
-        } else if (state == State.MAIN_MENU) {
-            applyOptions();
-        }
-    }
-
-    /*
-    @Override
-    public void onNotify(Game game) {
-        State currentState = game.getState();
-        if (currentState != lastState) {
-            onStateChanged(currentState);
-        }
-
-        lastState = currentState;
-    }
-    */
-
-    public static void main(String[] args) {
-        Options options = new Options();
-        options.reloadFiles();
     }
 
     @Override
     public void onButtonClicked(ButtonType buttonType) {
         switch (buttonType) {
             case NEXT_MAP:
-                layoutIndex++;
-                if (layoutIndex >= availableLayouts.size()) {
-                    layoutIndex = 0;
-                }
+                layoutIndex = (layoutIndex + 1) % this.availableLayouts.size();
+                this.layout = this.availableLayouts.get(layoutIndex);
 
                 notifyOptionChanged();
                 break;
             case NEXT_THEME:
-                themeIndex++;
-                if (themeIndex >= availableThemes.size()) {
-                    themeIndex = 0;
-                }
+                themeIndex = (themeIndex + 1) % this.availableLayouts.size();
+                this.theme = this.availableThemes.get(themeIndex);
 
                 notifyOptionChanged();
                 break;
@@ -141,15 +86,12 @@ public class Options implements ButtonObserver {
                 notifyOptionChanged();
                 break;
             case MAIN_MENU:
-                applyOptions();
-
                 break;
         }
     }
 
     public void addOptionChangeObserver(Observer observer) {
         optionChangeObservers.add(observer);
-        observer.onNotify();
     }
 
     public void notifyOptionChanged() {

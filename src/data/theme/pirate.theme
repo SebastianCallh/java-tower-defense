@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <theme>
+    <name>Pirate</name>
     <element object="monster" type="small">
         <sprite>resources/pirate_monster_small.png</sprite>
     </element>
@@ -13,7 +14,10 @@
         <sprite>resources/pirate_projectile.png</sprite>
     </element>
     <element object="tile" type="blocked">
-        <sprite>resources/standard_tile_blocked.png</sprite>
+        <sprite>resources/pirate_tile_blocked.png</sprite>
+    </element>
+    <element object="tile" type="path">
+        <sprite>resources/pirate_tile_path.png</sprite>
     </element>
     <element object="defense" type="big">
         <sprite>resources/pirate_defense_big.png</sprite>

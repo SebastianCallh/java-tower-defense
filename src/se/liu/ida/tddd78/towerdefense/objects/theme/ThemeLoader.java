@@ -14,6 +14,7 @@ import se.liu.ida.tddd78.towerdefense.objects.monster.MonsterType;
 import se.liu.ida.tddd78.towerdefense.objects.projectile.ProjectileType;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme.ThemeFactory;
 import se.liu.ida.tddd78.towerdefense.objects.tile.TileType;
+import se.liu.ida.tddd78.towerdefense.utils.FileDiscoveryUtil;
 import se.liu.ida.tddd78.towerdefense.utils.GraphicsUtil;
 
 import javax.imageio.ImageIO;
@@ -25,6 +26,8 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.*;
+import java.util.List;
 
 public final class ThemeLoader {
     private static final String ELEMENT_SELECTOR = "/theme/element";
@@ -33,6 +36,11 @@ public final class ThemeLoader {
     private static XPathExpression elementExpression = null;
     private static XPathExpression spriteSelector = null;
     private static boolean hasInitializedExpressions = false;
+
+    private static Map<ThemeType, URL> THEMETYPE_URL_MAP = new HashMap<ThemeType, URL>() {{
+        put(ThemeType.STANDARD, ThemeLoader.class.getClassLoader().getResource("data/theme/standard.theme"));
+        put(ThemeType.PIRATE, ThemeLoader.class.getClassLoader().getResource("data/theme/pirate.theme"));
+    }};
 
     private ThemeLoader() {
     }
@@ -53,11 +61,11 @@ public final class ThemeLoader {
         hasInitializedExpressions = true;
     }
 
-    public static Theme loadTheme(String resourceUrl) throws ThemeLoadException, ThemeParseException {
-        return loadTheme(ThemeLoader.class.getClassLoader().getResource(resourceUrl));
+    public static Theme load(ThemeType type) throws ThemeLoadException, ThemeParseException {
+        return load(THEMETYPE_URL_MAP.get(type));
     }
 
-    public static Theme loadTheme(URL resourceUrl) throws ThemeLoadException, ThemeParseException {
+    public static Theme load(URL resourceUrl) throws ThemeLoadException, ThemeParseException {
         initializeExpressions();
 
         try (InputStream resourceInputStream = resourceUrl.openStream()) {
@@ -65,7 +73,8 @@ public final class ThemeLoader {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(resourceInputStream);
 
-            ThemeFactory themeFactory = new ThemeFactory();
+            String name = doc.getElementsByTagName("name").item(0).getTextContent();
+            ThemeFactory themeFactory = new ThemeFactory(name);
 
             NodeList elements = (NodeList) elementExpression.evaluate(doc, XPathConstants.NODESET);
             for (int i = 0; i < elements.getLength(); i++) {
@@ -86,6 +95,26 @@ public final class ThemeLoader {
         } catch (XPathExpressionException e) {
             throw new ThemeParseException("Failed to evaluate XPath expression", e);
         }
+    }
+
+    public static List<Theme> getAvailableThemes() throws ThemeLoadException, ThemeParseException {
+        List<Theme> themes = new ArrayList<>();
+        for (URL theme: FileDiscoveryUtil.retrieveExistingFiles(FileDiscoveryUtil.FileType.THEME)) {
+            if (verifyTheme(theme)) {
+                themes.add(load(theme));
+            }
+        }
+        return themes;
+    }
+
+    private static boolean verifyTheme(URL file) {
+        try {
+            ThemeLoader.load(file);
+            return true;
+        } catch (ThemeLoadException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private static ThemeableType retrieveType(Node element) throws ThemeLoadException {
@@ -134,13 +163,4 @@ public final class ThemeLoader {
                 type.getSize() * 4 * GraphicsUtil.getScale(),
                 Image.SCALE_SMOOTH);
     }
-
-    public static void main(String[] args) {
-        try {
-            loadTheme(ThemeLoader.class.getClassLoader().getResource("data/pirate_theme.theme"));
-        } catch (ThemeLoadException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

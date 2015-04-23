@@ -13,8 +13,8 @@ import java.util.List;
 
 public final class FileDiscoveryUtil {
     private static final String[] SEARCH_PATHS = new String[] {
-            "data",
-            "layouts",
+            "data/layout",
+            "data/theme",
             "."
     };
 

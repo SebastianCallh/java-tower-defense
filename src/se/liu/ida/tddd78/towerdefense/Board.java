@@ -1,7 +1,7 @@
 package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Positionable;
-import se.liu.ida.tddd78.towerdefense.objects.Layout;
+import se.liu.ida.tddd78.towerdefense.objects.layout.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
@@ -21,6 +21,13 @@ public class Board {
 
     //TODO:Make size of window/board/tiles work solely out of the layout files size
     public final static int BOARD_SIZE = 400;
+
+
+    public Board(Layout layout, Theme theme, Character playerCharacter) {
+        this.layout = layout;
+        this.theme = theme;
+        this.reset(playerCharacter);
+    }
 
     public int getWidth() {
         return this.layout.getWidth();
@@ -64,10 +71,12 @@ public class Board {
         return this.layout.getGoal();
     }
 
-    public Board(Layout layout, Theme theme, Character playerCharacter) {
+    public void setLayout(Layout layout) {
         this.layout = layout;
+    }
+
+    public void setTheme(Theme theme) {
         this.theme = theme;
-        this.reset(playerCharacter);
     }
 
     //*The method that runs every game-loop-update*//

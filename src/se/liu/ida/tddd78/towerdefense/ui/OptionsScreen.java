@@ -79,8 +79,8 @@ public class OptionsScreen extends JPanel implements GameObserver, ActionListene
     @Override
     public void onNotify(Game game) {
         setVisible(game.getState() == State.OPTIONS_MENU);
-        mapButton.setText("Map: " + game.getOptions().getCurrentLayoutName());
-        themeButton.setText("Theme: " + game.getOptions().getCurrentThemeName());
+        mapButton.setText("Map: " + game.getOptions().getLayout().getName());
+        themeButton.setText("Theme: " + game.getOptions().getTheme().getName());
     }
 
     @Override
@@ -94,7 +94,6 @@ public class OptionsScreen extends JPanel implements GameObserver, ActionListene
             notifyButtonClickListeners(ButtonType.MAIN_MENU);
         }
     }
-
 
     public void addButtonClickListener(ButtonObserver listener) {
         buttonClickListeners.add(listener);

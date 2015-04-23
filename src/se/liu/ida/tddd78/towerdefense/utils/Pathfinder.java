@@ -1,6 +1,6 @@
 package se.liu.ida.tddd78.towerdefense.utils;
 
-import se.liu.ida.tddd78.towerdefense.objects.Layout;
+import se.liu.ida.tddd78.towerdefense.objects.layout.Layout;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 import se.liu.ida.tddd78.towerdefense.objects.tile.TileType;

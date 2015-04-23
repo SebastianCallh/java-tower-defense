@@ -1,11 +1,14 @@
 package se.liu.ida.tddd78.towerdefense;
 
+import se.liu.ida.tddd78.towerdefense.exceptions.LayoutParseException;
 import se.liu.ida.tddd78.towerdefense.exceptions.ThemeLoadException;
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
-import se.liu.ida.tddd78.towerdefense.objects.Layout;
-import se.liu.ida.tddd78.towerdefense.objects.Layout.Type;
+import se.liu.ida.tddd78.towerdefense.objects.layout.Layout;
+import se.liu.ida.tddd78.towerdefense.objects.layout.LayoutLoader;
+import se.liu.ida.tddd78.towerdefense.objects.layout.LayoutType;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
 import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeLoader;
+import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeType;
 import se.liu.ida.tddd78.towerdefense.ui.*;
 
 import javax.swing.*;
@@ -34,14 +37,24 @@ public final class EntryPoint {
 
         Theme theme;
         try {
-            theme = ThemeLoader.loadTheme("data/pirate_theme.theme");
+            theme = ThemeLoader.load(ThemeType.PIRATE);
         } catch (ThemeLoadException e) {
             LOG.log(Level.SEVERE, "Sniff boys, no theme", e);
             return;
         }
 
-        Board board = new Board(Layout.get(Type.STANDARD),
-                theme,
+        Options options = null;
+        try {
+            options = new Options();
+        } catch (LayoutParseException e) {
+            LOG.log(Level.SEVERE, "Error loading layout", e);
+        } catch (ThemeLoadException e) {
+            LOG.log(Level.SEVERE, "Error loading theme", e);
+        }
+
+
+        Board board = new Board(options.getLayout(),
+                options.getTheme(),
                 player.getCharacter());
 
         Painter painter = new Painter(board);
@@ -50,13 +63,11 @@ public final class EntryPoint {
         ScorePanel scorePanel = new ScorePanel(scale);
         EconomyPanel economyPanel = new EconomyPanel(scale);
         GameOverScreen gameOverScreen = new GameOverScreen(scale);
-        //gameOverScreen.setVisible(false);
         MenuScreen menuScreen = new MenuScreen(scale);
         OptionsScreen optionsScreen = new OptionsScreen(scale);
-        Options options = new Options();
 
-        Game game = new Game(board, player,
-			     new InputHandler(painter), new Spawner(), options);
+        Game game = new Game(board, player, new InputHandler(painter), new Spawner(), options);
+
         game.addScoreObserver(scorePanel);
         game.addScoreObserver(economyPanel);
         game.addScoreObserver(gameOverScreen);
@@ -64,12 +75,10 @@ public final class EntryPoint {
         game.addScoreObserver(optionsScreen);
 
         gameOverScreen.addButtonClickListener(game);
-        menuScreen.addButtonClickListener(game);
         menuScreen.addButtonClickListener(options);
-        optionsScreen.addButtonClickListener(game);
+        menuScreen.addButtonClickListener(game);
         optionsScreen.addButtonClickListener(options);
-
-        options.addOptionChangeObserver(game);
+        optionsScreen.addButtonClickListener(game);
 
         GameWindow gameWindow = new GameWindow("Java tower defense");
         gameWindow.addInnerComponent(painter, BorderLayout.CENTER);

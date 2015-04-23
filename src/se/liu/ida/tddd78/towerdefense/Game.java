@@ -51,6 +51,7 @@ public class Game implements Observer, ButtonObserver {
         this.spawner = spawner;
         this.options = options;
         this.scoreObservers = new ArrayList<>();
+        options.addOptionChangeObserver(this);
 
         resetGame();
         gotoMenu();
@@ -87,11 +88,11 @@ public class Game implements Observer, ButtonObserver {
         this.player.setLives(STARTING_LIVES);
         this.player.setMoney(STARTING_MONEY);
         this.player.getCharacter().setPosition(STARTING_POSITION);
-
         this.board.reset(this.player.getCharacter());
-
         this.roundTimer = new Timer(NEW_ROUND_DELAY_MILLIS);
         this.spawnTimer = new Timer(MONSTER_SPAWN_INTERVAL_MILLIS);
+        this.board.setLayout(this.options.getLayout());
+        this.board.setTheme(this.options.getTheme());
 
         setState(State.PRE_ROUND);
         setRound(1);
@@ -119,7 +120,7 @@ public class Game implements Observer, ButtonObserver {
             case ROUND:
                 if (!this.spawnList.isEmpty()) {
                     if (this.spawnTimer.hasCompleted()) {
-                        spawnNewMonsters();
+                        spawnNewMonster();
                     }
                 } else if (board.getGameObjects().getMonsters().isEmpty()) {
                     nextRound();
@@ -158,7 +159,7 @@ public class Game implements Observer, ButtonObserver {
         this.spawnList = this.spawner.spawn(this.round);
     }
 
-    private void spawnNewMonsters() {
+    private void spawnNewMonster() {
         Monster monster = this.spawnList.remove(this.spawnList.size() - 1);
         monster.setPosition(this.board.getSpawn().getCenter());
         this.spawnTimer.reset();
