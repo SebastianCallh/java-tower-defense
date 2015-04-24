@@ -11,9 +11,8 @@ public abstract class AbstractGameObject implements GameObject {
     private boolean removed;
 
     protected AbstractGameObject(Point position, int size) {
-        if (size < 0) {
-            throw new IllegalArgumentException("Negative size not supported");
-        }
+        assert size > 0;
+
         this.position = position;
         this.size = size;
     }

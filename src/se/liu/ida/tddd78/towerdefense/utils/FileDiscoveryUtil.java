@@ -1,20 +1,17 @@
 package se.liu.ida.tddd78.towerdefense.utils;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.List;
 
 public final class FileDiscoveryUtil {
     private static final String[] SEARCH_PATHS = new String[] {
-            "data/layout",
-            "data/theme",
+            "resources/layout",
+            "resources/theme",
             "."
     };
 

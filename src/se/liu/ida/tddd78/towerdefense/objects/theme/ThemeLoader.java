@@ -38,8 +38,8 @@ public final class ThemeLoader {
     private static boolean hasInitializedExpressions = false;
 
     private static Map<ThemeType, URL> THEMETYPE_URL_MAP = new HashMap<ThemeType, URL>() {{
-        put(ThemeType.STANDARD, ThemeLoader.class.getClassLoader().getResource("data/theme/standard.theme"));
-        put(ThemeType.PIRATE, ThemeLoader.class.getClassLoader().getResource("data/theme/pirate.theme"));
+        put(ThemeType.STANDARD, ThemeLoader.class.getClassLoader().getResource("resources/theme/standard.theme"));
+        put(ThemeType.PIRATE, ThemeLoader.class.getClassLoader().getResource("resources/theme/pirate.theme"));
     }};
 
     private ThemeLoader() {

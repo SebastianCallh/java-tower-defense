@@ -21,6 +21,8 @@ public class ScorePanel extends JPanel implements GameObserver {
     private int scale;
 
     public ScorePanel(int scale) {
+        assert scale > 0;
+
         this.scale = scale;
         initLayout();
     }

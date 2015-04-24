@@ -41,6 +41,10 @@ public class TowerIndicator extends JPanel implements GameObserver {
     private Border inactiveBorderInsufficientMoney;
 
     public TowerIndicator(int scale, String name, String mappedKey, DefenseType type) {
+        assert scale > 0;
+        assert name != null && !name.isEmpty();
+        assert mappedKey != null && !mappedKey.isEmpty();
+
         this.scale = scale;
         this.name = name;
         this.mappedKey = mappedKey;

@@ -27,6 +27,8 @@ public class GameOverScreen extends JPanel implements GameObserver, ActionListen
     private List<ButtonObserver> buttonClickListeners;
 
     public GameOverScreen(int scale) {
+        assert scale > 0;
+
         this.scale = scale;
         this.buttonClickListeners = new ArrayList<>();
 

@@ -49,6 +49,8 @@ public final class Theme {
         private Theme theme;
 
         public ThemeFactory(String name) {
+            assert name != null && !name.isEmpty();
+
             this.theme = new Theme(name);
         }
 

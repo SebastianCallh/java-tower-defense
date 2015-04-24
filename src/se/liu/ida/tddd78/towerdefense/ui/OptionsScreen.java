@@ -26,6 +26,8 @@ public class OptionsScreen extends JPanel implements GameObserver, ActionListene
     private JButton backButton;
 
     public OptionsScreen(int scale) {
+        assert scale > 0;
+
         this.scale = scale;
         this.buttonClickListeners = new ArrayList<>();
 

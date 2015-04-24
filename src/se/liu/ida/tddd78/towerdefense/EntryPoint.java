@@ -35,14 +35,6 @@ public final class EntryPoint {
             return;
         }
 
-        Theme theme;
-        try {
-            theme = ThemeLoader.load(ThemeType.PIRATE);
-        } catch (ThemeLoadException e) {
-            LOG.log(Level.SEVERE, "Sniff boys, no theme", e);
-            return;
-        }
-
         Options options = null;
         try {
             options = new Options();
@@ -51,7 +43,6 @@ public final class EntryPoint {
         } catch (ThemeLoadException e) {
             LOG.log(Level.SEVERE, "Error loading theme", e);
         }
-
 
         Board board = new Board(options.getLayout(),
                 options.getTheme(),

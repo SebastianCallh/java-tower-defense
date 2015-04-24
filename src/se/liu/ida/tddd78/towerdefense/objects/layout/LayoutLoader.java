@@ -1,16 +1,12 @@
 package se.liu.ida.tddd78.towerdefense.objects.layout;
 
-import org.xml.sax.SAXException;
 import se.liu.ida.tddd78.towerdefense.exceptions.LayoutParseException;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Grid;
 import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 import se.liu.ida.tddd78.towerdefense.objects.tile.TileType;
-import se.liu.ida.tddd78.towerdefense.utils.Collision;
 import se.liu.ida.tddd78.towerdefense.utils.FileDiscoveryUtil;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -24,8 +20,8 @@ import java.util.*;
  */
 public class LayoutLoader {
     private static final Map<LayoutType, URL> LAYOUTTYPE_URL_MAP = new EnumMap<LayoutType, URL>(LayoutType.class) {{
-        put(LayoutType.STANDARD, LayoutLoader.class.getClassLoader().getResource("data/layout/standard.layout"));
-        put(LayoutType.NOT_STANDARD, LayoutLoader.class.getClassLoader().getResource("data/layout/not_standard.layout"));
+        put(LayoutType.STANDARD, LayoutLoader.class.getClassLoader().getResource("resources/layout/standard.layout"));
+        put(LayoutType.NOT_STANDARD, LayoutLoader.class.getClassLoader().getResource("resources/layout/not_standard.layout"));
     }};
 
     public static Layout load(LayoutType type) throws LayoutParseException { return readLayout(LAYOUTTYPE_URL_MAP.get(type)); }

@@ -44,7 +44,15 @@ public class Game implements Observer, ButtonObserver {
                 InputHandler inputHandler,
 		        Spawner spawner,
                 Options options) {
-	    this.board = board;
+
+        assert board != null;
+        assert player != null;
+        assert inputHandler != null;
+        assert spawner != null;
+        assert options != null;
+	    assert scoreObservers != null;
+
+        this.board = board;
         this.player = player;
         this.player.addPlayerObserver(this);
         this.inputHandler = inputHandler;
@@ -55,6 +63,10 @@ public class Game implements Observer, ButtonObserver {
 
         resetGame();
         gotoMenu();
+
+        assert roundTimer != null;
+        assert spawnList != null;
+        assert state != null;
     }
 
     public int getRound() {

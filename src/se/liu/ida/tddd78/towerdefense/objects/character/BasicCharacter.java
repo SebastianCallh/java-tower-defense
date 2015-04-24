@@ -13,6 +13,9 @@ public class BasicCharacter extends AbstractMovable implements Character {
 
     public BasicCharacter(Point position, int size, int speed, CharacterType type) {
         super(position, size, speed);
+        assert size > 0;
+        assert speed > 0;
+
         this.type = type;
     }
 

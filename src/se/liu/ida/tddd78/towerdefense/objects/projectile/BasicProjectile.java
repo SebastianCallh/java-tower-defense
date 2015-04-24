@@ -17,6 +17,11 @@ public class BasicProjectile extends AbstractMovable implements Projectile {
 
     public BasicProjectile(int damage, int size, int speed, ProjectileType type) {
         super(new Point(0, 0), size, speed);
+
+        assert damage > 0;
+        assert size > 0;
+        assert speed > 0;
+
         this.damage = damage;
         this.type = type;
         this.target = null;

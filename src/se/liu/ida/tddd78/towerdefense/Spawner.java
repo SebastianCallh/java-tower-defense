@@ -25,6 +25,8 @@ public class Spawner {
         this.spawns.add(new SpawnMapper(4, 4, MonsterType.BIG));
         Collections.sort(this.spawns);
         this.cheapestMonsterPrice = this.spawns.get(0).price;
+
+        assert this.cheapestMonsterPrice > 0;
     }
 
     public List<Monster> spawn(int round) {

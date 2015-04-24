@@ -12,7 +12,7 @@ public enum CharacterType implements ThemeableType {
         try {
             return CharacterFactory.getSize(this);
         } catch (TypeNotSupportedException ignored) {
-            return 0;
+            return 0; //Does this need more error handling?
         }
     }
 }

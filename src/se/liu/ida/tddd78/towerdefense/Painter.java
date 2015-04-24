@@ -20,6 +20,8 @@ public class Painter extends JComponent implements GameObserver {
     private int scale;
 
     public Painter(Board board) {
+        assert board != null;
+
         this.board = board;
         this.scale = this.getScaling(Toolkit.getDefaultToolkit().getScreenSize());
     }

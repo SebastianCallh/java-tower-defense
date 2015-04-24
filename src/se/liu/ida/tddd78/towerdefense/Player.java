@@ -33,6 +33,8 @@ public class Player {
     }
 
     public void setMoney(int money) {
+        assert money >= 0;
+
         this.money = money;
         notifyPlayerChanged();
     }
@@ -63,6 +65,8 @@ public class Player {
     }
 
     public void setLives(int amount) {
+        assert amount >= 0;
+
         this.lives = amount;
         notifyPlayerChanged();
     }

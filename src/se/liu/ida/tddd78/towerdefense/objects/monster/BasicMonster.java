@@ -18,6 +18,20 @@ public class BasicMonster extends AbstractMovable implements Monster {
     private MonsterType type;
     private int bounty;
 
+    public BasicMonster(int health, int size, int speed, int damage, int bounty, MonsterType type) {
+        super(new Point(0,0), size, speed);
+
+        assert health > 0;
+        assert size > 0;
+        assert damage > 0;
+        assert bounty > 0;
+
+        this.health = health;
+        this.damage = damage;
+        this.bounty = bounty;
+        this.type = type;
+    }
+
     @Override
     public void removeHealth(int health) {
         this.health -= health;
@@ -35,14 +49,6 @@ public class BasicMonster extends AbstractMovable implements Monster {
     @Override
     public MonsterType getType() {
         return type;
-    }
-
-    public BasicMonster(int health, int size, int speed, int damage, int bounty, MonsterType type) {
-        super(new Point(0,0), size, speed);
-        this.health = health;
-        this.damage = damage;
-        this.bounty = bounty;
-        this.type = type;
     }
 
     @Override

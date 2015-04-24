@@ -31,6 +31,11 @@ public final class Layout {
     private Map<Tile, Tile> path;
 
     public Layout(String name, Grid<Tile> grid, Tile spawn, Tile goal) {
+        assert name != null && !name.isEmpty();
+        assert grid != null;
+        assert spawn != null;
+        assert goal != null;
+
         this.name = name;
         this.grid = grid;
         this.spawn = spawn;

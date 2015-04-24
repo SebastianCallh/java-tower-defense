@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<theme>
+    <name>Standard</name>
+    <element object="monster" type="small">
+        <sprite>resources/graphics/standard_monster_small.png</sprite>
+    </element>
+    <element object="monster" type="big">
+        <sprite>resources/graphics/standard_monster_big.png</sprite>
+    </element>
+    <element object="character" type="player">
+        <sprite>resources/graphics/standard_player.png</sprite>
+    </element>
+    <element object="projectile" type="normal">
+        <sprite>resources/graphics/standard_projectile.png</sprite>
+    </element>
+    <element object="tile" type="blocked">
+        <sprite>resources/graphics/standard_tile_blocked.png</sprite>
+    </element>
+    <element object="tile" type="path">
+        <sprite>resources/graphics/standard_tile_path.png</sprite>
+    </element>
+    <element object="defense" type="big">
+        <sprite>resources/graphics/standard_defense_big.png</sprite>
+    </element>
+    <element object="defense" type="small">
+        <sprite>resources/graphics/standard_defense_small.png</sprite>
+    </element>
+</theme>

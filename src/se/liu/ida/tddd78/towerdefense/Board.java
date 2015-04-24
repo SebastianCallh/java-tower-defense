@@ -22,8 +22,11 @@ public class Board {
     //TODO:Make size of window/board/tiles work solely out of the layout files size
     public final static int BOARD_SIZE = 400;
 
-
     public Board(Layout layout, Theme theme, Character playerCharacter) {
+        assert layout != null;
+        assert theme != null;
+        assert playerCharacter != null;
+
         this.layout = layout;
         this.theme = theme;
         this.reset(playerCharacter);

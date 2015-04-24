@@ -45,6 +45,7 @@ public class InputHandler {
     }
 
     public InputHandler(JComponent component) {
+        assert component != null;
         this.component = component;
         this.keysPressedMap = new EnumMap<>(Input.class);
 

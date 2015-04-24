@@ -8,6 +8,8 @@ public class Timer {
     private long startTimeMillis;
 
     public Timer(long timerDurationMillis) {
+        assert timerDurationMillis > 0;
+
         this.timerDurationMillis = timerDurationMillis;
         this.startTimeMillis = System.currentTimeMillis();
     }

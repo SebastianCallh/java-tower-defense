@@ -21,6 +21,8 @@ public class EconomyPanel extends JPanel implements GameObserver {
     private int scale;
 
     public EconomyPanel(int scale) {
+        assert scale > 0;
+
         this.scale = scale;
 
         initLayout();

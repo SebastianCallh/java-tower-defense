@@ -63,6 +63,13 @@ public class BasicDefense extends AbstractGameObject implements Defense {
 
     public BasicDefense(int size, int range, int damage, long attackSpeed, int cost, DefenseType type) {
         super(new Point(0,0), size);
+
+        assert size > 0;
+        assert range > 0;
+        assert damage > 0;
+        assert attackSpeed > 0;
+        assert cost > 0;
+
         this.range = range;
         this.damage = damage;
         this.attackSpeed = attackSpeed;

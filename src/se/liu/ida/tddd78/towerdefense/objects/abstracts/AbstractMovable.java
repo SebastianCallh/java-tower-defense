@@ -10,6 +10,8 @@ public abstract class AbstractMovable extends AbstractGameObject implements Mova
 
     protected AbstractMovable(Point position, int size, int speed) {
         super(position, size);
+        assert this.speed > 0;
+
         this.speed = speed;
     }
 

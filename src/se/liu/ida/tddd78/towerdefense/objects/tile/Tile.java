@@ -9,6 +9,13 @@ public class Tile {
     private TileType type;
     private Point gridPosition;
 
+    public Tile(TileType type, Point gridPosition) {
+        assert gridPosition != null;
+
+        this.gridPosition = gridPosition;
+        this.type = type;
+    }
+
     public final static double TILE_SIZE = 40.0;
 
     public Point getGridPosition() {
@@ -29,10 +36,5 @@ public class Tile {
     //We're unsure why only this getType-method is upset with the interface
     public TileType getType() {
         return type;
-    }
-
-    public Tile(TileType type, Point gridPosition) {
-        this.gridPosition = gridPosition;
-        this.type = type;
     }
 }

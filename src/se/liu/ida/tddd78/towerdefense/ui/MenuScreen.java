@@ -26,6 +26,8 @@ public class MenuScreen extends JPanel implements GameObserver, ActionListener {
     private JButton exitButton;
 
     public MenuScreen(int scale) {
+        assert scale > 0;
+
         this.scale = scale;
         this.buttonClickListeners = new ArrayList<>();
 
