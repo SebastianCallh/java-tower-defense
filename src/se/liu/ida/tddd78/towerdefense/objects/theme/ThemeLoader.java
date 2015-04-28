@@ -124,7 +124,7 @@ public final class ThemeLoader {
         return false;
     }
 
-    private static ThemeableType retrieveType(Node element) throws ThemeReadException {
+    private static ThemeableType retrieveType(Node element) throws ThemeParseException {
         NamedNodeMap attributes = element.getAttributes();
         String object = attributes.getNamedItem("object").getNodeValue();
         String type = attributes.getNamedItem("type").getNodeValue().toUpperCase();
@@ -142,11 +142,11 @@ public final class ThemeLoader {
                 case "tile":
                     return TileType.valueOf(type);
                 default:
-                    throw new ThemeReadException("Unrecognized object '" + object + "'");
+                    throw new ThemeParseException("Unrecognized object '" + object + "'");
             }
         }
         catch (IllegalArgumentException e) {
-            throw new ThemeReadException("Unrecognized object type '" + type + "'", e);
+            throw new ThemeParseException("Unrecognized object type '" + type + "'", e);
         }
     }
 
