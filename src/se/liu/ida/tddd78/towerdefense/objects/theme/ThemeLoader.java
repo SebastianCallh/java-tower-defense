@@ -87,11 +87,11 @@ public final class ThemeLoader {
 
             return themeFactory.build();
         } catch (ParserConfigurationException e) {
-            throw new ThemeParseException("Misconfigured parser configuration", e);
+            throw new ThemeLoadException("Misconfigured parser configuration", e);
         } catch (SAXException e) {
             throw new ThemeParseException("Invalid XML format", e);
         } catch (IOException e) {
-            throw new ThemeParseException("Unable to open file", e);
+            throw new ThemeLoadException("Unable to open file", e);
         } catch (XPathExpressionException e) {
             throw new ThemeParseException("Failed to evaluate XPath expression", e);
         }
@@ -138,8 +138,8 @@ public final class ThemeLoader {
                     throw new ThemeLoadException("Unrecognized object '" + object + "'");
             }
         }
-        catch (IllegalArgumentException ignored) {
-            throw new ThemeLoadException("Unrecognized object type '" + type + "'");
+        catch (IllegalArgumentException e) {
+            throw new ThemeLoadException("Unrecognized object type '" + type + "'", e);
         }
     }
 
@@ -152,8 +152,8 @@ public final class ThemeLoader {
 
         try {
             return ImageIO.read(spriteUrl);
-        } catch (IOException ignored) {
-            throw new ThemeLoadException("Unable to read sprite '" + spritePath + "'");
+        } catch (IOException e) {
+            throw new ThemeLoadException("Unable to read sprite '" + spritePath + "'", e);
         }
     }
 
