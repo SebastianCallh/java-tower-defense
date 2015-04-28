@@ -21,24 +21,12 @@ public final class EntryPoint {
     private EntryPoint() {}
 
     public static void main(String[] args) {
-        Player player;
-        try {
-            player = new Player();
-        } catch (TypeNotSupportedException e) {
-            LOG.log(Level.SEVERE, "Misconfigured Player class. Default character type not supported", e);
-            return;
-        }
 
-        Options options = null;
-        try {
-            options = new Options();
-        } catch (LayoutParseException e) {
-            LOG.log(Level.SEVERE, "Error loading layout", e);
-            return;
-        } catch (ThemeLoadException e) {
-            LOG.log(Level.SEVERE, "Error loading theme", e);
-            return;
-        }
+        Player player = getPlayer();
+        if (player == null) return;
+
+        Options options = getOptions();
+        if (options == null) return;
 
         Board board = new Board(options.getLayout(),
                 options.getTheme(),
@@ -49,6 +37,10 @@ public final class EntryPoint {
         Game game = new Game(board, player, new InputHandler(painter), new Spawner(), options);
         GameWindow gameWindow = getGameWindow(options, painter, game);
 
+        gameLoop(game, gameWindow);
+    }
+
+    private static void gameLoop(final Game game, final GameWindow gameWindow) {
         Timer updateTimer = new Timer(MS_PER_UPDATE, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,6 +51,31 @@ public final class EntryPoint {
         });
         updateTimer.setCoalesce(true);
         updateTimer.start();
+    }
+
+    private static Options getOptions() {
+        Options options;
+        try {
+            options = new Options();
+        } catch (LayoutParseException e) {
+            LOG.log(Level.SEVERE, "Error loading layout", e);
+            return null;
+        } catch (ThemeLoadException e) {
+            LOG.log(Level.SEVERE, "Error loading theme", e);
+            return null;
+        }
+        return options;
+    }
+
+    private static Player getPlayer() {
+        Player player;
+        try {
+            player = new Player();
+        } catch (TypeNotSupportedException e) {
+            LOG.log(Level.SEVERE, "Misconfigured Player class. Default character type not supported", e);
+            return null;
+        }
+        return player;
     }
 
     private static GameWindow getGameWindow(Options options, Painter painter, Game game) {

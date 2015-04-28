@@ -9,11 +9,11 @@ public final class DefenseFactory {
     private final static int SMALL_SIZE = 10;
     private final static int BIG_SIZE = 15;
 
-    private final static int SMALL_RANGE = 50;
-    private final static int BIG_RANGE = 500;
+    private final static int MEDIUM_RANGE = 50;
+    private final static int HIGH_RANGE = 500;
 
-    private final static int SMALL_DAMAGE = 5;
-    private final static int BIG_DAMAGE = 10;
+    private final static int LOW_DAMAGE = 5;
+    private final static int HIGH_DAMAGE = 10;
 
     private final static int SMALL_COST = 100;
     private final static int BIG_COST = 200;
@@ -51,17 +51,17 @@ public final class DefenseFactory {
     }
 
     private static Defense makeSmall() {
-        return new BasicDefense(SMALL_SIZE, SMALL_RANGE, SMALL_DAMAGE,
+        return new BasicDefense(SMALL_SIZE, MEDIUM_RANGE, LOW_DAMAGE,
                 MEDIUM_ATTACK_SPEED, SMALL_COST, DefenseType.SMALL);
     }
 
     private static Defense makeBig() {
-        return new BasicDefense(BIG_SIZE, BIG_RANGE, BIG_DAMAGE,
+        return new BasicDefense(BIG_SIZE, HIGH_RANGE, HIGH_DAMAGE,
                 MEDIUM_ATTACK_SPEED, BIG_COST, DefenseType.BIG);
     }
 
     private static Defense makeFast() {
-        return new BasicDefense(SMALL_SIZE, SMALL_RANGE, SMALL_DAMAGE,
+        return new BasicDefense(SMALL_SIZE, MEDIUM_RANGE, LOW_DAMAGE,
                 FAST_ATTACK_SPEED, FAST_COST, DefenseType.SMALL);
     }
 }

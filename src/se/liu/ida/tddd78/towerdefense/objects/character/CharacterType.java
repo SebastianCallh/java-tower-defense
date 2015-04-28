@@ -4,8 +4,7 @@ import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
 
 public enum CharacterType implements ThemeableType {
-    PLAYER,
-    SOMEDUDE;
+    PLAYER;
 
     @Override
     public int getSize() {
