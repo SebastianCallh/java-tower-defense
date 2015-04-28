@@ -54,6 +54,7 @@ public class Options implements ButtonObserver {
 
     //Currently holds all themes & layouts in memory. Should probably be lazy loaded
     //Catches should propagate to the UI an deliver error message to user
+    // TODO: Don't abort the entire loading mechanism if one file failed. Use iterator pattern?
     private void reloadFiles() {
         try {
             availableLayouts = LayoutLoader.getAvailableLayouts();
