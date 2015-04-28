@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Acts as the view and controller of the gane's main menu
+ */
 public class MenuScreen extends JPanel implements GameObserver, ActionListener {
     private static final Color BACKGROUND_COLOR = Color.darkGray;
     private static final Color FOREGROUND_COLOR = Color.white;

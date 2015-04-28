@@ -142,7 +142,10 @@ public class Game implements Observer, ButtonObserver {
 
                 break;
             case GAME_OVER:
-
+                break;
+            case MAIN_MENU:
+                break;
+            case OPTIONS_MENU:
                 break;
         }
     }

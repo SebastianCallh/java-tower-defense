@@ -2,6 +2,9 @@ package se.liu.ida.tddd78.towerdefense.utils;
 
 import java.awt.*;
 
+/**
+ * Handles scaling the graphics for different sized monitors
+ */
 // TODO: Remove?
 public final class GraphicsUtil {
     private static final int SCREEN_WIDTH_LARGEST = 4000;

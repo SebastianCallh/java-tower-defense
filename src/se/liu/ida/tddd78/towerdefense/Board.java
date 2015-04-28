@@ -19,7 +19,6 @@ public class Board {
     private Theme theme;
     private GameObjects gameObjects = new GameObjects();
 
-    //TODO:Make size of window/board/tiles work solely out of the layout files size
     public final static int BOARD_SIZE = 400;
 
     public Board(Layout layout, Theme theme, Character playerCharacter) {

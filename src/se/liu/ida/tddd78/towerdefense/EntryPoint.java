@@ -3,12 +3,6 @@ package se.liu.ida.tddd78.towerdefense;
 import se.liu.ida.tddd78.towerdefense.exceptions.LayoutParseException;
 import se.liu.ida.tddd78.towerdefense.exceptions.ThemeLoadException;
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
-import se.liu.ida.tddd78.towerdefense.objects.layout.Layout;
-import se.liu.ida.tddd78.towerdefense.objects.layout.LayoutLoader;
-import se.liu.ida.tddd78.towerdefense.objects.layout.LayoutType;
-import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
-import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeLoader;
-import se.liu.ida.tddd78.towerdefense.objects.theme.ThemeType;
 import se.liu.ida.tddd78.towerdefense.ui.*;
 
 import javax.swing.*;
@@ -40,8 +34,10 @@ public final class EntryPoint {
             options = new Options();
         } catch (LayoutParseException e) {
             LOG.log(Level.SEVERE, "Error loading layout", e);
+            return;
         } catch (ThemeLoadException e) {
             LOG.log(Level.SEVERE, "Error loading theme", e);
+            return;
         }
 
         Board board = new Board(options.getLayout(),
@@ -50,14 +46,28 @@ public final class EntryPoint {
 
         Painter painter = new Painter(board);
 
+        Game game = new Game(board, player, new InputHandler(painter), new Spawner(), options);
+        GameWindow gameWindow = getGameWindow(options, painter, game);
+
+        Timer updateTimer = new Timer(MS_PER_UPDATE, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                game.processInput();
+                game.update();
+                gameWindow.repaint();
+            }
+        });
+        updateTimer.setCoalesce(true);
+        updateTimer.start();
+    }
+
+    private static GameWindow getGameWindow(Options options, Painter painter, Game game) {
         int scale = painter.getScale();
         ScorePanel scorePanel = new ScorePanel(scale);
         EconomyPanel economyPanel = new EconomyPanel(scale);
         GameOverScreen gameOverScreen = new GameOverScreen(scale);
         MenuScreen menuScreen = new MenuScreen(scale);
         OptionsScreen optionsScreen = new OptionsScreen(scale);
-
-        Game game = new Game(board, player, new InputHandler(painter), new Spawner(), options);
 
         game.addScoreObserver(scorePanel);
         game.addScoreObserver(economyPanel);
@@ -79,16 +89,6 @@ public final class EntryPoint {
         gameWindow.addLayeredComponent(menuScreen, 2);
         gameWindow.addLayeredComponent(optionsScreen, 3);
         gameWindow.create();
-
-        Timer updateTimer = new Timer(MS_PER_UPDATE, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                game.processInput();
-                game.update();
-                gameWindow.repaint();
-            }
-        });
-        updateTimer.setCoalesce(true);
-        updateTimer.start();
+        return gameWindow;
     }
 }

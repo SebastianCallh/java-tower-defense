@@ -5,11 +5,7 @@ package se.liu.ida.tddd78.towerdefense.objects.basic;
  */
 public enum Direction {
     NORTH,
-    NORTHEAST,
     EAST,
-    SOUTHEAST,
     SOUTH,
-    SOUTHWEST,
     WEST,
-    NORTHWEST
 }

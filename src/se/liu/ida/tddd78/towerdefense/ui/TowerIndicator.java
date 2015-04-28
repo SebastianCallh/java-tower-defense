@@ -25,7 +25,7 @@ public class TowerIndicator extends JPanel implements GameObserver {
     private static final int SIZE = 65;
     private static final Color BORDER_COLOR_INACTIVE = Color.gray;
     private static final Color BORDER_COLOR_ACTIVE = Color.black;
-    private static final Color BORDER_COLOR_INSUFFICIENT_MONEY = new Color(0xB30000);
+    private static final Color BORDER_COLOR_INSUFFICIENT_MONEY = new Color(0xB30000); //Gets flagged as magic number
     private static final Color BACKGROUND_NOT_IMPLEMENTED = Color.lightGray;
     private static final Color BACKGROUND_INSUFFICIENT_MONEY = Color.red;
 

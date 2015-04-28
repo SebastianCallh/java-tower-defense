@@ -7,16 +7,20 @@ import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
  */
 public final class DefenseFactory {
     private final static int SMALL_SIZE = 10;
-    private final static int SMALL_RANGE = 50;
-    private final static int SMALL_DAMAGE = 5;
-    private final static long SMALL_ATTACK_SPEED = 500;
-    private final static int SMALL_COST = 100;
-
     private final static int BIG_SIZE = 15;
+
+    private final static int SMALL_RANGE = 50;
     private final static int BIG_RANGE = 500;
+
+    private final static int SMALL_DAMAGE = 5;
     private final static int BIG_DAMAGE = 10;
-    private final static long BIG_ATTACK_SPEED = 500;
+
+    private final static int SMALL_COST = 100;
     private final static int BIG_COST = 200;
+    private static final int FAST_COST = 150;
+
+    private final static long MEDIUM_ATTACK_SPEED = 500;
+    private static final long FAST_ATTACK_SPEED = 250;
 
     private DefenseFactory() {
     }
@@ -28,6 +32,7 @@ public final class DefenseFactory {
             case BIG:
                 return makeBig();
             case FAST:
+                return makeFast();
             default:
                 throw new TypeNotSupportedException("Defense type not supported");
         }
@@ -47,11 +52,16 @@ public final class DefenseFactory {
 
     private static Defense makeSmall() {
         return new BasicDefense(SMALL_SIZE, SMALL_RANGE, SMALL_DAMAGE,
-                SMALL_ATTACK_SPEED, SMALL_COST, DefenseType.SMALL);
+                MEDIUM_ATTACK_SPEED, SMALL_COST, DefenseType.SMALL);
     }
 
     private static Defense makeBig() {
         return new BasicDefense(BIG_SIZE, BIG_RANGE, BIG_DAMAGE,
-                BIG_ATTACK_SPEED, BIG_COST, DefenseType.BIG);
+                MEDIUM_ATTACK_SPEED, BIG_COST, DefenseType.BIG);
+    }
+
+    private static Defense makeFast() {
+        return new BasicDefense(SMALL_SIZE, SMALL_RANGE, SMALL_DAMAGE,
+                FAST_ATTACK_SPEED, FAST_COST, DefenseType.SMALL);
     }
 }

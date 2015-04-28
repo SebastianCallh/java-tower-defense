@@ -1,11 +1,9 @@
 package se.liu.ida.tddd78.towerdefense.objects.theme;
 
-import org.w3c.dom.Element;
 import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -44,7 +44,7 @@ public class BuyCommand implements Command {
                     }
                 }
 
-                //TODO:Will probably act out if defense size is bigger than tile
+                //Will probably act out if defense size is bigger than tile
                 Map<Tile, Tile> path = board.getPath();
                 Point defensePos = defense.getPosition();
                 for (Entry<Tile, Tile> entry : path.entrySet()) {
