@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Util for finding themes and layouts packaged with the program or relative to the execution path. Enables
+ * customization without re-compiling and minimizes the steps needed to add a new pre-packaged theme or layout.
+ */
 public final class FileDiscoveryUtil {
     private static final String[] SEARCH_PATHS = new String[] {
             "resources/layout",

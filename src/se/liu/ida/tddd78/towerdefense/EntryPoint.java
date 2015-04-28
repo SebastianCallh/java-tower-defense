@@ -1,8 +1,6 @@
 package se.liu.ida.tddd78.towerdefense;
 
-import se.liu.ida.tddd78.towerdefense.exceptions.LayoutParseException;
-import se.liu.ida.tddd78.towerdefense.exceptions.ThemeLoadException;
-import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
+import se.liu.ida.tddd78.towerdefense.exceptions.*;
 import se.liu.ida.tddd78.towerdefense.ui.*;
 
 import javax.swing.*;
