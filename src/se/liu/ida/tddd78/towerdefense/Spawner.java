@@ -62,7 +62,7 @@ public class Spawner {
         }
 
         @Override
-        public int compareTo(SpawnMapper o) {
+        public int compareTo(SpawnMapper o) { // Complains about missing @NotNull parameter, also complains when added.
             if (this.price < o.price) {
                 return -1;
             } else if (this.price == o.price) {

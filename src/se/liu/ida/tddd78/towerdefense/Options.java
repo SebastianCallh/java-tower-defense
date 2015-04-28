@@ -2,6 +2,7 @@ package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.exceptions.LayoutParseException;
 import se.liu.ida.tddd78.towerdefense.exceptions.ThemeLoadException;
+import se.liu.ida.tddd78.towerdefense.exceptions.ThemeParseException;
 import se.liu.ida.tddd78.towerdefense.interfaces.ButtonObserver;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
 import se.liu.ida.tddd78.towerdefense.objects.ButtonType;
@@ -31,7 +32,7 @@ public class Options implements ButtonObserver {
 
     private List<Observer> optionChangeObservers;
 
-    public Options() throws LayoutParseException, ThemeLoadException {
+    public Options() throws LayoutParseException, ThemeLoadException, ThemeParseException {
         this.optionChangeObservers = new ArrayList<>();
 
         this.theme = ThemeLoader.load(DEFAULT_THEME);
@@ -95,8 +96,6 @@ public class Options implements ButtonObserver {
     }
 
     public void notifyOptionChanged() {
-        for (Observer observers : optionChangeObservers) {
-            observers.onNotify();
-        }
+        optionChangeObservers.forEach(Observer::onNotify);
     }
 }

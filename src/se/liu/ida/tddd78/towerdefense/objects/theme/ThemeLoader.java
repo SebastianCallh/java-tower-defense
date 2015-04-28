@@ -15,6 +15,7 @@ import se.liu.ida.tddd78.towerdefense.objects.projectile.ProjectileType;
 import se.liu.ida.tddd78.towerdefense.objects.theme.Theme.ThemeFactory;
 import se.liu.ida.tddd78.towerdefense.objects.tile.TileType;
 import se.liu.ida.tddd78.towerdefense.utils.FileDiscoveryUtil;
+import se.liu.ida.tddd78.towerdefense.utils.FileDiscoveryUtil.FileType;
 import se.liu.ida.tddd78.towerdefense.utils.GraphicsUtil;
 
 import javax.imageio.ImageIO;
@@ -37,10 +38,12 @@ public final class ThemeLoader {
     private static XPathExpression spriteSelector = null;
     private static boolean hasInitializedExpressions = false;
 
-    private static Map<ThemeType, URL> THEMETYPE_URL_MAP = new HashMap<ThemeType, URL>() {{
-        put(ThemeType.STANDARD, ThemeLoader.class.getClassLoader().getResource("resources/theme/standard.theme"));
-        put(ThemeType.PIRATE, ThemeLoader.class.getClassLoader().getResource("resources/theme/pirate.theme"));
-    }};
+    private static final Map<ThemeType, URL> THEME_TYPE_URL_MAP = new EnumMap<>(ThemeType.class);
+
+    static {
+        THEME_TYPE_URL_MAP.put(ThemeType.STANDARD, ThemeLoader.class.getClassLoader().getResource("resources/theme/standard.theme"));
+        THEME_TYPE_URL_MAP.put(ThemeType.PIRATE, ThemeLoader.class.getClassLoader().getResource("resources/theme/pirate.theme"));
+    }
 
     private ThemeLoader() {
     }
@@ -62,7 +65,7 @@ public final class ThemeLoader {
     }
 
     public static Theme load(ThemeType type) throws ThemeLoadException, ThemeParseException {
-        return load(THEMETYPE_URL_MAP.get(type));
+        return load(THEME_TYPE_URL_MAP.get(type));
     }
 
     public static Theme load(URL resourceUrl) throws ThemeLoadException, ThemeParseException {
@@ -99,7 +102,7 @@ public final class ThemeLoader {
 
     public static List<Theme> getAvailableThemes() throws ThemeLoadException, ThemeParseException {
         List<Theme> themes = new ArrayList<>();
-        for (URL theme: FileDiscoveryUtil.retrieveExistingFiles(FileDiscoveryUtil.FileType.THEME)) {
+        for (URL theme: FileDiscoveryUtil.retrieveExistingFiles(FileType.THEME)) {
             if (verifyTheme(theme)) {
                 themes.add(load(theme));
             }

@@ -6,14 +6,11 @@ import se.liu.ida.tddd78.towerdefense.utils.Pathfinder;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * Keeps track of the map layout and the pathable terrain.
  */
 public final class Layout {
-    private static final Logger LOG = Logger.getLogger(Layout.class.getName());
-
     private String name;
     private Grid<Tile> grid;
     private Tile spawn;

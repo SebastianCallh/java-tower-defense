@@ -5,6 +5,6 @@ package se.liu.ida.tddd78.towerdefense.interfaces;
  */
 public interface ThemeableType {
 
-    int getSize();
+    int getSize(); // Warns about not implemented, seems incorrect.
 
 }

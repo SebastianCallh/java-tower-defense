@@ -6,6 +6,7 @@ import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
 import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 import se.liu.ida.tddd78.towerdefense.objects.tile.TileType;
 import se.liu.ida.tddd78.towerdefense.utils.FileDiscoveryUtil;
+import se.liu.ida.tddd78.towerdefense.utils.FileDiscoveryUtil.FileType;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -18,11 +19,15 @@ import java.util.*;
 /**
  * Handles loading layout from file
  */
-public class LayoutLoader {
-    private static final Map<LayoutType, URL> LAYOUTTYPE_URL_MAP = new EnumMap<LayoutType, URL>(LayoutType.class) {{
-        put(LayoutType.STANDARD, LayoutLoader.class.getClassLoader().getResource("resources/layout/standard.layout"));
-        put(LayoutType.NOT_STANDARD, LayoutLoader.class.getClassLoader().getResource("resources/layout/not_standard.layout"));
-    }};
+public final class LayoutLoader {
+    private static final Map<LayoutType, URL> LAYOUTTYPE_URL_MAP = new EnumMap<>(LayoutType.class);
+
+    static {
+        LAYOUTTYPE_URL_MAP.put(LayoutType.STANDARD, LayoutLoader.class.getClassLoader().getResource("resources/layout/standard.layout"));
+        LAYOUTTYPE_URL_MAP.put(LayoutType.NOT_STANDARD, LayoutLoader.class.getClassLoader().getResource("resources/layout/not_standard.layout"));
+    }
+
+    private LayoutLoader() {}
 
     public static Layout load(LayoutType type) throws LayoutParseException { return readLayout(LAYOUTTYPE_URL_MAP.get(type)); }
 
@@ -30,11 +35,11 @@ public class LayoutLoader {
     private static Layout readLayout(URL resourceUrl) throws LayoutParseException {
 
         try {
-            Path resPath = null;
+            Path resPath;
             try {
                 resPath = Paths.get(resourceUrl.toURI());
             } catch (URISyntaxException e) {
-                e.printStackTrace();
+                throw new LayoutParseException("Unable to find path to resource '" + resourceUrl + "'", e);
             }
             List<String> fileContent = Files.readAllLines(resPath);
             String name = fileContent.get(0);
@@ -65,13 +70,13 @@ public class LayoutLoader {
             return new Layout(name, grid, spawnTile, goalTile);
 
         } catch (IOException e) {
-            throw new LayoutParseException("Could not find layout file");
+            throw new LayoutParseException("Could not find layout file", e);
         }
     }
 
     public static List<Layout> getAvailableLayouts() throws LayoutParseException {
         List<Layout> layouts = new ArrayList<>();
-        for (URL layout : FileDiscoveryUtil.retrieveExistingFiles(FileDiscoveryUtil.FileType.LAYOUT)) {
+        for (URL layout : FileDiscoveryUtil.retrieveExistingFiles(FileType.LAYOUT)) {
             if (verifyLayout(layout)) {
                 layouts.add(readLayout(layout));
             }
@@ -80,7 +85,13 @@ public class LayoutLoader {
     }
 
     private static boolean verifyLayout(URL file) {
-        return true; //Currently no verification
+        try {
+            LayoutLoader.readLayout(file);
+            return true;
+        } catch (LayoutParseException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private static TileType charToTileType(char c) {
