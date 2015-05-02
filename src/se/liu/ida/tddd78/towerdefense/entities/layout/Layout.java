@@ -1,18 +1,16 @@
-package se.liu.ida.tddd78.towerdefense.entities.layout;
+package se.liu.ida.tddd78.towerdefense.objects.layout;
 
-import se.liu.ida.tddd78.towerdefense.entities.basic.Grid;
-import se.liu.ida.tddd78.towerdefense.entities.tile.Tile;
+import se.liu.ida.tddd78.towerdefense.objects.basic.Grid;
+import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
 import se.liu.ida.tddd78.towerdefense.utils.Pathfinder;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * Keeps track of the map layout and the pathable terrain.
  */
 public final class Layout {
-
     private String name;
     private Grid<Tile> grid;
     private Tile spawn;

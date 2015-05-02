@@ -1,4 +1,4 @@
-package se.liu.ida.tddd78.towerdefense.entities.theme;
+package se.liu.ida.tddd78.towerdefense.objects.theme;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -6,15 +6,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import se.liu.ida.tddd78.towerdefense.exceptions.ThemeLoadException;
+import se.liu.ida.tddd78.towerdefense.exceptions.ThemeReadException;
 import se.liu.ida.tddd78.towerdefense.exceptions.ThemeParseException;
 import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
-import se.liu.ida.tddd78.towerdefense.entities.character.CharacterType;
-import se.liu.ida.tddd78.towerdefense.entities.defense.DefenseType;
-import se.liu.ida.tddd78.towerdefense.entities.monster.MonsterType;
-import se.liu.ida.tddd78.towerdefense.entities.projectile.ProjectileType;
-import se.liu.ida.tddd78.towerdefense.entities.theme.Theme.ThemeFactory;
-import se.liu.ida.tddd78.towerdefense.entities.tile.TileType;
+import se.liu.ida.tddd78.towerdefense.objects.character.CharacterType;
+import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseType;
+import se.liu.ida.tddd78.towerdefense.objects.monster.MonsterType;
+import se.liu.ida.tddd78.towerdefense.objects.projectile.ProjectileType;
+import se.liu.ida.tddd78.towerdefense.objects.theme.Theme.ThemeFactory;
+import se.liu.ida.tddd78.towerdefense.objects.tile.TileType;
 import se.liu.ida.tddd78.towerdefense.utils.FileDiscoveryUtil;
+import se.liu.ida.tddd78.towerdefense.utils.FileDiscoveryUtil.FileType;
 import se.liu.ida.tddd78.towerdefense.utils.GraphicsUtil;
 
 import javax.imageio.ImageIO;
@@ -29,6 +31,9 @@ import java.net.URL;
 import java.util.*;
 import java.util.List;
 
+/**
+ * Class responsible for loading an XML representation of a theme into a Theme object using the ThemeFactory.
+ */
 public final class ThemeLoader {
     private static final String ELEMENT_SELECTOR = "/theme/element";
     private static final String SPRITE_SELECTOR = "sprite";
@@ -37,10 +42,12 @@ public final class ThemeLoader {
     private static XPathExpression spriteSelector = null;
     private static boolean hasInitializedExpressions = false;
 
-    private static Map<ThemeType, URL> THEMETYPE_URL_MAP = new HashMap<ThemeType, URL>() {{
-        put(ThemeType.STANDARD, ThemeLoader.class.getClassLoader().getResource("resources/theme/standard.theme"));
-        put(ThemeType.PIRATE, ThemeLoader.class.getClassLoader().getResource("resources/theme/pirate.theme"));
-    }};
+    private static final Map<ThemeType, URL> THEME_TYPE_URL_MAP = new EnumMap<>(ThemeType.class);
+
+    static {
+        THEME_TYPE_URL_MAP.put(ThemeType.STANDARD, ThemeLoader.class.getClassLoader().getResource("resources/theme/standard.theme"));
+        THEME_TYPE_URL_MAP.put(ThemeType.PIRATE, ThemeLoader.class.getClassLoader().getResource("resources/theme/pirate.theme"));
+    }
 
     private ThemeLoader() {
     }
@@ -61,11 +68,11 @@ public final class ThemeLoader {
         hasInitializedExpressions = true;
     }
 
-    public static Theme load(ThemeType type) throws ThemeLoadException{
-        return load(THEMETYPE_URL_MAP.get(type));
+    public static Theme load(ThemeType type) throws ThemeReadException, ThemeParseException {
+        return load(THEME_TYPE_URL_MAP.get(type));
     }
 
-    public static Theme load(URL resourceUrl) throws ThemeLoadException {
+    public static Theme load(URL resourceUrl) throws ThemeReadException, ThemeParseException {
         initializeExpressions();
 
         try (InputStream resourceInputStream = resourceUrl.openStream()) {
@@ -87,19 +94,19 @@ public final class ThemeLoader {
 
             return themeFactory.build();
         } catch (ParserConfigurationException e) {
-            throw new ThemeParseException("Misconfigured parser configuration", e);
+            throw new ThemeReadException("Misconfigured parser configuration", e);
         } catch (SAXException e) {
             throw new ThemeParseException("Invalid XML format", e);
         } catch (IOException e) {
-            throw new ThemeParseException("Unable to open file", e);
+            throw new ThemeReadException("Unable to open file", e);
         } catch (XPathExpressionException e) {
             throw new ThemeParseException("Failed to evaluate XPath expression", e);
         }
     }
 
-    public static List<Theme> getAvailableThemes() throws ThemeLoadException {
+    public static List<Theme> getAvailableThemes() throws ThemeReadException, ThemeParseException {
         List<Theme> themes = new ArrayList<>();
-        for (URL theme: FileDiscoveryUtil.retrieveExistingFiles(FileDiscoveryUtil.FileType.THEME)) {
+        for (URL theme: FileDiscoveryUtil.retrieveExistingFiles(FileType.THEME)) {
             if (verifyTheme(theme)) {
                 themes.add(load(theme));
             }
@@ -117,7 +124,7 @@ public final class ThemeLoader {
         return false;
     }
 
-    private static ThemeableType retrieveType(Node element) throws ThemeLoadException {
+    private static ThemeableType retrieveType(Node element) throws ThemeParseException {
         NamedNodeMap attributes = element.getAttributes();
         String object = attributes.getNamedItem("object").getNodeValue();
         String type = attributes.getNamedItem("type").getNodeValue().toUpperCase();
@@ -135,25 +142,25 @@ public final class ThemeLoader {
                 case "tile":
                     return TileType.valueOf(type);
                 default:
-                    throw new ThemeLoadException("Unrecognized object '" + object + "'");
+                    throw new ThemeParseException("Unrecognized object '" + object + "'");
             }
         }
-        catch (IllegalArgumentException ignored) {
-            throw new ThemeLoadException("Unrecognized object type '" + type + "'");
+        catch (IllegalArgumentException e) {
+            throw new ThemeParseException("Unrecognized object type '" + type + "'", e);
         }
     }
 
-    private static Image retrieveSprite(Node element) throws XPathExpressionException, ThemeLoadException {
+    private static Image retrieveSprite(Node element) throws XPathExpressionException, ThemeReadException {
         String spritePath = spriteSelector.evaluate(element);
         URL spriteUrl = ThemeLoader.class.getClassLoader().getResource(spritePath);
         if (spriteUrl == null) {
-            throw new ThemeLoadException("Unable to find sprite '" + spritePath + "'");
+            throw new ThemeReadException("Unable to find sprite '" + spritePath + "'");
         }
 
         try {
             return ImageIO.read(spriteUrl);
-        } catch (IOException ignored) {
-            throw new ThemeLoadException("Unable to read sprite '" + spritePath + "'");
+        } catch (IOException e) {
+            throw new ThemeReadException("Unable to read sprite '" + spritePath + "'", e);
         }
     }
 

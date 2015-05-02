@@ -2,6 +2,8 @@ package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.exceptions.LayoutParseException;
 import se.liu.ida.tddd78.towerdefense.exceptions.ThemeLoadException;
+import se.liu.ida.tddd78.towerdefense.exceptions.ThemeReadException;
+import se.liu.ida.tddd78.towerdefense.exceptions.ThemeParseException;
 import se.liu.ida.tddd78.towerdefense.interfaces.ButtonObserver;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
 import se.liu.ida.tddd78.towerdefense.entities.ButtonType;
@@ -31,7 +33,7 @@ public class Options implements ButtonObserver {
 
     private List<Observer> optionChangeObservers;
 
-    public Options() throws LayoutParseException, ThemeLoadException {
+    public Options() throws LayoutParseException, ThemeReadException, ThemeParseException {
         this.optionChangeObservers = new ArrayList<>();
 
         this.theme = ThemeLoader.load(DEFAULT_THEME);
@@ -52,6 +54,7 @@ public class Options implements ButtonObserver {
 
     //Currently holds all themes & layouts in memory. Should probably be lazy loaded
     //Catches should propagate to the UI an deliver error message to user
+    // TODO: Don't abort the entire loading mechanism if one file failed. Use iterator pattern?
     private void reloadFiles() {
         try {
             availableLayouts = LayoutLoader.getAvailableLayouts();
@@ -95,8 +98,6 @@ public class Options implements ButtonObserver {
     }
 
     public void notifyOptionChanged() {
-        for (Observer observers : optionChangeObservers) {
-            observers.onNotify();
-        }
+        optionChangeObservers.forEach(Observer::onNotify);
     }
 }

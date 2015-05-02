@@ -9,4 +9,7 @@ public class LayoutParseException extends Exception {
         super(message);
     }
 
+    public LayoutParseException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
