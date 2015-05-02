@@ -1,7 +1,7 @@
-package se.liu.ida.tddd78.towerdefense.objects.layout;
+package se.liu.ida.tddd78.towerdefense.entities.layout;
 
-import se.liu.ida.tddd78.towerdefense.objects.basic.Grid;
-import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
+import se.liu.ida.tddd78.towerdefense.entities.basic.Grid;
+import se.liu.ida.tddd78.towerdefense.entities.tile.Tile;
 import se.liu.ida.tddd78.towerdefense.utils.Pathfinder;
 
 import java.util.Collection;

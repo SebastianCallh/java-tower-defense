@@ -5,11 +5,11 @@ package se.liu.ida.tddd78.towerdefense.exceptions;
  */
 public class ThemeLoadException extends Exception {
 
-    protected ThemeLoadException(String message) {
+    public ThemeLoadException(String message) {
         super(message);
     }
 
-    protected ThemeLoadException(String message, Throwable cause) {
+    public ThemeLoadException(String message, Throwable cause) {
         super(message, cause);
     }
 }
