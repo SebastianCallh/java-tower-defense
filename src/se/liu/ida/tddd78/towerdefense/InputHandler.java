@@ -1,11 +1,11 @@
 package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
-import se.liu.ida.tddd78.towerdefense.objects.basic.Direction;
-import se.liu.ida.tddd78.towerdefense.objects.commands.BuyCommand;
-import se.liu.ida.tddd78.towerdefense.objects.commands.MoveCommand;
-import se.liu.ida.tddd78.towerdefense.objects.commands.SelectCommand;
-import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseType;
+import se.liu.ida.tddd78.towerdefense.entities.basic.Direction;
+import se.liu.ida.tddd78.towerdefense.entities.commands.BuyCommand;
+import se.liu.ida.tddd78.towerdefense.entities.commands.MoveCommand;
+import se.liu.ida.tddd78.towerdefense.entities.commands.SelectCommand;
+import se.liu.ida.tddd78.towerdefense.entities.defense.DefenseType;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

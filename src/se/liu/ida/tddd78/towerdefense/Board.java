@@ -1,18 +1,17 @@
 package se.liu.ida.tddd78.towerdefense;
 
-import se.liu.ida.tddd78.towerdefense.interfaces.Positionable;
-import se.liu.ida.tddd78.towerdefense.objects.layout.Layout;
-import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
-import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
-import se.liu.ida.tddd78.towerdefense.objects.theme.Theme;
-import se.liu.ida.tddd78.towerdefense.objects.basic.GameObjects;
-import se.liu.ida.tddd78.towerdefense.objects.character.Character;
-import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
+import se.liu.ida.tddd78.towerdefense.entities.layout.Layout;
+import se.liu.ida.tddd78.towerdefense.entities.abstracts.GameEntity;
+import se.liu.ida.tddd78.towerdefense.entities.basic.Point;
+import se.liu.ida.tddd78.towerdefense.entities.theme.Theme;
+import se.liu.ida.tddd78.towerdefense.entities.basic.GameObjects;
+import se.liu.ida.tddd78.towerdefense.entities.character.Character;
+import se.liu.ida.tddd78.towerdefense.entities.tile.Tile;
 
 import java.util.Map;
 
 /**
- * Keeps track of all game objects, the map layout and the theme.
+ * Keeps track of all game entities, the map layout and the theme.
  */
 public class Board {
     private Layout layout;
@@ -43,8 +42,8 @@ public class Board {
         return this.layout.getTile(x, y);
     }
 
-    public Tile getTileUnder(Positionable object) {
-        return this.getTileUnder(object.getPosition());
+    public Tile getTileUnder(GameEntity entity) {
+        return this.getTileUnder(entity.getPosition());
     }
 
     public Tile getTileUnder(Point point) {
@@ -83,7 +82,7 @@ public class Board {
 
     //*The method that runs every game-loop-update*//
     public void update() {
-        for (GameObject object : this.gameObjects.getAll()) {
+        for (GameEntity object : this.gameObjects.getAll()) {
             object.update(this);
         }
     }

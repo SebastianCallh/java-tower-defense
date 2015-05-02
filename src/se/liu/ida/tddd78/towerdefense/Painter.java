@@ -1,14 +1,14 @@
 package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
-import se.liu.ida.tddd78.towerdefense.objects.abstracts.GameObject;
-import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
+import se.liu.ida.tddd78.towerdefense.entities.abstracts.GameEntity;
+import se.liu.ida.tddd78.towerdefense.entities.tile.Tile;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Handles the drawing of all game objects and tiles on the board.
+ * Handles the drawing of all game entities and tiles on the board.
  */
 public class Painter extends JComponent implements GameObserver {
 
@@ -54,12 +54,12 @@ public class Painter extends JComponent implements GameObserver {
     }
 
     private void paintGameObjects(Graphics2D g2d) {
-        for (GameObject gameObject : this.board.getGameObjects().getAll()) {
-            g2d.drawImage(this.board.getTheme().getSprite(gameObject.getType()),
-                    ((int)gameObject.getPosition().getX() - gameObject.getSize()) * scale,
-                    ((int)gameObject.getPosition().getY() - gameObject.getSize()) * scale,
-                    gameObject.getSize() * 2 * scale,
-                    gameObject.getSize() * 2 * scale,
+        for (GameEntity gameEntity : this.board.getGameObjects().getAll()) {
+            g2d.drawImage(this.board.getTheme().getSprite(gameEntity.getType()),
+                    ((int) gameEntity.getPosition().getX() - gameEntity.getSize()) * scale,
+                    ((int) gameEntity.getPosition().getY() - gameEntity.getSize()) * scale,
+                    gameEntity.getSize() * 2 * scale,
+                    gameEntity.getSize() * 2 * scale,
                     null);
         }
     }

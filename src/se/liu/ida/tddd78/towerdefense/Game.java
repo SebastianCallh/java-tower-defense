@@ -4,11 +4,11 @@ import se.liu.ida.tddd78.towerdefense.interfaces.ButtonObserver;
 import se.liu.ida.tddd78.towerdefense.interfaces.Command;
 import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
-import se.liu.ida.tddd78.towerdefense.objects.ButtonType;
-import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
-import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
-import se.liu.ida.tddd78.towerdefense.objects.monster.*;
-import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
+import se.liu.ida.tddd78.towerdefense.entities.ButtonType;
+import se.liu.ida.tddd78.towerdefense.entities.basic.Point;
+import se.liu.ida.tddd78.towerdefense.entities.basic.Timer;
+import se.liu.ida.tddd78.towerdefense.entities.monster.*;
+import se.liu.ida.tddd78.towerdefense.entities.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.List;

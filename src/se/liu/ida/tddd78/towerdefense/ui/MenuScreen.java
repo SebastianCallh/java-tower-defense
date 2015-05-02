@@ -4,7 +4,7 @@ import se.liu.ida.tddd78.towerdefense.Game;
 import se.liu.ida.tddd78.towerdefense.Game.State;
 import se.liu.ida.tddd78.towerdefense.interfaces.ButtonObserver;
 import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
-import se.liu.ida.tddd78.towerdefense.objects.ButtonType;
+import se.liu.ida.tddd78.towerdefense.entities.ButtonType;
 
 import javax.swing.*;
 import java.awt.*;

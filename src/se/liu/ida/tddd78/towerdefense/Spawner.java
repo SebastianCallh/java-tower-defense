@@ -1,9 +1,9 @@
 package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
-import se.liu.ida.tddd78.towerdefense.objects.monster.Monster;
-import se.liu.ida.tddd78.towerdefense.objects.monster.MonsterFactory;
-import se.liu.ida.tddd78.towerdefense.objects.monster.MonsterType;
+import se.liu.ida.tddd78.towerdefense.entities.monster.Monster;
+import se.liu.ida.tddd78.towerdefense.entities.monster.MonsterFactory;
+import se.liu.ida.tddd78.towerdefense.entities.monster.MonsterType;
 
 import java.util.*;
 import java.util.logging.Level;

@@ -1,9 +1,9 @@
 package se.liu.ida.tddd78.towerdefense.utils;
 
-import se.liu.ida.tddd78.towerdefense.objects.layout.Layout;
-import se.liu.ida.tddd78.towerdefense.objects.basic.Point;
-import se.liu.ida.tddd78.towerdefense.objects.tile.Tile;
-import se.liu.ida.tddd78.towerdefense.objects.tile.TileType;
+import se.liu.ida.tddd78.towerdefense.entities.layout.Layout;
+import se.liu.ida.tddd78.towerdefense.entities.basic.Point;
+import se.liu.ida.tddd78.towerdefense.entities.tile.Tile;
+import se.liu.ida.tddd78.towerdefense.entities.tile.TileType;
 
 import java.util.HashMap;
 import java.util.LinkedList;

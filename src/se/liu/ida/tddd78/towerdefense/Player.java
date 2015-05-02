@@ -2,11 +2,11 @@ package se.liu.ida.tddd78.towerdefense;
 
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
-import se.liu.ida.tddd78.towerdefense.objects.basic.Timer;
-import se.liu.ida.tddd78.towerdefense.objects.character.Character;
-import se.liu.ida.tddd78.towerdefense.objects.character.CharacterFactory;
-import se.liu.ida.tddd78.towerdefense.objects.character.CharacterType;
-import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseType;
+import se.liu.ida.tddd78.towerdefense.entities.basic.Timer;
+import se.liu.ida.tddd78.towerdefense.entities.character.Character;
+import se.liu.ida.tddd78.towerdefense.entities.character.CharacterFactory;
+import se.liu.ida.tddd78.towerdefense.entities.character.CharacterType;
+import se.liu.ida.tddd78.towerdefense.entities.defense.DefenseType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +23,14 @@ public class Player {
     private DefenseType selectedDefense;
     private Timer actionTimer;
     private List<Observer> scoreObservers;
+
+    public Player() throws TypeNotSupportedException {
+        this.money = 0;
+        this.character = CharacterFactory.makeCharacter(CharacterType.PLAYER);
+        this.selectedDefense = DefenseType.SMALL;
+        this.actionTimer = new Timer(MINIMIUM_ACTION_INTERVAL);
+        this.scoreObservers = new ArrayList<>();
+    }
 
     public int getLives() {
         return this.lives;
@@ -81,13 +89,5 @@ public class Player {
 
     public void addPlayerObserver(Observer observer) {
         this.scoreObservers.add(observer);
-    }
-
-    public Player() throws TypeNotSupportedException {
-        this.money = 0;
-        this.character = CharacterFactory.makeCharacter(CharacterType.PLAYER);
-        this.selectedDefense = DefenseType.SMALL;
-        this.actionTimer = new Timer(MINIMIUM_ACTION_INTERVAL);
-        this.scoreObservers = new ArrayList<>();
     }
 }

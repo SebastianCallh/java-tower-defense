@@ -3,8 +3,8 @@ package se.liu.ida.tddd78.towerdefense.ui;
 import se.liu.ida.tddd78.towerdefense.Game;
 import se.liu.ida.tddd78.towerdefense.exceptions.TypeNotSupportedException;
 import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
-import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseFactory;
-import se.liu.ida.tddd78.towerdefense.objects.defense.DefenseType;
+import se.liu.ida.tddd78.towerdefense.entities.defense.DefenseFactory;
+import se.liu.ida.tddd78.towerdefense.entities.defense.DefenseType;
 
 import javax.swing.*;
 import javax.swing.border.Border;
