@@ -76,7 +76,7 @@ public class Options implements ButtonObserver {
                 notifyOptionChanged();
                 break;
             case NEXT_THEME:
-                themeIndex = (themeIndex + 1) % this.availableLayouts.size();
+                themeIndex = (themeIndex + 1) % this.availableThemes.size();
                 this.theme = this.availableThemes.get(themeIndex);
 
                 notifyOptionChanged();
