@@ -1,6 +1,5 @@
 package se.liu.ida.tddd78.towerdefense;
 
-import se.liu.ida.tddd78.towerdefense.interfaces.GameObserver;
 import se.liu.ida.tddd78.towerdefense.entities.abstracts.GameEntity;
 import se.liu.ida.tddd78.towerdefense.entities.tile.Tile;
 
@@ -10,7 +9,7 @@ import java.awt.*;
 /**
  * Handles the drawing of all game entities and tiles on the board.
  */
-public class Painter extends JComponent implements GameObserver {
+public class Painter extends JComponent {
 
     private static final int SCREEN_WIDTH_LARGEST = 4000;
     private static final int SCREEN_WIDTH_LARGER = 3200;
@@ -86,8 +85,4 @@ public class Painter extends JComponent implements GameObserver {
                 Board.BOARD_SIZE * this.scale);
     }
 
-    @Override
-    public void onNotify(Game game) {
-        this.repaint( );
-    }
 }
