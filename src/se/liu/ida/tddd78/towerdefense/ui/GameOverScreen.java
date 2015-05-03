@@ -25,6 +25,8 @@ public class GameOverScreen extends JPanel implements GameObserver, ActionListen
 
     private int scale;
     private List<ButtonObserver> buttonClickListeners;
+    private JButton newGameButton;
+    private JButton mainMenuButton;
 
     public GameOverScreen(int scale) {
         assert scale > 0;
@@ -49,13 +51,18 @@ public class GameOverScreen extends JPanel implements GameObserver, ActionListen
         gameOverLabel.setForeground(FOREGROUND_COLOR);
         gameOverLabel.setText("Game over");
 
-        JButton newGameButton = new JButton("Play again");
+        newGameButton = new JButton("Play again");
         newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         newGameButton.addActionListener(this);
+
+        mainMenuButton = new JButton("Main menu");
+        mainMenuButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainMenuButton.addActionListener(this);
 
         innerPanel.add(gameOverLabel);
         innerPanel.add(new JLabel(" ")); // TODO: Replace with proper padding
         innerPanel.add(newGameButton);
+        innerPanel.add(mainMenuButton);
 
         add(innerPanel, new GridBagConstraints());
     }
@@ -77,7 +84,13 @@ public class GameOverScreen extends JPanel implements GameObserver, ActionListen
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        notifyButtonClickListeners(ButtonType.NEW_GAME);
+        Object source = e.getSource();
+        if (source.equals(newGameButton)) {
+            notifyButtonClickListeners(ButtonType.NEW_GAME);
+        } else if (source.equals(mainMenuButton)) {
+            notifyButtonClickListeners(ButtonType.MAIN_MENU);
+        }
+
     }
 
     public void addButtonClickListener(ButtonObserver listener) {
