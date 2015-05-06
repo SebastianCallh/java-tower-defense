@@ -29,58 +29,52 @@ public final class LayoutLoader {
 
     private LayoutLoader() {}
 
-    public static Layout load(LayoutType type) throws LayoutParseException { return readLayout(LAYOUTTYPE_URL_MAP.get(type)); }
-
-    //*Reads a grid text file (20*20 chars) for a grid of tiles*//
-    private static Layout readLayout(URL resourceUrl) throws LayoutParseException {
-
-        try {
-            Path resPath;
-            try {
-                resPath = Paths.get(resourceUrl.toURI());
-            } catch (URISyntaxException e) {
-                throw new LayoutParseException("Unable to find path to resource '" + resourceUrl + "'", e);
-            }
-            List<String> fileContent = Files.readAllLines(resPath);
-            String name = fileContent.get(0);
-            String header = fileContent.get(1);
-            int x = 0, y = 0,
-                    width = Integer.valueOf(header.substring(0, 2)),
-                    height = Integer.valueOf(header.substring(2, 4));
-            Grid<Tile> grid = new Grid<>(Tile.class, width, height);
-            Tile spawnTile = null, goalTile = null;
-
-            for (String line : fileContent.subList(2, fileContent.size())) {
-                for (char c : line.toCharArray()) {
-                    Tile tile = new Tile(charToTileType(c), new Point(x, y));
-                    if (tile.getType() == TileType.SPAWN) {
-                        spawnTile = tile;
-                    } else if (tile.getType() == TileType.GOAL) {
-                        goalTile = tile;
-                    }
-                    grid.set(x, y, tile);
-                    x++;
-                }
-                x = 0;
-                y++;
-            }
-            if (spawnTile == null || goalTile == null) {
-                throw new LayoutParseException("Spawn tile or goal tile missing");
-            }
-            return new Layout(name, grid, spawnTile, goalTile);
-
-        } catch (IOException e) {
-            throw new LayoutParseException("Could not find layout file", e);
-        }
+    public static Layout load(LayoutType type) throws LayoutParseException, IOException, URISyntaxException {
+        return readLayout(LAYOUTTYPE_URL_MAP.get(type));
     }
 
-    public static List<Layout> getAvailableLayouts() throws LayoutParseException {
-        List<Layout> layouts = new ArrayList<>();
-        for (URL layout : FileDiscoveryUtil.retrieveExistingFiles(FileType.LAYOUT)) {
-            if (verifyLayout(layout)) {
-                layouts.add(readLayout(layout));
+    //*Reads a grid text file (20*20 chars) for a grid of tiles*//
+    private static Layout readLayout(URL resourceUrl) throws LayoutParseException, IOException, URISyntaxException {
+        Path resPath;
+        resPath = Paths.get(resourceUrl.toURI());
+        List<String> fileContent = Files.readAllLines(resPath);
+        String name = fileContent.get(0);
+        String header = fileContent.get(1);
+        int x = 0, y = 0,
+                width = Integer.valueOf(header.substring(0, 2)),
+                height = Integer.valueOf(header.substring(2, 4));
+        Grid<Tile> grid = new Grid<>(Tile.class, width, height);
+        Tile spawnTile = null, goalTile = null;
+
+        for (String line : fileContent.subList(2, fileContent.size())) {
+            for (char c : line.toCharArray()) {
+                Tile tile = new Tile(charToTileType(c), new Point(x, y));
+                if (tile.getType() == TileType.SPAWN) {
+                    spawnTile = tile;
+                } else if (tile.getType() == TileType.GOAL) {
+                    goalTile = tile;
+                }
+                grid.set(x, y, tile);
+                x++;
             }
+            x = 0;
+            y++;
         }
+        if (spawnTile == null || goalTile == null) {
+            throw new LayoutParseException("Spawn tile or goal tile missing");
+        }
+        return new Layout(name, grid, spawnTile, goalTile);
+    }
+
+    public static List<Layout> getAvailableLayouts() {
+        List<Layout> layouts = new ArrayList<>();
+        FileDiscoveryUtil.retrieveExistingFiles(FileType.LAYOUT).stream().filter(LayoutLoader::verifyLayout).forEach(layout -> {
+            try {
+                layouts.add(readLayout(layout));
+            } catch (LayoutParseException | URISyntaxException | IOException e) {
+                e.printStackTrace();
+            }
+        });
         return layouts;
     }
 
@@ -88,13 +82,13 @@ public final class LayoutLoader {
         try {
             LayoutLoader.readLayout(file);
             return true;
-        } catch (LayoutParseException e) {
+        } catch (LayoutParseException | URISyntaxException | IOException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
-    private static TileType charToTileType(char c) {
+    private static TileType charToTileType(char c) throws LayoutParseException {
         switch (c) {
             case 'S':
                 return TileType.SPAWN;
@@ -105,7 +99,7 @@ public final class LayoutLoader {
             case 'B':
                 return TileType.BLOCKED;
             default:
-                throw new IllegalArgumentException("File contains unrecognized tiles");
+                throw new LayoutParseException("File contains unrecognized tiles");
         }
     }
 }

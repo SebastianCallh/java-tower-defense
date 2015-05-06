@@ -1,11 +1,16 @@
 package se.liu.ida.tddd78.towerdefense;
 
+import org.xml.sax.SAXException;
 import se.liu.ida.tddd78.towerdefense.exceptions.*;
 import se.liu.ida.tddd78.towerdefense.ui.*;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,11 +58,14 @@ public final class EntryPoint {
     private static Options createOptions() {
         try {
             return new Options();
-        } catch (LayoutParseException e) {
+        } catch (URISyntaxException | LayoutParseException e) {
             LOG.log(Level.SEVERE, "Error loading layout", e);
             return null;
-        } catch (ThemeLoadException e) {
+        } catch (ThemeParseException | ParserConfigurationException | XPathExpressionException | SAXException e) {
             LOG.log(Level.SEVERE, "Error loading theme", e);
+            return null;
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, "Error initializing options", e);
             return null;
         }
     }

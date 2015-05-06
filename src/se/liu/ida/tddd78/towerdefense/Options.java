@@ -1,7 +1,8 @@
 package se.liu.ida.tddd78.towerdefense;
 
+import org.xml.sax.SAXException;
 import se.liu.ida.tddd78.towerdefense.exceptions.LayoutParseException;
-import se.liu.ida.tddd78.towerdefense.exceptions.ThemeLoadException;
+import se.liu.ida.tddd78.towerdefense.exceptions.ThemeParseException;
 import se.liu.ida.tddd78.towerdefense.interfaces.ButtonObserver;
 import se.liu.ida.tddd78.towerdefense.interfaces.Observer;
 import se.liu.ida.tddd78.towerdefense.entities.ButtonType;
@@ -12,6 +13,10 @@ import se.liu.ida.tddd78.towerdefense.entities.theme.Theme;
 import se.liu.ida.tddd78.towerdefense.entities.theme.ThemeLoader;
 import se.liu.ida.tddd78.towerdefense.entities.theme.ThemeType;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +36,7 @@ public class Options implements ButtonObserver {
 
     private List<Observer> optionChangeObservers;
 
-    public Options() throws LayoutParseException, ThemeLoadException {
+    public Options() throws LayoutParseException, ThemeParseException, ParserConfigurationException, SAXException, XPathExpressionException, IOException, URISyntaxException {
         this.optionChangeObservers = new ArrayList<>();
 
         this.theme = ThemeLoader.load(DEFAULT_THEME);
@@ -54,16 +59,9 @@ public class Options implements ButtonObserver {
     //Catches should propagate to the UI an deliver error message to user
     // TODO: Don't abort the entire loading mechanism if one file failed. Use iterator pattern?
     private void reloadFiles() {
-        try {
-            availableLayouts = LayoutLoader.getAvailableLayouts();
-        } catch (LayoutParseException e) {
-            e.printStackTrace();
-        }
-        try {
-            availableThemes = ThemeLoader.getAvailableThemes();
-        } catch (ThemeLoadException e) {
-            e.printStackTrace();
-        }
+        // Better to load all possible themes (for now) and only log exceptions, than to risk suddenly aborting the search.
+        availableLayouts = LayoutLoader.getAvailableLayouts();
+        availableThemes = ThemeLoader.getAvailableThemes();
     }
 
     @Override

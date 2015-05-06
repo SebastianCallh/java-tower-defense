@@ -5,7 +5,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import se.liu.ida.tddd78.towerdefense.exceptions.ThemeLoadException;
 import se.liu.ida.tddd78.towerdefense.exceptions.ThemeParseException;
 import se.liu.ida.tddd78.towerdefense.interfaces.ThemeableType;
 import se.liu.ida.tddd78.towerdefense.entities.character.CharacterType;
@@ -15,6 +14,7 @@ import se.liu.ida.tddd78.towerdefense.entities.projectile.ProjectileType;
 import se.liu.ida.tddd78.towerdefense.entities.theme.Theme.ThemeFactory;
 import se.liu.ida.tddd78.towerdefense.entities.tile.TileType;
 import se.liu.ida.tddd78.towerdefense.utils.FileDiscoveryUtil;
+import se.liu.ida.tddd78.towerdefense.utils.FileDiscoveryUtil.FileType;
 import se.liu.ida.tddd78.towerdefense.utils.GraphicsUtil;
 
 import javax.imageio.ImageIO;
@@ -45,27 +45,23 @@ public final class ThemeLoader {
     private ThemeLoader() {
     }
 
-    private static void initializeExpressions() throws ThemeParseException {
+    private static void initializeExpressions() throws XPathExpressionException {
         if (hasInitializedExpressions) return;
 
         XPathFactory xPathfactory = XPathFactory.newInstance();
         XPath xpath = xPathfactory.newXPath();
 
-        try {
-            elementExpression = xpath.compile(ELEMENT_SELECTOR);
-            spriteSelector = xpath.compile(SPRITE_SELECTOR);
-        } catch (XPathExpressionException e) {
-            throw new ThemeParseException("Failed to initialize theme parser XPath expressions", e);
-        }
+        elementExpression = xpath.compile(ELEMENT_SELECTOR);
+        spriteSelector = xpath.compile(SPRITE_SELECTOR);
 
         hasInitializedExpressions = true;
     }
 
-    public static Theme load(ThemeType type) throws ThemeLoadException {
+    public static Theme load(ThemeType type) throws ThemeParseException, ParserConfigurationException, SAXException, IOException, XPathExpressionException {
         return load(THEMETYPE_URL_MAP.get(type));
     }
 
-    public static Theme load(URL resourceUrl) throws ThemeLoadException {
+    public static Theme load(URL resourceUrl) throws ThemeParseException, ParserConfigurationException, SAXException, IOException, XPathExpressionException {
         initializeExpressions();
 
         try (InputStream resourceInputStream = resourceUrl.openStream()) {
@@ -86,24 +82,18 @@ public final class ThemeLoader {
             }
 
             return themeFactory.build();
-        } catch (ParserConfigurationException e) {
-            throw new ThemeParseException("Misconfigured parser configuration", e);
-        } catch (SAXException e) {
-            throw new ThemeParseException("Invalid XML format", e);
-        } catch (IOException e) {
-            throw new ThemeParseException("Unable to open file", e);
-        } catch (XPathExpressionException e) {
-            throw new ThemeParseException("Failed to evaluate XPath expression", e);
         }
     }
 
-    public static List<Theme> getAvailableThemes() throws ThemeLoadException{
+    public static List<Theme> getAvailableThemes() {
         List<Theme> themes = new ArrayList<>();
-        for (URL theme: FileDiscoveryUtil.retrieveExistingFiles(FileDiscoveryUtil.FileType.THEME)) {
-            if (verifyTheme(theme)) {
+        FileDiscoveryUtil.retrieveExistingFiles(FileType.THEME).stream().filter(ThemeLoader::verifyTheme).forEach(theme -> {
+            try {
                 themes.add(load(theme));
+            } catch (ThemeParseException | ParserConfigurationException | XPathExpressionException | IOException | SAXException e) {
+                e.printStackTrace();
             }
-        }
+        });
         return themes;
     }
 
@@ -111,13 +101,13 @@ public final class ThemeLoader {
         try {
             ThemeLoader.load(file);
             return true;
-        } catch (ThemeLoadException e) {
+        } catch (ThemeParseException | ParserConfigurationException | SAXException | XPathExpressionException | IOException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
-    private static ThemeableType retrieveType(Node element) throws ThemeLoadException {
+    private static ThemeableType retrieveType(Node element) throws ThemeParseException {
         NamedNodeMap attributes = element.getAttributes();
         String object = attributes.getNamedItem("object").getNodeValue();
         String type = attributes.getNamedItem("type").getNodeValue().toUpperCase();
@@ -135,26 +125,22 @@ public final class ThemeLoader {
                 case "tile":
                     return TileType.valueOf(type);
                 default:
-                    throw new ThemeLoadException("Unrecognized object '" + object + "'");
+                    throw new ThemeParseException("Unrecognized object '" + object + "'");
             }
         }
-        catch (IllegalArgumentException ignored) {
-            throw new ThemeLoadException("Unrecognized object type '" + type + "'");
+        catch (IllegalArgumentException e) {
+            throw new ThemeParseException("Unrecognized object type '" + type + "'", e);
         }
     }
 
-    private static Image retrieveSprite(Node element) throws XPathExpressionException, ThemeLoadException {
+    private static Image retrieveSprite(Node element) throws XPathExpressionException, IOException {
         String spritePath = spriteSelector.evaluate(element);
         URL spriteUrl = ThemeLoader.class.getClassLoader().getResource(spritePath);
         if (spriteUrl == null) {
-            throw new ThemeLoadException("Unable to find sprite '" + spritePath + "'");
+            throw new IOException("Unable to find sprite '" + spritePath + "'");
         }
 
-        try {
-            return ImageIO.read(spriteUrl);
-        } catch (IOException ignored) {
-            throw new ThemeLoadException("Unable to read sprite '" + spritePath + "'");
-        }
+        return ImageIO.read(spriteUrl);
     }
 
     private static Image scaleSprite(Image image, ThemeableType type) {
